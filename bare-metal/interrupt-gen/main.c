@@ -21,9 +21,11 @@ int main(void) {
         "csrr %0, mhartid" : "=r" (hart)
     );
 
-    for (;;) {
-        kprintf("This is hart %d!\n", hart); //not portable as using %d
-        usleep(1000000);
+    kprintf("This is hart %d!\n", hart); //not portable as using %d
+    usleep(1000000);
+
+    if (hart == 0) {
+        //create interrupt
     }
     
     return 0;

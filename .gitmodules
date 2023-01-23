@@ -1,6 +1,6 @@
 [submodule "rocket-chip"]
 	path = rocket-chip
-	url = https://github.com/ucb-bar/rocket-chip.git
+	url = https://github.com/Mat124/rocket-chip.git
 [submodule "u-boot"]
 	path = u-boot
 	url = https://github.com/u-boot/u-boot.git

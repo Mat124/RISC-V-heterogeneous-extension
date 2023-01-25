@@ -66,7 +66,7 @@ debian-riscv64/rootfs.tar.gz:
 
 linux: linux-stable/arch/riscv/boot/Image
 
-CROSS_COMPILE_LINUX = /tools/bin/riscv64-unknown-linux-gnu- #update to where my tools are, maybe unneeded
+CROSS_COMPILE_LINUX = /usr/bin/riscv64-linux-gnu-
 
 linux-patch: patches/linux.patch patches/fpga-axi-sdc.c patches/fpga-axi-eth.c patches/linux.config
 	if [ -s patches/linux.patch ] ; then cd linux-stable && ( git apply -R --check ../patches/linux.patch 2>/dev/null || git apply ../patches/linux.patch ) ; fi

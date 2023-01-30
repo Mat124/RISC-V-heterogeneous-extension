@@ -32,7 +32,7 @@ int main(void) {
     if (hart == 0) { //start other hart
         uintptr_t msip_addr = MSIP_BASE_ADDR(1); //MSIP for hart 1
         (*(uint32_t *)(msip_addr)) = 0x1; //create interrupt
-    }
+    }    
     
     return 0;
 }

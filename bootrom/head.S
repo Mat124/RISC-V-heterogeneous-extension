@@ -36,7 +36,7 @@ _hartx_loop:
   andi a2, a2, MIP_MSIP
   beqz a2, _hartx_loop
   # jump to code in RAM
-  jalr x0, s0
+  ecall
   j _hartx_loop
 
 .section .rodata.dtb, "a", @progbits

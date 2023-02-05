@@ -146,7 +146,7 @@ class Rocket64s2 extends Config(
 
 class Rocket64s1 extends Config(
   new WithNBreakpoints(8) ++
-  new WithNSmallCores(2)    ++
+  new WithNSmallCores(1)    ++
   new RocketBaseConfig)
 
 class Rocket64b1 extends Config(

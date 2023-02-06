@@ -20,9 +20,10 @@ java -Xmx12G -Xss8M  -Dsbt.io.virtual=false -Dsbt.server.autostart=false -jar /h
 [info] resolving key references (10385 settings) ...
 Using addons: 
 [info] set current project to vivado (in build file:/home/mat/GitHub/RISC-V-heterogeneous-extension/)
+[warn] There may be incompatibilities among your library dependencies; run 'evicted' to see detailed eviction warnings.
+[warn] There may be incompatibilities among your library dependencies; run 'evicted' to see detailed eviction warnings.
+[warn] There may be incompatibilities among your library dependencies; run 'evicted' to see detailed eviction warnings.
 [warn] Multiple main classes detected.  Run 'show discoveredMainClasses' to see the list
-[info] Compiling 1 Scala source to /home/mat/GitHub/RISC-V-heterogeneous-extension/target/scala-2.12/classes ...
-[info] Done compiling.
 [info] running freechips.rocketchip.system.Generator -td workspace/rocket64s1/tmp -T Vivado.RocketSystem -C Vivado.Rocket64s1
 Interrupt map (2 harts 8 interrupts):
   [1, 8] => gen
@@ -138,7 +139,7 @@ Generated Address Map
 	60000000 - 80000000  RWX  mmio-port-axi4@60000000
 	80000000 - 100000000  RWXC memory@80000000
 
-[success] Total time: 21 s, completed 5 Feb 2023, 18:36:48
+[success] Total time: 18 s, completed 6 Feb 2023, 11:51:44
 mv workspace/rocket64s1/tmp/Vivado.Rocket64s1.anno.json workspace/rocket64s1/system.anno.json
 mv workspace/rocket64s1/tmp/Vivado.Rocket64s1.dts workspace/rocket64s1/system.dts
 rm -rf workspace/rocket64s1/tmp
@@ -190,7 +191,7 @@ Idx Name          Size      VMA               LMA               File off  Algn
                   CONTENTS, READONLY, DEBUGGING
 /home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/gcc/riscv/bin/riscv64-unknown-elf-objcopy -O binary bootrom.elf bootrom.img
 ls -l bootrom.img
--rwxrwxr-x 1 mat mat 14840 Feb  5 18:36 bootrom.img
+-rwxrwxr-x 1 mat mat 14840 Feb  6 11:51 bootrom.img
 make[1]: Leaving directory '/home/mat/GitHub/RISC-V-heterogeneous-extension/bootrom'
 mv bootrom/system.dts workspace/rocket64s1/system-nexys-a7-100t.dts
 mv bootrom/bootrom.img workspace/bootrom.img
@@ -325,7 +326,7 @@ Generated Address Map
 	60000000 - 80000000  RWX  mmio-port-axi4@60000000
 	80000000 - 100000000  RWXC memory@80000000
 
-[success] Total time: 18 s, completed 5 Feb 2023, 18:37:11
+[success] Total time: 17 s, completed 6 Feb 2023, 11:52:05
 cd rocket-chip && java -Xmx12G -Xss8M  -Dsbt.io.virtual=false -Dsbt.server.autostart=false -jar /home/mat/GitHub/RISC-V-heterogeneous-extension/rocket-chip/sbt-launch.jar assembly
 [info] welcome to sbt 1.3.13 (Ubuntu Java 11.0.17)
 [info] loading settings for project rocket-chip-build from plugins.sbt ...
@@ -339,7 +340,7 @@ Using addons:
 [info] Strategy 'discard' was applied to 23 files (Run the task at debug level to see details)
 [info] Strategy 'filterDistinctLines' was applied to a file (Run the task at debug level to see details)
 [info] Assembly up to date: /home/mat/GitHub/RISC-V-heterogeneous-extension/rocket-chip/rocketchip.jar
-[success] Total time: 3 s, completed 5 Feb 2023, 18:37:18
+[success] Total time: 3 s, completed 6 Feb 2023, 11:52:11
 rm workspace/bootrom.img
 java -Xmx12G -Xss8M  -cp target/scala-2.12/classes:rocket-chip/rocketchip.jar firrtl.stage.FirrtlMain -i workspace/rocket64s1/system-nexys-a7-100t/Vivado.Rocket64s1.fir -o system-nexys-a7-100t.v -X verilog --infer-rw RocketSystem --repl-seq-mem \
   -c:RocketSystem:-o:`realpath workspace/rocket64s1/system.conf` \
@@ -364,207 +365,6 @@ echo "set riscv_clock_frequency 50.0" >>workspace/rocket64s1/system-nexys-a7-100
 echo 'cd [file dirname [file normalize [info script]]]' >>workspace/rocket64s1/system-nexys-a7-100t.tcl
 echo 'source ../../vivado.tcl' >>workspace/rocket64s1/system-nexys-a7-100t.tcl
 if [ ! -e workspace/rocket64s1/vivado-nexys-a7-100t-riscv ] ; then env XILINX_LOCAL_USER_DATA=no vivado -mode batch -nojournal -nolog -notrace -quiet -source workspace/rocket64s1/system-nexys-a7-100t.tcl ; fi
-INFO: [Common 17-1239] XILINX_LOCAL_USER_DATA is set to 'no'.
-INFO: [BD::TCL 103-2003] Currently there is no design <riscv> in project, so creating one...
-Wrote  : </home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.srcs/sources_1/bd/riscv/riscv.bd> 
-INFO: [BD::TCL 103-2004] Making design <riscv> as current_bd_design.
-INFO: [BD::TCL 103-2005] Currently the variable <design_name> is equal to "riscv".
-INFO: [BD::TCL 103-2011] Checking if the following IPs exist in the project's IP catalog:  xilinx.com:ip:clk_wiz:6.0 xilinx.com:ip:util_vector_logic:2.0 xilinx.com:ip:smartconnect:1.0 xilinx.com:ip:mig_7series:4.2 xilinx.com:ip:xadc_wiz:3.3 xilinx.com:ip:xlconcat:2.1  .
-INFO: [BD::TCL 103-2020] Checking if the following modules exist in the project's sources:  Rocket64s1 mem_reset_control ethernet sdc_controller ethernet_nexys_a7_100t uart  .
-WARNING: [BD 5-670] It is required to provide a frequency value for a user created input clock port. Please use the <-freq_hz $freq_val> argument of the create_bd_port command. ie create_bd_port -dir I -type clk -freq_hz 100000000 clkin
-INFO: [IP_Flow 19-5107] Inferred bus interface 'clock' of definition 'xilinx.com:signal:clock:1.0' (from X_INTERFACE_INFO parameter from HDL file).
-INFO: [IP_Flow 19-5107] Inferred bus interface 'clock' of definition 'xilinx.com:signal:clock:1.0' (from 'X_INTERFACE_INFO' attribute).
-INFO: [IP_Flow 19-5107] Inferred bus interface 'ui_clk_sync_rst' of definition 'xilinx.com:signal:reset:1.0' (from X_INTERFACE_INFO parameter from HDL file).
-INFO: [IP_Flow 19-5107] Inferred bus interface 'ui_clk_sync_rst' of definition 'xilinx.com:signal:reset:1.0' (from 'X_INTERFACE_INFO' attribute).
-INFO: [IP_Flow 19-5107] Inferred bus interface 'sys_reset' of definition 'xilinx.com:signal:reset:1.0' (from X_INTERFACE_INFO parameter from HDL file).
-INFO: [IP_Flow 19-5107] Inferred bus interface 'sys_reset' of definition 'xilinx.com:signal:reset:1.0' (from 'X_INTERFACE_INFO' attribute).
-INFO: [IP_Flow 19-5107] Inferred bus interface 'mem_reset' of definition 'xilinx.com:signal:reset:1.0' (from X_INTERFACE_INFO parameter from HDL file).
-INFO: [IP_Flow 19-5107] Inferred bus interface 'mem_reset' of definition 'xilinx.com:signal:reset:1.0' (from 'X_INTERFACE_INFO' attribute).
-INFO: [IP_Flow 19-5107] Inferred bus interface 'aresetn' of definition 'xilinx.com:signal:reset:1.0' (from X_INTERFACE_INFO parameter from HDL file).
-INFO: [IP_Flow 19-5107] Inferred bus interface 'aresetn' of definition 'xilinx.com:signal:reset:1.0' (from 'X_INTERFACE_INFO' attribute).
-INFO: [IP_Flow 19-5107] Inferred bus interface 'ui_clk' of definition 'xilinx.com:signal:clock:1.0' (from X_INTERFACE_INFO parameter from HDL file).
-INFO: [IP_Flow 19-5107] Inferred bus interface 'ui_clk' of definition 'xilinx.com:signal:clock:1.0' (from 'X_INTERFACE_INFO' attribute).
-INFO: [IP_Flow 19-5107] Inferred bus interface 'clock_ok' of definition 'xilinx.com:signal:clock:1.0' (from Xilinx Repository).
-INFO: [IP_Flow 19-4728] Bus Interface 'ui_clk': Added interface parameter 'ASSOCIATED_RESET' with value 'ui_clk_sync_rst'.
-INFO: [IP_Flow 19-4728] Bus Interface 'clock': Added interface parameter 'FREQ_HZ' with value '200000000'.
-INFO: [IP_Flow 19-4728] Bus Interface 'ui_clk_sync_rst': Added interface parameter 'POLARITY' with value 'ACTIVE_HIGH'.
-INFO: [IP_Flow 19-4728] Bus Interface 'sys_reset': Added interface parameter 'POLARITY' with value 'ACTIVE_HIGH'.
-INFO: [IP_Flow 19-4728] Bus Interface 'mem_reset': Added interface parameter 'POLARITY' with value 'ACTIVE_HIGH'.
-INFO: [IP_Flow 19-4728] Bus Interface 'aresetn': Added interface parameter 'POLARITY' with value 'ACTIVE_LOW'.
-INFO: [IP_Flow 19-7067] Note that bus interface 'clock' has a fixed FREQ_HZ of '200000000'. This value will be respected whenever this IP is instantiated in IP Integrator.
-WARNING: [IP_Flow 19-5661] Bus Interface 'clock' does not have any bus interfaces associated with it.
-WARNING: [IP_Flow 19-5661] Bus Interface 'ui_clk' does not have any bus interfaces associated with it.
-WARNING: [IP_Flow 19-5661] Bus Interface 'clock_ok' does not have any bus interfaces associated with it.
-INFO: [IP_Flow 19-234] Refreshing IP repositories
-INFO: [IP_Flow 19-1704] No user IP repositories specified
-INFO: [IP_Flow 19-5107] Inferred bus interface 'reset' of definition 'xilinx.com:signal:reset:1.0' (from X_INTERFACE_INFO parameter from HDL file).
-INFO: [IP_Flow 19-5107] Inferred bus interface 'reset' of definition 'xilinx.com:signal:reset:1.0' (from 'X_INTERFACE_INFO' attribute).
-INFO: [IP_Flow 19-5107] Inferred bus interface 'clock' of definition 'xilinx.com:signal:clock:1.0' (from X_INTERFACE_INFO parameter from HDL file).
-INFO: [IP_Flow 19-5107] Inferred bus interface 'clock' of definition 'xilinx.com:signal:clock:1.0' (from 'X_INTERFACE_INFO' attribute).
-INFO: [IP_Flow 19-5107] Inferred bus interface 'S_AXI_LITE' of definition 'xilinx.com:interface:aximm:1.0' (from X_INTERFACE_INFO parameter from HDL file).
-INFO: [IP_Flow 19-5107] Inferred bus interface 'S_AXI_LITE' of definition 'xilinx.com:interface:aximm:1.0' (from 'X_INTERFACE_INFO' attribute).
-INFO: [IP_Flow 19-5107] Inferred bus interface 'M_AXI' of definition 'xilinx.com:interface:aximm:1.0' (from X_INTERFACE_INFO parameter from HDL file).
-INFO: [IP_Flow 19-5107] Inferred bus interface 'M_AXI' of definition 'xilinx.com:interface:aximm:1.0' (from 'X_INTERFACE_INFO' attribute).
-INFO: [IP_Flow 19-5107] Inferred bus interface 'interrupt' of definition 'xilinx.com:signal:interrupt:1.0' (from X_INTERFACE_INFO parameter from HDL file).
-INFO: [IP_Flow 19-5107] Inferred bus interface 'interrupt' of definition 'xilinx.com:signal:interrupt:1.0' (from 'X_INTERFACE_INFO' attribute).
-INFO: [IP_Flow 19-5107] Inferred bus interface 'TX_AXIS' of definition 'xilinx.com:interface:axis:1.0' (from X_INTERFACE_INFO parameter from HDL file).
-INFO: [IP_Flow 19-5107] Inferred bus interface 'TX_AXIS' of definition 'xilinx.com:interface:axis:1.0' (from 'X_INTERFACE_INFO' attribute).
-INFO: [IP_Flow 19-5107] Inferred bus interface 'RX_AXIS' of definition 'xilinx.com:interface:axis:1.0' (from X_INTERFACE_INFO parameter from HDL file).
-INFO: [IP_Flow 19-5107] Inferred bus interface 'RX_AXIS' of definition 'xilinx.com:interface:axis:1.0' (from 'X_INTERFACE_INFO' attribute).
-INFO: [IP_Flow 19-5107] Inferred bus interface 'mdio_clock' of definition 'xilinx.com:signal:clock:1.0' (from X_INTERFACE_INFO parameter from HDL file).
-INFO: [IP_Flow 19-5107] Inferred bus interface 'mdio_clock' of definition 'xilinx.com:signal:clock:1.0' (from 'X_INTERFACE_INFO' attribute).
-INFO: [IP_Flow 19-5107] Inferred bus interface 'async_resetn' of definition 'xilinx.com:signal:reset:1.0' (from Xilinx Repository).
-INFO: [IP_Flow 19-5107] Inferred bus interface 'mdio_reset' of definition 'xilinx.com:signal:reset:1.0' (from Xilinx Repository).
-INFO: [IP_Flow 19-4728] Bus Interface 'async_resetn': Added interface parameter 'POLARITY' with value 'ACTIVE_LOW'.
-INFO: [IP_Flow 19-8018] Clock interface clock has no prefix in its name to identify associated interfaces. The interfaces might be inferred incorrectly. It is advised to review ASSOCIATED_BUSIF value for this interface.
-INFO: [IP_Flow 19-4728] Bus Interface 'clock': Added interface parameter 'ASSOCIATED_BUSIF' with value 'S_AXI_LITE'.
-INFO: [IP_Flow 19-4728] Bus Interface 'clock': Added interface parameter 'ASSOCIATED_RESET' with value 'reset'.
-INFO: [IP_Flow 19-4728] Bus Interface 'mdio_clock': Added interface parameter 'ASSOCIATED_RESET' with value 'mdio_reset'.
-INFO: [IP_Flow 19-4728] Bus Interface 'reset': Added interface parameter 'POLARITY' with value 'ACTIVE_HIGH'.
-INFO: [IP_Flow 19-4728] Bus Interface 'S_AXI_LITE': Added interface parameter 'ID_WIDTH' with value '0'.
-INFO: [IP_Flow 19-4728] Bus Interface 'S_AXI_LITE': Added interface parameter 'PROTOCOL' with value 'AXI4LITE'.
-INFO: [IP_Flow 19-4728] Bus Interface 'S_AXI_LITE': Added interface parameter 'DATA_WIDTH' with value '32'.
-INFO: [IP_Flow 19-4728] Bus Interface 'M_AXI': Added interface parameter 'ID_WIDTH' with value '0'.
-INFO: [IP_Flow 19-4728] Bus Interface 'M_AXI': Added interface parameter 'PROTOCOL' with value 'AXI4'.
-INFO: [IP_Flow 19-4728] Bus Interface 'interrupt': Added interface parameter 'SENSITIVITY' with value 'LEVEL_HIGH'.
-INFO: [IP_Flow 19-4728] Bus Interface 'mdio_clock': Added interface parameter 'FREQ_HZ' with value '2500000'.
-INFO: [IP_Flow 19-7067] Note that bus interface 'mdio_clock' has a fixed FREQ_HZ of '2500000'. This value will be respected whenever this IP is instantiated in IP Integrator.
-WARNING: [IP_Flow 19-5661] Bus Interface 'mdio_clock' does not have any bus interfaces associated with it.
-INFO: [IP_Flow 19-234] Refreshing IP repositories
-INFO: [IP_Flow 19-1704] No user IP repositories specified
-INFO: [IP_Flow 19-5107] Inferred bus interface 'clock' of definition 'xilinx.com:signal:clock:1.0' (from X_INTERFACE_INFO parameter from HDL file).
-INFO: [IP_Flow 19-5107] Inferred bus interface 'clock' of definition 'xilinx.com:signal:clock:1.0' (from 'X_INTERFACE_INFO' attribute).
-INFO: [IP_Flow 19-5107] Inferred bus interface 'S_AXI_LITE' of definition 'xilinx.com:interface:aximm:1.0' (from X_INTERFACE_INFO parameter from HDL file).
-INFO: [IP_Flow 19-5107] Inferred bus interface 'S_AXI_LITE' of definition 'xilinx.com:interface:aximm:1.0' (from 'X_INTERFACE_INFO' attribute).
-INFO: [IP_Flow 19-5107] Inferred bus interface 'M_AXI' of definition 'xilinx.com:interface:aximm:1.0' (from X_INTERFACE_INFO parameter from HDL file).
-INFO: [IP_Flow 19-5107] Inferred bus interface 'M_AXI' of definition 'xilinx.com:interface:aximm:1.0' (from 'X_INTERFACE_INFO' attribute).
-INFO: [IP_Flow 19-5107] Inferred bus interface 'sdio_clk' of definition 'xilinx.com:signal:clock:1.0' (from X_INTERFACE_INFO parameter from HDL file).
-INFO: [IP_Flow 19-5107] Inferred bus interface 'sdio_clk' of definition 'xilinx.com:signal:clock:1.0' (from 'X_INTERFACE_INFO' attribute).
-INFO: [IP_Flow 19-5107] Inferred bus interface 'sdio_reset' of definition 'xilinx.com:signal:reset:1.0' (from X_INTERFACE_INFO parameter from HDL file).
-INFO: [IP_Flow 19-5107] Inferred bus interface 'sdio_reset' of definition 'xilinx.com:signal:reset:1.0' (from 'X_INTERFACE_INFO' attribute).
-INFO: [IP_Flow 19-5107] Inferred bus interface 'async_resetn' of definition 'xilinx.com:signal:reset:1.0' (from Xilinx Repository).
-INFO: [IP_Flow 19-5107] Inferred bus interface 'interrupt' of definition 'xilinx.com:signal:interrupt:1.0' (from Xilinx Repository).
-INFO: [IP_Flow 19-4728] Bus Interface 'async_resetn': Added interface parameter 'POLARITY' with value 'ACTIVE_LOW'.
-INFO: [IP_Flow 19-4728] Bus Interface 'interrupt': Added interface parameter 'SENSITIVITY' with value 'LEVEL_HIGH'.
-INFO: [IP_Flow 19-8018] Clock interface clock has no prefix in its name to identify associated interfaces. The interfaces might be inferred incorrectly. It is advised to review ASSOCIATED_BUSIF value for this interface.
-INFO: [IP_Flow 19-4728] Bus Interface 'clock': Added interface parameter 'ASSOCIATED_BUSIF' with value 'S_AXI_LITE'.
-INFO: [IP_Flow 19-4728] Bus Interface 'sdio_clk': Added interface parameter 'ASSOCIATED_RESET' with value 'sdio_reset'.
-INFO: [IP_Flow 19-4728] Bus Interface 'clock': Added interface parameter 'FREQ_HZ' with value '100000000'.
-INFO: [IP_Flow 19-4728] Bus Interface 'S_AXI_LITE': Added interface parameter 'ID_WIDTH' with value '0'.
-INFO: [IP_Flow 19-4728] Bus Interface 'S_AXI_LITE': Added interface parameter 'PROTOCOL' with value 'AXI4LITE'.
-INFO: [IP_Flow 19-4728] Bus Interface 'S_AXI_LITE': Added interface parameter 'DATA_WIDTH' with value '32'.
-INFO: [IP_Flow 19-4728] Bus Interface 'M_AXI': Added interface parameter 'ID_WIDTH' with value '0'.
-INFO: [IP_Flow 19-4728] Bus Interface 'M_AXI': Added interface parameter 'PROTOCOL' with value 'AXI4'.
-INFO: [IP_Flow 19-4728] Bus Interface 'M_AXI': Added interface parameter 'DATA_WIDTH' with value '32'.
-INFO: [IP_Flow 19-4728] Bus Interface 'sdio_clk': Added interface parameter 'FREQ_HZ' with value '50000000'.
-INFO: [IP_Flow 19-4728] Bus Interface 'sdio_reset': Added interface parameter 'POLARITY' with value 'ACTIVE_HIGH'.
-INFO: [IP_Flow 19-7067] Note that bus interface 'clock' has a fixed FREQ_HZ of '100000000'. This value will be respected whenever this IP is instantiated in IP Integrator.
-INFO: [IP_Flow 19-7067] Note that bus interface 'sdio_clk' has a fixed FREQ_HZ of '50000000'. This value will be respected whenever this IP is instantiated in IP Integrator.
-WARNING: [IP_Flow 19-5661] Bus Interface 'sdio_clk' does not have any bus interfaces associated with it.
-INFO: [IP_Flow 19-234] Refreshing IP repositories
-INFO: [IP_Flow 19-1704] No user IP repositories specified
-INFO: [IP_Flow 19-5107] Inferred bus interface 'clock' of definition 'xilinx.com:signal:clock:1.0' (from X_INTERFACE_INFO parameter from HDL file).
-INFO: [IP_Flow 19-5107] Inferred bus interface 'clock' of definition 'xilinx.com:signal:clock:1.0' (from 'X_INTERFACE_INFO' attribute).
-INFO: [IP_Flow 19-5107] Inferred bus interface 'S_AXI_LITE' of definition 'xilinx.com:interface:aximm:1.0' (from X_INTERFACE_INFO parameter from HDL file).
-INFO: [IP_Flow 19-5107] Inferred bus interface 'S_AXI_LITE' of definition 'xilinx.com:interface:aximm:1.0' (from 'X_INTERFACE_INFO' attribute).
-WARNING: [IP_Flow 19-5462] Defaulting to slave bus interface due to conflicts in bus interface inference.
-INFO: [IP_Flow 19-5107] Inferred bus interface 'RS232' of definition 'xilinx.com:interface:uart:1.0' (from X_INTERFACE_INFO parameter from HDL file).
-INFO: [IP_Flow 19-5107] Inferred bus interface 'RS232' of definition 'xilinx.com:interface:uart:1.0' (from 'X_INTERFACE_INFO' attribute).
-INFO: [IP_Flow 19-5107] Inferred bus interface 'async_resetn' of definition 'xilinx.com:signal:reset:1.0' (from Xilinx Repository).
-INFO: [IP_Flow 19-5107] Inferred bus interface 'interrupt' of definition 'xilinx.com:signal:interrupt:1.0' (from Xilinx Repository).
-INFO: [IP_Flow 19-4728] Bus Interface 'async_resetn': Added interface parameter 'POLARITY' with value 'ACTIVE_LOW'.
-INFO: [IP_Flow 19-4728] Bus Interface 'interrupt': Added interface parameter 'SENSITIVITY' with value 'LEVEL_HIGH'.
-INFO: [IP_Flow 19-8018] Clock interface clock has no prefix in its name to identify associated interfaces. The interfaces might be inferred incorrectly. It is advised to review ASSOCIATED_BUSIF value for this interface.
-INFO: [IP_Flow 19-4728] Bus Interface 'clock': Added interface parameter 'ASSOCIATED_BUSIF' with value 'S_AXI_LITE'.
-INFO: [IP_Flow 19-4728] Bus Interface 'clock': Added interface parameter 'FREQ_HZ' with value '100000000'.
-INFO: [IP_Flow 19-4728] Bus Interface 'S_AXI_LITE': Added interface parameter 'ID_WIDTH' with value '0'.
-INFO: [IP_Flow 19-4728] Bus Interface 'S_AXI_LITE': Added interface parameter 'PROTOCOL' with value 'AXI4LITE'.
-INFO: [IP_Flow 19-4728] Bus Interface 'S_AXI_LITE': Added interface parameter 'DATA_WIDTH' with value '32'.
-INFO: [IP_Flow 19-7067] Note that bus interface 'clock' has a fixed FREQ_HZ of '100000000'. This value will be respected whenever this IP is instantiated in IP Integrator.
-INFO: [IP_Flow 19-234] Refreshing IP repositories
-INFO: [IP_Flow 19-1704] No user IP repositories specified
-INFO: [Device 21-403] Loading part xc7a100tcsg324-1
-INFO: [IP_Flow 19-5107] Inferred bus interface 'reset' of definition 'xilinx.com:signal:reset:1.0' (from X_INTERFACE_INFO parameter from HDL file).
-INFO: [IP_Flow 19-5107] Inferred bus interface 'reset' of definition 'xilinx.com:signal:reset:1.0' (from 'X_INTERFACE_INFO' attribute).
-INFO: [IP_Flow 19-5107] Inferred bus interface 'clock50' of definition 'xilinx.com:signal:clock:1.0' (from X_INTERFACE_INFO parameter from HDL file).
-INFO: [IP_Flow 19-5107] Inferred bus interface 'clock50' of definition 'xilinx.com:signal:clock:1.0' (from 'X_INTERFACE_INFO' attribute).
-INFO: [IP_Flow 19-5107] Inferred bus interface 'TX_AXIS' of definition 'xilinx.com:interface:axis:1.0' (from X_INTERFACE_INFO parameter from HDL file).
-INFO: [IP_Flow 19-5107] Inferred bus interface 'TX_AXIS' of definition 'xilinx.com:interface:axis:1.0' (from 'X_INTERFACE_INFO' attribute).
-INFO: [IP_Flow 19-5107] Inferred bus interface 'RX_AXIS' of definition 'xilinx.com:interface:axis:1.0' (from X_INTERFACE_INFO parameter from HDL file).
-INFO: [IP_Flow 19-5107] Inferred bus interface 'RX_AXIS' of definition 'xilinx.com:interface:axis:1.0' (from 'X_INTERFACE_INFO' attribute).
-INFO: [IP_Flow 19-5107] Inferred bus interface 'RMII' of definition 'xilinx.com:interface:rmii:1.0' (from X_INTERFACE_INFO parameter from HDL file).
-INFO: [IP_Flow 19-5107] Inferred bus interface 'RMII' of definition 'xilinx.com:interface:rmii:1.0' (from 'X_INTERFACE_INFO' attribute).
-INFO: [IP_Flow 19-8018] Clock interface clock50 has no prefix in its name to identify associated interfaces. The interfaces might be inferred incorrectly. It is advised to review ASSOCIATED_BUSIF value for this interface.
-INFO: [IP_Flow 19-4728] Bus Interface 'clock50': Added interface parameter 'ASSOCIATED_BUSIF' with value 'TX_AXIS'.
-INFO: [IP_Flow 19-4728] Bus Interface 'clock50': Added interface parameter 'ASSOCIATED_RESET' with value 'reset'.
-INFO: [IP_Flow 19-4728] Bus Interface 'reset': Added interface parameter 'POLARITY' with value 'ACTIVE_HIGH'.
-INFO: [IP_Flow 19-4728] Bus Interface 'clock50': Added interface parameter 'FREQ_HZ' with value '50000000'.
-INFO: [IP_Flow 19-7067] Note that bus interface 'clock50' has a fixed FREQ_HZ of '50000000'. This value will be respected whenever this IP is instantiated in IP Integrator.
-INFO: [IP_Flow 19-234] Refreshing IP repositories
-INFO: [IP_Flow 19-1704] No user IP repositories specified
-INFO: [IP_Flow 19-5107] Inferred bus interface 'clock' of definition 'xilinx.com:signal:clock:1.0' (from X_INTERFACE_INFO parameter from HDL file).
-INFO: [IP_Flow 19-5107] Inferred bus interface 'clock' of definition 'xilinx.com:signal:clock:1.0' (from 'X_INTERFACE_INFO' attribute).
-INFO: [IP_Flow 19-5107] Inferred bus interface 'sys_reset' of definition 'xilinx.com:signal:reset:1.0' (from X_INTERFACE_INFO parameter from HDL file).
-INFO: [IP_Flow 19-5107] Inferred bus interface 'sys_reset' of definition 'xilinx.com:signal:reset:1.0' (from 'X_INTERFACE_INFO' attribute).
-INFO: [IP_Flow 19-5107] Inferred bus interface 'aresetn' of definition 'xilinx.com:signal:reset:1.0' (from X_INTERFACE_INFO parameter from HDL file).
-INFO: [IP_Flow 19-5107] Inferred bus interface 'aresetn' of definition 'xilinx.com:signal:reset:1.0' (from 'X_INTERFACE_INFO' attribute).
-INFO: [IP_Flow 19-5107] Inferred bus interface 'MEM_AXI4' of definition 'xilinx.com:interface:aximm:1.0' (from X_INTERFACE_INFO parameter from HDL file).
-INFO: [IP_Flow 19-5107] Inferred bus interface 'MEM_AXI4' of definition 'xilinx.com:interface:aximm:1.0' (from 'X_INTERFACE_INFO' attribute).
-INFO: [IP_Flow 19-5107] Inferred bus interface 'IO_AXI4' of definition 'xilinx.com:interface:aximm:1.0' (from X_INTERFACE_INFO parameter from HDL file).
-INFO: [IP_Flow 19-5107] Inferred bus interface 'IO_AXI4' of definition 'xilinx.com:interface:aximm:1.0' (from 'X_INTERFACE_INFO' attribute).
-INFO: [IP_Flow 19-5107] Inferred bus interface 'DMA_AXI4' of definition 'xilinx.com:interface:aximm:1.0' (from X_INTERFACE_INFO parameter from HDL file).
-INFO: [IP_Flow 19-5107] Inferred bus interface 'DMA_AXI4' of definition 'xilinx.com:interface:aximm:1.0' (from 'X_INTERFACE_INFO' attribute).
-INFO: [IP_Flow 19-5107] Inferred bus interface 'clock_ok' of definition 'xilinx.com:signal:clock:1.0' (from Xilinx Repository).
-INFO: [IP_Flow 19-8018] Clock interface clock has no prefix in its name to identify associated interfaces. The interfaces might be inferred incorrectly. It is advised to review ASSOCIATED_BUSIF value for this interface.
-INFO: [IP_Flow 19-4728] Bus Interface 'clock': Added interface parameter 'ASSOCIATED_BUSIF' with value 'MEM_AXI4'.
-INFO: [IP_Flow 19-4728] Bus Interface 'clock': Added interface parameter 'ASSOCIATED_RESET' with value 'aresetn'.
-INFO: [IP_Flow 19-4728] Bus Interface 'sys_reset': Added interface parameter 'POLARITY' with value 'ACTIVE_HIGH'.
-INFO: [IP_Flow 19-4728] Bus Interface 'aresetn': Added interface parameter 'POLARITY' with value 'ACTIVE_LOW'.
-INFO: [IP_Flow 19-4728] Bus Interface 'MEM_AXI4': Added interface parameter 'PROTOCOL' with value 'AXI4'.
-INFO: [IP_Flow 19-4728] Bus Interface 'MEM_AXI4': Added interface parameter 'ADDR_WIDTH' with value '32'.
-INFO: [IP_Flow 19-4728] Bus Interface 'MEM_AXI4': Added interface parameter 'DATA_WIDTH' with value '64'.
-INFO: [IP_Flow 19-4728] Bus Interface 'IO_AXI4': Added interface parameter 'PROTOCOL' with value 'AXI4'.
-INFO: [IP_Flow 19-4728] Bus Interface 'IO_AXI4': Added interface parameter 'ADDR_WIDTH' with value '31'.
-INFO: [IP_Flow 19-4728] Bus Interface 'IO_AXI4': Added interface parameter 'DATA_WIDTH' with value '64'.
-INFO: [IP_Flow 19-4728] Bus Interface 'DMA_AXI4': Added interface parameter 'PROTOCOL' with value 'AXI4'.
-INFO: [IP_Flow 19-4728] Bus Interface 'DMA_AXI4': Added interface parameter 'ADDR_WIDTH' with value '32'.
-INFO: [IP_Flow 19-4728] Bus Interface 'DMA_AXI4': Added interface parameter 'DATA_WIDTH' with value '64'.
-WARNING: [IP_Flow 19-5661] Bus Interface 'clock_ok' does not have any bus interfaces associated with it.
-INFO: [IP_Flow 19-234] Refreshing IP repositories
-INFO: [IP_Flow 19-1704] No user IP repositories specified
-Slave segment '/IO/Ethernet/S_AXI_LITE/reg0' is being assigned into address space '/RocketChip/IO_AXI4' at <0x6002_0000 [ 64K ]>.
-Slave segment '/IO/SD/S_AXI_LITE/reg0' is being assigned into address space '/RocketChip/IO_AXI4' at <0x6000_0000 [ 64K ]>.
-Slave segment '/IO/UART/S_AXI_LITE/reg0' is being assigned into address space '/RocketChip/IO_AXI4' at <0x6001_0000 [ 64K ]>.
-Slave segment '/IO/XADC/s_axi_lite/Reg' is being assigned into address space '/RocketChip/IO_AXI4' at <0x6003_0000 [ 64K ]>.
-Slave segment '/DDR/mig_7series_0/memmap/memaddr' is being assigned into address space '/RocketChip/MEM_AXI4' at <0x8000_0000 [ 128M ]>.
-Slave segment '/RocketChip/DMA_AXI4/reg0' is being assigned into address space '/IO/Ethernet/M_AXI' at <0x0_0000_0000 [ 4G ]>.
-Slave segment '/RocketChip/DMA_AXI4/reg0' is being assigned into address space '/IO/SD/M_AXI' at <0x0_0000_0000 [ 4G ]>.
-INFO: [xilinx.com:ip:smartconnect:1.0-1] riscv_io_axi_m_0: SmartConnect riscv_io_axi_m_0 is in High-performance Mode.
-INFO: [xilinx.com:ip:smartconnect:1.0-1] riscv_axi_smc_1_0: SmartConnect riscv_axi_smc_1_0 is in High-performance Mode.
-INFO: [xilinx.com:ip:smartconnect:1.0-1] riscv_io_axi_s_0: SmartConnect riscv_io_axi_s_0 is in Low-Area Mode.
-WARNING: [xilinx.com:ip:smartconnect:1.0-1] riscv_io_axi_s_0: IP riscv_io_axi_s_0 is configured in Low-area mode as all propagated traffic is low-bandwidth (AXI4LITE). SI S00_AXI has property HAS_BURST == 1. WRAP bursts are not supported in Low-area mode and will result in DECERR if received.
-WARNING: [xilinx.com:ip:smartconnect:1.0-1] riscv_io_axi_s_0: If WRAP transactions are required then turn off Low-area mode using ADVANCED_PROPERTIES. Execute following: set_property CONFIG.ADVANCED_PROPERTIES {__experimental_features__ {disable_low_area_mode 1}} [get_bd_cells /riscv_io_axi_s_0]
-INFO: [xilinx.com:ip:clk_wiz:6.0-1] /clk_wiz_0 clk_wiz propagate
-WARNING: [BD 41-927] Following properties on pin /IO/XADC/s_axi_aclk have been updated from connected ip, but BD cell '/IO/XADC' does not accept parameter changes, so they may not be synchronized with cell properties:
-	FREQ_HZ = 50000000 
-Please resolve any mismatches by directly setting properties on BD cell </IO/XADC> to completely resolve these warnings.
-Wrote  : </home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.srcs/sources_1/bd/riscv/riscv.bd> 
-INFO: [xilinx.com:ip:smartconnect:1.0-1] riscv_io_axi_m_0: SmartConnect riscv_io_axi_m_0 is in High-performance Mode.
-INFO: [xilinx.com:ip:smartconnect:1.0-1] riscv_axi_smc_1_0: SmartConnect riscv_axi_smc_1_0 is in High-performance Mode.
-INFO: [xilinx.com:ip:smartconnect:1.0-1] riscv_io_axi_s_0: SmartConnect riscv_io_axi_s_0 is in Low-Area Mode.
-WARNING: [xilinx.com:ip:smartconnect:1.0-1] riscv_io_axi_s_0: IP riscv_io_axi_s_0 is configured in Low-area mode as all propagated traffic is low-bandwidth (AXI4LITE). SI S00_AXI has property HAS_BURST == 1. WRAP bursts are not supported in Low-area mode and will result in DECERR if received.
-WARNING: [xilinx.com:ip:smartconnect:1.0-1] riscv_io_axi_s_0: If WRAP transactions are required then turn off Low-area mode using ADVANCED_PROPERTIES. Execute following: set_property CONFIG.ADVANCED_PROPERTIES {__experimental_features__ {disable_low_area_mode 1}} [get_bd_cells /riscv_io_axi_s_0]
-INFO: [xilinx.com:ip:clk_wiz:6.0-1] /clk_wiz_0 clk_wiz propagate
-WARNING: [BD 41-927] Following properties on pin /IO/XADC/s_axi_aclk have been updated from connected ip, but BD cell '/IO/XADC' does not accept parameter changes, so they may not be synchronized with cell properties:
-	FREQ_HZ = 50000000 
-Please resolve any mismatches by directly setting properties on BD cell </IO/XADC> to completely resolve these warnings.
-Wrote  : </home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.srcs/sources_1/bd/riscv/riscv.bd> 
-INFO: [BD 41-1662] The design 'riscv.bd' is already validated. Therefore parameter propagation will not be re-run.
-VHDL Output written to : /home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.gen/sources_1/bd/riscv/synth/riscv.v
-VHDL Output written to : /home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.gen/sources_1/bd/riscv/sim/riscv.v
-VHDL Output written to : /home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.gen/sources_1/bd/riscv/hdl/riscv_wrapper.v
-INFO: [Project 1-1716] Could not find the wrapper file /home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.srcs/sources_1/bd/riscv/hdl/riscv_wrapper.v, checking in project .gen location instead.
-INFO: [Vivado 12-12390] Found file /home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.gen/sources_1/bd/riscv/hdl/riscv_wrapper.v, adding it to Project
 date >workspace/rocket64s1/vivado-nexys-a7-100t-riscv/timestamp.txt
 echo "open_project workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.xpr" >workspace/rocket64s1/vivado-nexys-a7-100t-riscv/make-synthesis.tcl
 echo "update_compile_order -fileset sources_1" >>workspace/rocket64s1/vivado-nexys-a7-100t-riscv/make-synthesis.tcl
@@ -579,55 +379,9 @@ Finished scanning sources
 INFO: [IP_Flow 19-234] Refreshing IP repositories
 INFO: [IP_Flow 19-1704] No user IP repositories specified
 INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/tools/Xilinx/Vivado/2021.1/data/ip'.
-INFO: [BD 41-1662] The design 'riscv.bd' is already validated. Therefore parameter propagation will not be re-run.
-VHDL Output written to : /home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.gen/sources_1/bd/riscv/synth/riscv.v
-VHDL Output written to : /home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.gen/sources_1/bd/riscv/sim/riscv.v
-VHDL Output written to : /home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.gen/sources_1/bd/riscv/hdl/riscv_wrapper.v
-Exporting to file /home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.gen/sources_1/bd/riscv/ip/riscv_axi_smc_1_0/bd_0/hw_handoff/riscv_axi_smc_1_0.hwh
-Generated Block Design Tcl file /home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.gen/sources_1/bd/riscv/ip/riscv_axi_smc_1_0/bd_0/hw_handoff/riscv_axi_smc_1_0_bd.tcl
-Generated Hardware Definition File /home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.gen/sources_1/bd/riscv/ip/riscv_axi_smc_1_0/bd_0/synth/riscv_axi_smc_1_0.hwdef
-INFO: [BD 41-1029] Generation completed for the IP Integrator block DDR/axi_smc_1 .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block DDR/mem_reset_control_0 .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block DDR/mig_7series_0 .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block IO/Ethernet .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block IO/SD .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block IO/UART .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block IO/XADC .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block IO/ethernet_stream_0 .
-Exporting to file /home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.gen/sources_1/bd/riscv/ip/riscv_io_axi_m_0/bd_0/hw_handoff/riscv_io_axi_m_0.hwh
-Generated Block Design Tcl file /home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.gen/sources_1/bd/riscv/ip/riscv_io_axi_m_0/bd_0/hw_handoff/riscv_io_axi_m_0_bd.tcl
-Generated Hardware Definition File /home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.gen/sources_1/bd/riscv/ip/riscv_io_axi_m_0/bd_0/synth/riscv_io_axi_m_0.hwdef
-INFO: [BD 41-1029] Generation completed for the IP Integrator block IO/io_axi_m .
-Exporting to file /home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.gen/sources_1/bd/riscv/ip/riscv_io_axi_s_0/bd_0/hw_handoff/riscv_io_axi_s_0.hwh
-Generated Block Design Tcl file /home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.gen/sources_1/bd/riscv/ip/riscv_io_axi_s_0/bd_0/hw_handoff/riscv_io_axi_s_0_bd.tcl
-Generated Hardware Definition File /home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.gen/sources_1/bd/riscv/ip/riscv_io_axi_s_0/bd_0/synth/riscv_io_axi_s_0.hwdef
-INFO: [BD 41-1029] Generation completed for the IP Integrator block IO/io_axi_s .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block IO/xlconcat_0 .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block RocketChip .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block clk_wiz_0 .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block util_vector_logic_0 .
-Exporting to file /home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.gen/sources_1/bd/riscv/hw_handoff/riscv.hwh
-Generated Block Design Tcl file /home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.gen/sources_1/bd/riscv/hw_handoff/riscv_bd.tcl
-Generated Hardware Definition File /home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.gen/sources_1/bd/riscv/synth/riscv.hwdef
-[Sun Feb  5 18:38:56 2023] Launched riscv_axi_smc_1_0_synth_1, riscv_mem_reset_control_0_0_synth_1, riscv_mig_7series_0_0_synth_1, riscv_Ethernet_0_synth_1, riscv_SD_0_synth_1, riscv_UART_0_synth_1, riscv_XADC_0_synth_1, riscv_ethernet_stream_0_0_synth_1, riscv_io_axi_m_0_synth_1, riscv_io_axi_s_0_synth_1, riscv_RocketChip_0_synth_1, riscv_clk_wiz_0_0_synth_1, riscv_util_vector_logic_0_0_synth_1...
-Run output will be captured here:
-riscv_axi_smc_1_0_synth_1: /home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/riscv_axi_smc_1_0_synth_1/runme.log
-riscv_mem_reset_control_0_0_synth_1: /home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/riscv_mem_reset_control_0_0_synth_1/runme.log
-riscv_mig_7series_0_0_synth_1: /home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/riscv_mig_7series_0_0_synth_1/runme.log
-riscv_Ethernet_0_synth_1: /home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/riscv_Ethernet_0_synth_1/runme.log
-riscv_SD_0_synth_1: /home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/riscv_SD_0_synth_1/runme.log
-riscv_UART_0_synth_1: /home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/riscv_UART_0_synth_1/runme.log
-riscv_XADC_0_synth_1: /home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/riscv_XADC_0_synth_1/runme.log
-riscv_ethernet_stream_0_0_synth_1: /home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/riscv_ethernet_stream_0_0_synth_1/runme.log
-riscv_io_axi_m_0_synth_1: /home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/riscv_io_axi_m_0_synth_1/runme.log
-riscv_io_axi_s_0_synth_1: /home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/riscv_io_axi_s_0_synth_1/runme.log
-riscv_RocketChip_0_synth_1: /home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/riscv_RocketChip_0_synth_1/runme.log
-riscv_clk_wiz_0_0_synth_1: /home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/riscv_clk_wiz_0_0_synth_1/runme.log
-riscv_util_vector_logic_0_0_synth_1: /home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/riscv_util_vector_logic_0_0_synth_1/runme.log
-[Sun Feb  5 18:38:56 2023] Launched synth_1...
+[Mon Feb  6 11:52:53 2023] Launched synth_1...
 Run output will be captured here: /home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/synth_1/runme.log
-launch_runs: Time (s): cpu = 00:00:44 ; elapsed = 00:00:30 . Memory (MB): peak = 2832.535 ; gain = 188.379 ; free physical = 1456 ; free virtual = 10837
-[Sun Feb  5 18:38:56 2023] Waiting for synth_1 to finish...
+[Mon Feb  6 11:52:53 2023] Waiting for synth_1 to finish...
 
 *** Running vivado
     with args -log riscv_wrapper.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source riscv_wrapper.tcl
@@ -643,7 +397,7 @@ source riscv_wrapper.tcl -notrace
 INFO: [IP_Flow 19-234] Refreshing IP repositories
 INFO: [IP_Flow 19-1704] No user IP repositories specified
 INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/tools/Xilinx/Vivado/2021.1/data/ip'.
-add_files: Time (s): cpu = 00:00:07 ; elapsed = 00:00:05 . Memory (MB): peak = 2699.184 ; gain = 160.078 ; free physical = 1053 ; free virtual = 8699
+add_files: Time (s): cpu = 00:00:07 ; elapsed = 00:00:05 . Memory (MB): peak = 2700.184 ; gain = 160.078 ; free physical = 7601 ; free virtual = 14814
 Command: synth_design -top riscv_wrapper -part xc7a100tcsg324-1
 Starting synth_design
 Attempting to get a license for feature 'Synthesis' and/or device 'xc7a100t'
@@ -651,19 +405,19 @@ INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a100
 INFO: [Device 21-403] Loading part xc7a100tcsg324-1
 INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 1 processes.
 INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
-INFO: [Synth 8-7075] Helper process launched with PID 30818
+INFO: [Synth 8-7075] Helper process launched with PID 11608
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 2699.184 ; gain = 0.000 ; free physical = 339 ; free virtual = 8040
+Starting RTL Elaboration : Time (s): cpu = 00:00:01 ; elapsed = 00:00:02 . Memory (MB): peak = 2700.184 ; gain = 0.000 ; free physical = 6668 ; free virtual = 13913
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-6157] synthesizing module 'riscv_wrapper' [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.gen/sources_1/bd/riscv/hdl/riscv_wrapper.v:12]
 INFO: [Synth 8-6157] synthesizing module 'riscv' [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.gen/sources_1/bd/riscv/synth/riscv.v:1314]
 INFO: [Synth 8-6157] synthesizing module 'DDR_imp_10J4PB3' [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.gen/sources_1/bd/riscv/synth/riscv.v:12]
-INFO: [Synth 8-6157] synthesizing module 'riscv_axi_smc_1_0' [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/synth_1/.Xil/Vivado-30585-mat-kubuntu/realtime/riscv_axi_smc_1_0_stub.v:6]
-INFO: [Synth 8-6155] done synthesizing module 'riscv_axi_smc_1_0' (1#1) [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/synth_1/.Xil/Vivado-30585-mat-kubuntu/realtime/riscv_axi_smc_1_0_stub.v:6]
-INFO: [Synth 8-6157] synthesizing module 'riscv_mem_reset_control_0_0' [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/synth_1/.Xil/Vivado-30585-mat-kubuntu/realtime/riscv_mem_reset_control_0_0_stub.v:6]
-INFO: [Synth 8-6155] done synthesizing module 'riscv_mem_reset_control_0_0' (2#1) [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/synth_1/.Xil/Vivado-30585-mat-kubuntu/realtime/riscv_mem_reset_control_0_0_stub.v:6]
-INFO: [Synth 8-6157] synthesizing module 'riscv_mig_7series_0_0' [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/synth_1/.Xil/Vivado-30585-mat-kubuntu/realtime/riscv_mig_7series_0_0_stub.v:5]
-INFO: [Synth 8-6155] done synthesizing module 'riscv_mig_7series_0_0' (3#1) [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/synth_1/.Xil/Vivado-30585-mat-kubuntu/realtime/riscv_mig_7series_0_0_stub.v:5]
+INFO: [Synth 8-6157] synthesizing module 'riscv_axi_smc_1_0' [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/synth_1/.Xil/Vivado-11549-mat-kubuntu/realtime/riscv_axi_smc_1_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'riscv_axi_smc_1_0' (1#1) [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/synth_1/.Xil/Vivado-11549-mat-kubuntu/realtime/riscv_axi_smc_1_0_stub.v:6]
+INFO: [Synth 8-6157] synthesizing module 'riscv_mem_reset_control_0_0' [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/synth_1/.Xil/Vivado-11549-mat-kubuntu/realtime/riscv_mem_reset_control_0_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'riscv_mem_reset_control_0_0' (2#1) [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/synth_1/.Xil/Vivado-11549-mat-kubuntu/realtime/riscv_mem_reset_control_0_0_stub.v:6]
+INFO: [Synth 8-6157] synthesizing module 'riscv_mig_7series_0_0' [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/synth_1/.Xil/Vivado-11549-mat-kubuntu/realtime/riscv_mig_7series_0_0_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'riscv_mig_7series_0_0' (3#1) [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/synth_1/.Xil/Vivado-11549-mat-kubuntu/realtime/riscv_mig_7series_0_0_stub.v:5]
 WARNING: [Synth 8-7071] port 'app_sr_active' of module 'riscv_mig_7series_0_0' is unconnected for instance 'mig_7series_0' [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.gen/sources_1/bd/riscv/synth/riscv.v:363]
 WARNING: [Synth 8-7071] port 'app_ref_ack' of module 'riscv_mig_7series_0_0' is unconnected for instance 'mig_7series_0' [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.gen/sources_1/bd/riscv/synth/riscv.v:363]
 WARNING: [Synth 8-7071] port 'app_zq_ack' of module 'riscv_mig_7series_0_0' is unconnected for instance 'mig_7series_0' [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.gen/sources_1/bd/riscv/synth/riscv.v:363]
@@ -672,14 +426,14 @@ WARNING: [Synth 8-7071] port 's_axi_rid' of module 'riscv_mig_7series_0_0' is un
 WARNING: [Synth 8-7023] instance 'mig_7series_0' of module 'riscv_mig_7series_0_0' has 62 connections declared, but only 57 given [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.gen/sources_1/bd/riscv/synth/riscv.v:363]
 INFO: [Synth 8-6155] done synthesizing module 'DDR_imp_10J4PB3' (4#1) [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.gen/sources_1/bd/riscv/synth/riscv.v:12]
 INFO: [Synth 8-6157] synthesizing module 'IO_imp_44488Y' [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.gen/sources_1/bd/riscv/synth/riscv.v:423]
-INFO: [Synth 8-6157] synthesizing module 'riscv_Ethernet_0' [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/synth_1/.Xil/Vivado-30585-mat-kubuntu/realtime/riscv_Ethernet_0_stub.v:6]
-INFO: [Synth 8-6155] done synthesizing module 'riscv_Ethernet_0' (5#1) [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/synth_1/.Xil/Vivado-30585-mat-kubuntu/realtime/riscv_Ethernet_0_stub.v:6]
-INFO: [Synth 8-6157] synthesizing module 'riscv_SD_0' [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/synth_1/.Xil/Vivado-30585-mat-kubuntu/realtime/riscv_SD_0_stub.v:6]
-INFO: [Synth 8-6155] done synthesizing module 'riscv_SD_0' (6#1) [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/synth_1/.Xil/Vivado-30585-mat-kubuntu/realtime/riscv_SD_0_stub.v:6]
-INFO: [Synth 8-6157] synthesizing module 'riscv_UART_0' [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/synth_1/.Xil/Vivado-30585-mat-kubuntu/realtime/riscv_UART_0_stub.v:6]
-INFO: [Synth 8-6155] done synthesizing module 'riscv_UART_0' (7#1) [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/synth_1/.Xil/Vivado-30585-mat-kubuntu/realtime/riscv_UART_0_stub.v:6]
-INFO: [Synth 8-6157] synthesizing module 'riscv_XADC_0' [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/synth_1/.Xil/Vivado-30585-mat-kubuntu/realtime/riscv_XADC_0_stub.v:5]
-INFO: [Synth 8-6155] done synthesizing module 'riscv_XADC_0' (8#1) [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/synth_1/.Xil/Vivado-30585-mat-kubuntu/realtime/riscv_XADC_0_stub.v:5]
+INFO: [Synth 8-6157] synthesizing module 'riscv_Ethernet_0' [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/synth_1/.Xil/Vivado-11549-mat-kubuntu/realtime/riscv_Ethernet_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'riscv_Ethernet_0' (5#1) [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/synth_1/.Xil/Vivado-11549-mat-kubuntu/realtime/riscv_Ethernet_0_stub.v:6]
+INFO: [Synth 8-6157] synthesizing module 'riscv_SD_0' [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/synth_1/.Xil/Vivado-11549-mat-kubuntu/realtime/riscv_SD_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'riscv_SD_0' (6#1) [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/synth_1/.Xil/Vivado-11549-mat-kubuntu/realtime/riscv_SD_0_stub.v:6]
+INFO: [Synth 8-6157] synthesizing module 'riscv_UART_0' [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/synth_1/.Xil/Vivado-11549-mat-kubuntu/realtime/riscv_UART_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'riscv_UART_0' (7#1) [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/synth_1/.Xil/Vivado-11549-mat-kubuntu/realtime/riscv_UART_0_stub.v:6]
+INFO: [Synth 8-6157] synthesizing module 'riscv_XADC_0' [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/synth_1/.Xil/Vivado-11549-mat-kubuntu/realtime/riscv_XADC_0_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'riscv_XADC_0' (8#1) [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/synth_1/.Xil/Vivado-11549-mat-kubuntu/realtime/riscv_XADC_0_stub.v:5]
 WARNING: [Synth 8-7071] port 'ip2intc_irpt' of module 'riscv_XADC_0' is unconnected for instance 'XADC' [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.gen/sources_1/bd/riscv/synth/riscv.v:1046]
 WARNING: [Synth 8-7071] port 'channel_out' of module 'riscv_XADC_0' is unconnected for instance 'XADC' [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.gen/sources_1/bd/riscv/synth/riscv.v:1046]
 WARNING: [Synth 8-7071] port 'busy_out' of module 'riscv_XADC_0' is unconnected for instance 'XADC' [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.gen/sources_1/bd/riscv/synth/riscv.v:1046]
@@ -689,12 +443,12 @@ WARNING: [Synth 8-7071] port 'ot_out' of module 'riscv_XADC_0' is unconnected fo
 WARNING: [Synth 8-7071] port 'user_temp_alarm_out' of module 'riscv_XADC_0' is unconnected for instance 'XADC' [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.gen/sources_1/bd/riscv/synth/riscv.v:1046]
 WARNING: [Synth 8-7071] port 'alarm_out' of module 'riscv_XADC_0' is unconnected for instance 'XADC' [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.gen/sources_1/bd/riscv/synth/riscv.v:1046]
 WARNING: [Synth 8-7023] instance 'XADC' of module 'riscv_XADC_0' has 30 connections declared, but only 22 given [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.gen/sources_1/bd/riscv/synth/riscv.v:1046]
-INFO: [Synth 8-6157] synthesizing module 'riscv_ethernet_stream_0_0' [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/synth_1/.Xil/Vivado-30585-mat-kubuntu/realtime/riscv_ethernet_stream_0_0_stub.v:6]
-INFO: [Synth 8-6155] done synthesizing module 'riscv_ethernet_stream_0_0' (9#1) [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/synth_1/.Xil/Vivado-30585-mat-kubuntu/realtime/riscv_ethernet_stream_0_0_stub.v:6]
-INFO: [Synth 8-6157] synthesizing module 'riscv_io_axi_m_0' [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/synth_1/.Xil/Vivado-30585-mat-kubuntu/realtime/riscv_io_axi_m_0_stub.v:6]
-INFO: [Synth 8-6155] done synthesizing module 'riscv_io_axi_m_0' (10#1) [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/synth_1/.Xil/Vivado-30585-mat-kubuntu/realtime/riscv_io_axi_m_0_stub.v:6]
-INFO: [Synth 8-6157] synthesizing module 'riscv_io_axi_s_0' [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/synth_1/.Xil/Vivado-30585-mat-kubuntu/realtime/riscv_io_axi_s_0_stub.v:6]
-INFO: [Synth 8-6155] done synthesizing module 'riscv_io_axi_s_0' (11#1) [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/synth_1/.Xil/Vivado-30585-mat-kubuntu/realtime/riscv_io_axi_s_0_stub.v:6]
+INFO: [Synth 8-6157] synthesizing module 'riscv_ethernet_stream_0_0' [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/synth_1/.Xil/Vivado-11549-mat-kubuntu/realtime/riscv_ethernet_stream_0_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'riscv_ethernet_stream_0_0' (9#1) [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/synth_1/.Xil/Vivado-11549-mat-kubuntu/realtime/riscv_ethernet_stream_0_0_stub.v:6]
+INFO: [Synth 8-6157] synthesizing module 'riscv_io_axi_m_0' [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/synth_1/.Xil/Vivado-11549-mat-kubuntu/realtime/riscv_io_axi_m_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'riscv_io_axi_m_0' (10#1) [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/synth_1/.Xil/Vivado-11549-mat-kubuntu/realtime/riscv_io_axi_m_0_stub.v:6]
+INFO: [Synth 8-6157] synthesizing module 'riscv_io_axi_s_0' [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/synth_1/.Xil/Vivado-11549-mat-kubuntu/realtime/riscv_io_axi_s_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'riscv_io_axi_s_0' (11#1) [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/synth_1/.Xil/Vivado-11549-mat-kubuntu/realtime/riscv_io_axi_s_0_stub.v:6]
 WARNING: [Synth 8-7071] port 'M00_AXI_awprot' of module 'riscv_io_axi_s_0' is unconnected for instance 'io_axi_s' [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.gen/sources_1/bd/riscv/synth/riscv.v:1194]
 WARNING: [Synth 8-7071] port 'M00_AXI_wstrb' of module 'riscv_io_axi_s_0' is unconnected for instance 'io_axi_s' [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.gen/sources_1/bd/riscv/synth/riscv.v:1194]
 WARNING: [Synth 8-7071] port 'M00_AXI_arprot' of module 'riscv_io_axi_s_0' is unconnected for instance 'io_axi_s' [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.gen/sources_1/bd/riscv/synth/riscv.v:1194]
@@ -712,30 +466,30 @@ INFO: [Synth 8-6157] synthesizing module 'xlconcat_v2_1_4_xlconcat' [/home/mat/G
 INFO: [Synth 8-6155] done synthesizing module 'xlconcat_v2_1_4_xlconcat' (12#1) [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.gen/sources_1/bd/riscv/ipshared/4b67/hdl/xlconcat_v2_1_vl_rfs.v:14]
 INFO: [Synth 8-6155] done synthesizing module 'riscv_xlconcat_0_0' (13#1) [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.gen/sources_1/bd/riscv/ip/riscv_xlconcat_0_0/synth/riscv_xlconcat_0_0.v:60]
 INFO: [Synth 8-6155] done synthesizing module 'IO_imp_44488Y' (14#1) [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.gen/sources_1/bd/riscv/synth/riscv.v:423]
-INFO: [Synth 8-6157] synthesizing module 'riscv_RocketChip_0' [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/synth_1/.Xil/Vivado-30585-mat-kubuntu/realtime/riscv_RocketChip_0_stub.v:6]
-INFO: [Synth 8-6155] done synthesizing module 'riscv_RocketChip_0' (15#1) [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/synth_1/.Xil/Vivado-30585-mat-kubuntu/realtime/riscv_RocketChip_0_stub.v:6]
+INFO: [Synth 8-6157] synthesizing module 'riscv_RocketChip_0' [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/synth_1/.Xil/Vivado-11549-mat-kubuntu/realtime/riscv_RocketChip_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'riscv_RocketChip_0' (15#1) [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/synth_1/.Xil/Vivado-11549-mat-kubuntu/realtime/riscv_RocketChip_0_stub.v:6]
 WARNING: [Synth 8-7071] port 'dma_axi4_bid' of module 'riscv_RocketChip_0' is unconnected for instance 'RocketChip' [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.gen/sources_1/bd/riscv/synth/riscv.v:1720]
 WARNING: [Synth 8-7071] port 'dma_axi4_rid' of module 'riscv_RocketChip_0' is unconnected for instance 'RocketChip' [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.gen/sources_1/bd/riscv/synth/riscv.v:1720]
 WARNING: [Synth 8-7023] instance 'RocketChip' of module 'riscv_RocketChip_0' has 118 connections declared, but only 116 given [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.gen/sources_1/bd/riscv/synth/riscv.v:1720]
-INFO: [Synth 8-6157] synthesizing module 'riscv_clk_wiz_0_0' [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/synth_1/.Xil/Vivado-30585-mat-kubuntu/realtime/riscv_clk_wiz_0_0_stub.v:5]
-INFO: [Synth 8-6155] done synthesizing module 'riscv_clk_wiz_0_0' (16#1) [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/synth_1/.Xil/Vivado-30585-mat-kubuntu/realtime/riscv_clk_wiz_0_0_stub.v:5]
-INFO: [Synth 8-6157] synthesizing module 'riscv_util_vector_logic_0_0' [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/synth_1/.Xil/Vivado-30585-mat-kubuntu/realtime/riscv_util_vector_logic_0_0_stub.v:6]
-INFO: [Synth 8-6155] done synthesizing module 'riscv_util_vector_logic_0_0' (17#1) [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/synth_1/.Xil/Vivado-30585-mat-kubuntu/realtime/riscv_util_vector_logic_0_0_stub.v:6]
+INFO: [Synth 8-6157] synthesizing module 'riscv_clk_wiz_0_0' [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/synth_1/.Xil/Vivado-11549-mat-kubuntu/realtime/riscv_clk_wiz_0_0_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'riscv_clk_wiz_0_0' (16#1) [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/synth_1/.Xil/Vivado-11549-mat-kubuntu/realtime/riscv_clk_wiz_0_0_stub.v:5]
+INFO: [Synth 8-6157] synthesizing module 'riscv_util_vector_logic_0_0' [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/synth_1/.Xil/Vivado-11549-mat-kubuntu/realtime/riscv_util_vector_logic_0_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'riscv_util_vector_logic_0_0' (17#1) [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/synth_1/.Xil/Vivado-11549-mat-kubuntu/realtime/riscv_util_vector_logic_0_0_stub.v:6]
 INFO: [Synth 8-6155] done synthesizing module 'riscv' (18#1) [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.gen/sources_1/bd/riscv/synth/riscv.v:1314]
 INFO: [Synth 8-6155] done synthesizing module 'riscv_wrapper' (19#1) [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.gen/sources_1/bd/riscv/hdl/riscv_wrapper.v:12]
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 2699.184 ; gain = 0.000 ; free physical = 177 ; free virtual = 7205
+Finished RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 2700.184 ; gain = 0.000 ; free physical = 6153 ; free virtual = 13405
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 2699.184 ; gain = 0.000 ; free physical = 174 ; free virtual = 7203
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 2700.184 ; gain = 0.000 ; free physical = 6149 ; free virtual = 13402
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 2699.184 ; gain = 0.000 ; free physical = 174 ; free virtual = 7203
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 2700.184 ; gain = 0.000 ; free physical = 6149 ; free virtual = 13402
 ---------------------------------------------------------------------------------
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.01 . Memory (MB): peak = 2699.184 ; gain = 0.000 ; free physical = 167 ; free virtual = 7196
+Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.01 . Memory (MB): peak = 2700.184 ; gain = 0.000 ; free physical = 6143 ; free virtual = 13396
 INFO: [Project 1-570] Preparing netlist for logic optimization
 
 Processing XDC Constraints
@@ -770,20 +524,20 @@ Parsing XDC File [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rock
 Finished Parsing XDC File [/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/synth_1/dont_touch.xdc]
 Completed Processing XDC Constraints
 
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2699.184 ; gain = 0.000 ; free physical = 1262 ; free virtual = 8273
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2700.184 ; gain = 0.000 ; free physical = 6877 ; free virtual = 14143
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.01 . Memory (MB): peak = 2699.184 ; gain = 0.000 ; free physical = 1262 ; free virtual = 8273
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2700.184 ; gain = 0.000 ; free physical = 6877 ; free virtual = 14143
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 2699.184 ; gain = 0.000 ; free physical = 1359 ; free virtual = 8388
+Finished Constraint Validation : Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 2700.184 ; gain = 0.000 ; free physical = 6953 ; free virtual = 14219
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7a100tcsg324-1
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 2699.184 ; gain = 0.000 ; free physical = 1359 ; free virtual = 8388
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 2700.184 ; gain = 0.000 ; free physical = 6953 ; free virtual = 14219
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying 'set_property' XDC Constraints
@@ -908,10 +662,10 @@ Applied set_property KEEP_HIERARCHY = SOFT for riscv_i/RocketChip. (constraint f
 Applied set_property KEEP_HIERARCHY = SOFT for riscv_i/clk_wiz_0. (constraint file  auto generated constraint).
 Applied set_property KEEP_HIERARCHY = SOFT for riscv_i/util_vector_logic_0. (constraint file  auto generated constraint).
 ---------------------------------------------------------------------------------
-Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 2699.184 ; gain = 0.000 ; free physical = 1357 ; free virtual = 8388
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 2700.184 ; gain = 0.000 ; free physical = 6953 ; free virtual = 14220
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 2699.184 ; gain = 0.000 ; free physical = 1356 ; free virtual = 8388
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 2700.184 ; gain = 0.000 ; free physical = 6952 ; free virtual = 14220
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start RTL Component Statistics 
@@ -933,25 +687,25 @@ Finished Part Resource Summary
 Start Cross Boundary and Area Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 2699.184 ; gain = 0.000 ; free physical = 1341 ; free virtual = 8383
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 2700.184 ; gain = 0.000 ; free physical = 6936 ; free virtual = 14211
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying XDC Timing Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 2699.184 ; gain = 0.000 ; free physical = 1201 ; free virtual = 8268
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:08 ; elapsed = 00:00:08 . Memory (MB): peak = 2700.184 ; gain = 0.000 ; free physical = 6808 ; free virtual = 14091
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Timing Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 2699.184 ; gain = 0.000 ; free physical = 1201 ; free virtual = 8268
+Finished Timing Optimization : Time (s): cpu = 00:00:08 ; elapsed = 00:00:08 . Memory (MB): peak = 2700.184 ; gain = 0.000 ; free physical = 6808 ; free virtual = 14091
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Technology Mapping
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 2699.184 ; gain = 0.000 ; free physical = 1195 ; free virtual = 8262
+Finished Technology Mapping : Time (s): cpu = 00:00:08 ; elapsed = 00:00:08 . Memory (MB): peak = 2700.184 ; gain = 0.000 ; free physical = 6802 ; free virtual = 14086
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start IO Insertion
@@ -969,37 +723,37 @@ Start Final Netlist Cleanup
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:00:10 ; elapsed = 00:00:10 . Memory (MB): peak = 2699.184 ; gain = 0.000 ; free physical = 1184 ; free virtual = 8270
+Finished IO Insertion : Time (s): cpu = 00:00:09 ; elapsed = 00:00:10 . Memory (MB): peak = 2700.184 ; gain = 0.000 ; free physical = 6802 ; free virtual = 14085
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:00:10 ; elapsed = 00:00:10 . Memory (MB): peak = 2699.184 ; gain = 0.000 ; free physical = 1184 ; free virtual = 8270
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:09 ; elapsed = 00:00:10 . Memory (MB): peak = 2700.184 ; gain = 0.000 ; free physical = 6802 ; free virtual = 14085
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:10 ; elapsed = 00:00:10 . Memory (MB): peak = 2699.184 ; gain = 0.000 ; free physical = 1184 ; free virtual = 8270
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:09 ; elapsed = 00:00:10 . Memory (MB): peak = 2700.184 ; gain = 0.000 ; free physical = 6802 ; free virtual = 14085
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:00:10 ; elapsed = 00:00:10 . Memory (MB): peak = 2699.184 ; gain = 0.000 ; free physical = 1184 ; free virtual = 8270
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:09 ; elapsed = 00:00:10 . Memory (MB): peak = 2700.184 ; gain = 0.000 ; free physical = 6802 ; free virtual = 14085
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:10 ; elapsed = 00:00:10 . Memory (MB): peak = 2699.184 ; gain = 0.000 ; free physical = 1184 ; free virtual = 8270
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:09 ; elapsed = 00:00:10 . Memory (MB): peak = 2700.184 ; gain = 0.000 ; free physical = 6802 ; free virtual = 14085
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:00:10 ; elapsed = 00:00:10 . Memory (MB): peak = 2699.184 ; gain = 0.000 ; free physical = 1184 ; free virtual = 8270
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:09 ; elapsed = 00:00:10 . Memory (MB): peak = 2700.184 ; gain = 0.000 ; free physical = 6802 ; free virtual = 14085
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
@@ -1045,16 +799,16 @@ Report Cell Usage:
 |15    |OBUF                      |    10|
 +------+--------------------------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:00:10 ; elapsed = 00:00:10 . Memory (MB): peak = 2699.184 ; gain = 0.000 ; free physical = 1184 ; free virtual = 8270
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:09 ; elapsed = 00:00:10 . Memory (MB): peak = 2700.184 ; gain = 0.000 ; free physical = 6802 ; free virtual = 14085
 ---------------------------------------------------------------------------------
 Synthesis finished with 0 errors, 0 critical warnings and 0 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:00:09 ; elapsed = 00:00:09 . Memory (MB): peak = 2699.184 ; gain = 0.000 ; free physical = 1241 ; free virtual = 8328
-Synthesis Optimization Complete : Time (s): cpu = 00:00:10 ; elapsed = 00:00:11 . Memory (MB): peak = 2699.184 ; gain = 0.000 ; free physical = 1241 ; free virtual = 8328
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 2700.184 ; gain = 0.000 ; free physical = 6859 ; free virtual = 14143
+Synthesis Optimization Complete : Time (s): cpu = 00:00:09 ; elapsed = 00:00:10 . Memory (MB): peak = 2700.184 ; gain = 0.000 ; free physical = 6859 ; free virtual = 14143
 INFO: [Project 1-571] Translating synthesized netlist
-Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.01 . Memory (MB): peak = 2699.184 ; gain = 0.000 ; free physical = 1327 ; free virtual = 8415
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.01 . Memory (MB): peak = 2700.184 ; gain = 0.000 ; free physical = 6939 ; free virtual = 14226
 INFO: [Project 1-570] Preparing netlist for logic optimization
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2699.184 ; gain = 0.000 ; free physical = 1264 ; free virtual = 8355
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2700.184 ; gain = 0.000 ; free physical = 6879 ; free virtual = 14166
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
@@ -1062,14 +816,14 @@ Synth Design complete, checksum: cb4ef5df
 INFO: [Common 17-83] Releasing license: Synthesis
 53 Infos, 30 Warnings, 0 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:00:15 ; elapsed = 00:00:13 . Memory (MB): peak = 2699.184 ; gain = 0.000 ; free physical = 1400 ; free virtual = 8492
+synth_design: Time (s): cpu = 00:00:14 ; elapsed = 00:00:12 . Memory (MB): peak = 2700.184 ; gain = 0.000 ; free physical = 7016 ; free virtual = 14303
 INFO: [Common 17-600] The following parameters have non-default value.
 general.maxThreads
 INFO: [Common 17-1381] The checkpoint '/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/synth_1/riscv_wrapper.dcp' has been generated.
 INFO: [runtcl-4] Executing : report_utilization -file riscv_wrapper_utilization_synth.rpt -pb riscv_wrapper_utilization_synth.pb
-INFO: [Common 17-206] Exiting Vivado at Sun Feb  5 18:53:24 2023...
-[Sun Feb  5 18:53:27 2023] synth_1 finished
-wait_on_run: Time (s): cpu = 00:13:54 ; elapsed = 00:14:31 . Memory (MB): peak = 2832.535 ; gain = 0.000 ; free physical = 2755 ; free virtual = 9873
+INFO: [Common 17-206] Exiting Vivado at Mon Feb  6 11:53:16 2023...
+[Mon Feb  6 11:53:19 2023] synth_1 finished
+wait_on_run: Time (s): cpu = 00:00:28 ; elapsed = 00:00:26 . Memory (MB): peak = 2736.379 ; gain = 0.000 ; free physical = 7967 ; free virtual = 15250
 if find workspace/rocket64s1/vivado-nexys-a7-100t-riscv -name "*.log" -exec cat {} \; | grep 'ERROR: ' ; then exit 1 ; fi
 echo "open_project workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.xpr" >workspace/rocket64s1/vivado-nexys-a7-100t-riscv/make-bitstream.tcl
 echo "set_param general.maxThreads 1" >>workspace/rocket64s1/vivado-nexys-a7-100t-riscv/make-bitstream.tcl
@@ -1083,10 +837,10 @@ Finished scanning sources
 INFO: [IP_Flow 19-234] Refreshing IP repositories
 INFO: [IP_Flow 19-1704] No user IP repositories specified
 INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/tools/Xilinx/Vivado/2021.1/data/ip'.
-[Sun Feb  5 18:53:47 2023] Launched impl_1...
+[Mon Feb  6 11:53:37 2023] Launched impl_1...
 Run output will be captured here: /home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/impl_1/runme.log
-launch_runs: Time (s): cpu = 00:00:18 ; elapsed = 00:00:07 . Memory (MB): peak = 2773.223 ; gain = 240.117 ; free physical = 2929 ; free virtual = 10193
-[Sun Feb  5 18:53:47 2023] Waiting for impl_1 to finish...
+launch_runs: Time (s): cpu = 00:00:17 ; elapsed = 00:00:07 . Memory (MB): peak = 2781.219 ; gain = 240.117 ; free physical = 7972 ; free virtual = 15256
+[Mon Feb  6 11:53:37 2023] Waiting for impl_1 to finish...
 
 *** Running vivado
     with args -log riscv_wrapper.vdi -applog -m64 -product Vivado -messageDb vivado.pb -mode batch -source riscv_wrapper.tcl -notrace
@@ -1102,7 +856,6 @@ source riscv_wrapper.tcl -notrace
 INFO: [IP_Flow 19-234] Refreshing IP repositories
 INFO: [IP_Flow 19-1704] No user IP repositories specified
 INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/tools/Xilinx/Vivado/2021.1/data/ip'.
-add_files: Time (s): cpu = 00:00:07 ; elapsed = 00:00:05 . Memory (MB): peak = 2744.207 ; gain = 208.102 ; free physical = 2619 ; free virtual = 9898
 Command: link_design -top riscv_wrapper -part xc7a100tcsg324-1
 Design is defaulting to srcset: sources_1
 Design is defaulting to constrset: constrs_1
@@ -1120,7 +873,7 @@ INFO: [Project 1-454] Reading design checkpoint '/home/mat/GitHub/RISC-V-heterog
 INFO: [Project 1-454] Reading design checkpoint '/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.gen/sources_1/bd/riscv/ip/riscv_ethernet_stream_0_0/riscv_ethernet_stream_0_0.dcp' for cell 'riscv_i/IO/ethernet_stream_0'
 INFO: [Project 1-454] Reading design checkpoint '/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.gen/sources_1/bd/riscv/ip/riscv_io_axi_m_0/riscv_io_axi_m_0.dcp' for cell 'riscv_i/IO/io_axi_m'
 INFO: [Project 1-454] Reading design checkpoint '/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.gen/sources_1/bd/riscv/ip/riscv_io_axi_s_0/riscv_io_axi_s_0.dcp' for cell 'riscv_i/IO/io_axi_s'
-Netlist sorting complete. Time (s): cpu = 00:00:00.64 ; elapsed = 00:00:00.63 . Memory (MB): peak = 2744.207 ; gain = 0.000 ; free physical = 2026 ; free virtual = 9318
+Netlist sorting complete. Time (s): cpu = 00:00:00.57 ; elapsed = 00:00:00.58 . Memory (MB): peak = 2708.188 ; gain = 0.000 ; free physical = 7088 ; free virtual = 14373
 INFO: [Netlist 29-17] Analyzing 5833 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-479] Netlist was created with Vivado 2021.1
@@ -1184,7 +937,7 @@ Sourcing Tcl File [/home/mat/GitHub/RISC-V-heterogeneous-extension/ethernet/veri
 Inserting timing constraints for axis_async_fifo instance riscv_i/IO/ethernet_stream_0/inst/rx_fifo/fifo_inst
 INFO: [Timing 38-35] Done setting XDC timing constraints. [/home/mat/GitHub/RISC-V-heterogeneous-extension/ethernet/verilog-ethernet/lib/axis/syn/vivado/axis_async_fifo.tcl:23]
 INFO: [Timing 38-2] Deriving generated clocks [/home/mat/GitHub/RISC-V-heterogeneous-extension/ethernet/verilog-ethernet/lib/axis/syn/vivado/axis_async_fifo.tcl:23]
-get_clocks: Time (s): cpu = 00:00:07 ; elapsed = 00:00:08 . Memory (MB): peak = 3103.980 ; gain = 359.773 ; free physical = 1390 ; free virtual = 8723
+get_clocks: Time (s): cpu = 00:00:06 ; elapsed = 00:00:07 . Memory (MB): peak = 3103.949 ; gain = 395.762 ; free physical = 6407 ; free virtual = 13708
 Inserting timing constraints for axis_async_fifo instance riscv_i/IO/ethernet_stream_0/inst/tx_fifo/fifo_inst
 Finished Sourcing Tcl File [/home/mat/GitHub/RISC-V-heterogeneous-extension/ethernet/verilog-ethernet/lib/axis/syn/vivado/axis_async_fifo.tcl]
 Sourcing Tcl File [/home/mat/GitHub/RISC-V-heterogeneous-extension/ethernet/verilog-ethernet/syn/vivado/eth_mac_fifo.tcl]
@@ -1203,7 +956,7 @@ WARNING: [Constraints 18-5573] Port sdio_dat[0] has IOB constraint set, However,
 WARNING: [Constraints 18-5573] Port sdio_dat[1] has IOB constraint set, However, the instance riscv_i/IO/SD/inst/sd_dat_reg_t_reg connected to it does not seem to have valid I/O connection to be placed into I/O. The constraint on the port will be ignored.
 WARNING: [Constraints 18-5573] Port sdio_dat[2] has IOB constraint set, However, the instance riscv_i/IO/SD/inst/sd_dat_reg_t_reg connected to it does not seem to have valid I/O connection to be placed into I/O. The constraint on the port will be ignored.
 WARNING: [Constraints 18-5573] Port sdio_dat[3] has IOB constraint set, However, the instance riscv_i/IO/SD/inst/sd_dat_reg_t_reg connected to it does not seem to have valid I/O connection to be placed into I/O. The constraint on the port will be ignored.
-Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.01 . Memory (MB): peak = 3103.980 ; gain = 0.000 ; free physical = 1413 ; free virtual = 8750
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3103.949 ; gain = 0.000 ; free physical = 6471 ; free virtual = 13772
 INFO: [Project 1-111] Unisim Transformation Summary:
   A total of 1032 instances were transformed.
   IOBUF => IOBUF (IBUF, OBUFT): 6 instances
@@ -1218,7 +971,7 @@ INFO: [Project 1-111] Unisim Transformation Summary:
 
 26 Infos, 7 Warnings, 0 Critical Warnings and 0 Errors encountered.
 link_design completed successfully
-link_design: Time (s): cpu = 00:00:23 ; elapsed = 00:00:23 . Memory (MB): peak = 3103.980 ; gain = 359.773 ; free physical = 1413 ; free virtual = 8750
+link_design: Time (s): cpu = 00:00:20 ; elapsed = 00:00:20 . Memory (MB): peak = 3103.949 ; gain = 395.762 ; free physical = 6471 ; free virtual = 13772
 INFO: [Common 17-600] The following parameters have non-default value.
 general.maxThreads
 Command: opt_design
@@ -1230,13 +983,13 @@ Starting DRC Task
 INFO: [Project 1-461] DRC finished with 0 Errors
 INFO: [Project 1-462] Please refer to the DRC report (report_drc) for more information.
 
-Time (s): cpu = 00:00:00.57 ; elapsed = 00:00:00.59 . Memory (MB): peak = 3103.980 ; gain = 0.000 ; free physical = 1403 ; free virtual = 8744
+Time (s): cpu = 00:00:00.45 ; elapsed = 00:00:00.46 . Memory (MB): peak = 3103.949 ; gain = 0.000 ; free physical = 6469 ; free virtual = 13771
 
 Starting Cache Timing Information Task
 INFO: [Timing 38-35] Done setting XDC timing constraints.
 Ending Cache Timing Information Task | Checksum: dd71aee5
 
-Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 3103.980 ; gain = 0.000 ; free physical = 1273 ; free virtual = 8621
+Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 3103.949 ; gain = 0.000 ; free physical = 6390 ; free virtual = 13692
 
 Starting Logic Optimization Task
 
@@ -1245,7 +998,7 @@ INFO: [Opt 31-138] Pushed 56 inverter(s) to 240 load pin(s).
 INFO: [Opt 31-49] Retargeted 0 cell(s).
 Phase 1 Retarget | Checksum: 4d0d4431
 
-Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 3263.980 ; gain = 2.000 ; free physical = 1078 ; free virtual = 8435
+Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 3263.949 ; gain = 1.000 ; free physical = 6296 ; free virtual = 13598
 INFO: [Opt 31-389] Phase Retarget created 419 cells and removed 611 cells
 INFO: [Opt 31-1021] In phase Retarget, 144 netlist objects are constrained preventing optimization. Please run opt_design with -debug_log to get more detail. 
 
@@ -1253,34 +1006,34 @@ Phase 2 Constant propagation
 INFO: [Opt 31-138] Pushed 15 inverter(s) to 17 load pin(s).
 Phase 2 Constant propagation | Checksum: 13e97b979
 
-Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 3263.980 ; gain = 2.000 ; free physical = 1067 ; free virtual = 8431
+Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 3263.949 ; gain = 1.000 ; free physical = 6296 ; free virtual = 13598
 INFO: [Opt 31-389] Phase Constant propagation created 374 cells and removed 1105 cells
 INFO: [Opt 31-1021] In phase Constant propagation, 764 netlist objects are constrained preventing optimization. Please run opt_design with -debug_log to get more detail. 
 
 Phase 3 Sweep
 Phase 3 Sweep | Checksum: ba2629d7
 
-Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 3263.980 ; gain = 2.000 ; free physical = 1059 ; free virtual = 8421
+Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 3263.949 ; gain = 1.000 ; free physical = 6296 ; free virtual = 13598
 INFO: [Opt 31-389] Phase Sweep created 0 cells and removed 2156 cells
 INFO: [Opt 31-1021] In phase Sweep, 278 netlist objects are constrained preventing optimization. Please run opt_design with -debug_log to get more detail. 
 
 Phase 4 BUFG optimization
 Phase 4 BUFG optimization | Checksum: 6f6a0f3e
 
-Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 3263.980 ; gain = 2.000 ; free physical = 1059 ; free virtual = 8422
+Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 3263.949 ; gain = 1.000 ; free physical = 6295 ; free virtual = 13598
 INFO: [Opt 31-662] Phase BUFG optimization created 0 cells of which 0 are BUFGs and removed 0 cells.
 
 Phase 5 Shift Register Optimization
 INFO: [Opt 31-1064] SRL Remap converted 0 SRLs to 0 registers and converted 0 registers of register chains to 0 SRLs
 Phase 5 Shift Register Optimization | Checksum: 6f6a0f3e
 
-Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 3263.980 ; gain = 2.000 ; free physical = 1069 ; free virtual = 8431
+Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 3263.949 ; gain = 1.000 ; free physical = 6295 ; free virtual = 13598
 INFO: [Opt 31-389] Phase Shift Register Optimization created 0 cells and removed 0 cells
 
 Phase 6 Post Processing Netlist
 Phase 6 Post Processing Netlist | Checksum: cf2550ff
 
-Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 3263.980 ; gain = 2.000 ; free physical = 1069 ; free virtual = 8431
+Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 3263.949 ; gain = 1.000 ; free physical = 6295 ; free virtual = 13598
 INFO: [Opt 31-389] Phase Post Processing Netlist created 0 cells and removed 2 cells
 INFO: [Opt 31-1021] In phase Post Processing Netlist, 153 netlist objects are constrained preventing optimization. Please run opt_design with -debug_log to get more detail. 
 Opt_design Change Summary
@@ -1302,10 +1055,10 @@ Opt_design Change Summary
 
 Starting Connectivity Check Task
 
-Time (s): cpu = 00:00:00.12 ; elapsed = 00:00:00.12 . Memory (MB): peak = 3263.980 ; gain = 0.000 ; free physical = 1070 ; free virtual = 8432
+Time (s): cpu = 00:00:00.09 ; elapsed = 00:00:00.08 . Memory (MB): peak = 3263.949 ; gain = 0.000 ; free physical = 6296 ; free virtual = 13598
 Ending Logic Optimization Task | Checksum: a787ad0b
 
-Time (s): cpu = 00:00:08 ; elapsed = 00:00:08 . Memory (MB): peak = 3263.980 ; gain = 2.000 ; free physical = 1070 ; free virtual = 8432
+Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 3263.949 ; gain = 1.000 ; free physical = 6296 ; free virtual = 13598
 
 Starting Power Optimization Task
 INFO: [Pwropt 34-132] Skipping clock gating for clocks with a period < 2.00 ns.
@@ -1323,10 +1076,10 @@ INFO: [Pwropt 34-201] Structural ODC has moved 0 WE to EN ports
 Number of BRAM Ports augmented: 5 newly gated: 0 Total Ports: 40
 Ending PowerOpt Patch Enables Task | Checksum: c293d194
 
-Time (s): cpu = 00:00:00.32 ; elapsed = 00:00:00.33 . Memory (MB): peak = 3719.473 ; gain = 0.000 ; free physical = 1057 ; free virtual = 8436
+Time (s): cpu = 00:00:00.29 ; elapsed = 00:00:00.29 . Memory (MB): peak = 3719.770 ; gain = 0.000 ; free physical = 6149 ; free virtual = 13458
 Ending Power Optimization Task | Checksum: c293d194
 
-Time (s): cpu = 00:00:16 ; elapsed = 00:00:14 . Memory (MB): peak = 3719.473 ; gain = 455.492 ; free physical = 1105 ; free virtual = 8485
+Time (s): cpu = 00:00:14 ; elapsed = 00:00:12 . Memory (MB): peak = 3719.770 ; gain = 455.820 ; free physical = 6199 ; free virtual = 13507
 
 Starting Final Cleanup Task
 
@@ -1334,719 +1087,27 @@ Starting Logic Optimization Task
 INFO: [Timing 38-35] Done setting XDC timing constraints.
 Ending Logic Optimization Task | Checksum: da561ef2
 
-Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 3719.473 ; gain = 0.000 ; free physical = 1057 ; free virtual = 8443
+Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 3719.770 ; gain = 0.000 ; free physical = 6205 ; free virtual = 13514
 Ending Final Cleanup Task | Checksum: da561ef2
 
-Time (s): cpu = 00:00:08 ; elapsed = 00:00:08 . Memory (MB): peak = 3719.473 ; gain = 0.000 ; free physical = 1054 ; free virtual = 8440
+Time (s): cpu = 00:00:06 ; elapsed = 00:00:07 . Memory (MB): peak = 3719.770 ; gain = 0.000 ; free physical = 6200 ; free virtual = 13509
 
 Starting Netlist Obfuscation Task
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.01 . Memory (MB): peak = 3719.473 ; gain = 0.000 ; free physical = 1054 ; free virtual = 8440
+Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.01 . Memory (MB): peak = 3719.770 ; gain = 0.000 ; free physical = 6200 ; free virtual = 13509
 Ending Netlist Obfuscation Task | Checksum: da561ef2
 
-Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.01 . Memory (MB): peak = 3719.473 ; gain = 0.000 ; free physical = 1054 ; free virtual = 8440
+Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.01 . Memory (MB): peak = 3719.770 ; gain = 0.000 ; free physical = 6200 ; free virtual = 13509
 INFO: [Common 17-83] Releasing license: Implementation
 53 Infos, 7 Warnings, 0 Critical Warnings and 0 Errors encountered.
 opt_design completed successfully
-opt_design: Time (s): cpu = 00:00:36 ; elapsed = 00:00:34 . Memory (MB): peak = 3719.473 ; gain = 615.492 ; free physical = 1055 ; free virtual = 8441
+opt_design: Time (s): cpu = 00:00:30 ; elapsed = 00:00:29 . Memory (MB): peak = 3719.770 ; gain = 615.820 ; free physical = 6200 ; free virtual = 13509
 INFO: [Common 17-600] The following parameters have non-default value.
 general.maxThreads
 INFO: [Timing 38-35] Done setting XDC timing constraints.
 INFO: [Timing 38-480] Writing timing data to binary archive.
-Writing placer database...
-Writing XDEF routing.
-Writing XDEF routing logical nets.
-Writing XDEF routing special nets.
-Write XDEF Complete: Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.01 . Memory (MB): peak = 3719.473 ; gain = 0.000 ; free physical = 709 ; free virtual = 8119
-INFO: [Common 17-1381] The checkpoint '/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/impl_1/riscv_wrapper_opt.dcp' has been generated.
-write_checkpoint: Time (s): cpu = 00:00:15 ; elapsed = 00:00:15 . Memory (MB): peak = 3719.473 ; gain = 0.000 ; free physical = 709 ; free virtual = 8099
-INFO: [runtcl-4] Executing : report_drc -file riscv_wrapper_drc_opted.rpt -pb riscv_wrapper_drc_opted.pb -rpx riscv_wrapper_drc_opted.rpx
-Command: report_drc -file riscv_wrapper_drc_opted.rpt -pb riscv_wrapper_drc_opted.pb -rpx riscv_wrapper_drc_opted.rpx
-INFO: [IP_Flow 19-1839] IP Catalog is up to date.
-INFO: [Vivado_Tcl 2-168] The results of DRC are in file /home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/impl_1/riscv_wrapper_drc_opted.rpt.
-report_drc completed successfully
-report_drc: Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 3719.473 ; gain = 0.000 ; free physical = 266 ; free virtual = 7681
-Command: place_design
-Attempting to get a license for feature 'Implementation' and/or device 'xc7a100t'
-INFO: [Common 17-349] Got license for feature 'Implementation' and/or device 'xc7a100t'
-INFO: [Vivado_Tcl 4-198] DRC finished with 0 Errors
-INFO: [Vivado_Tcl 4-199] Please refer to the DRC report (report_drc) for more information.
-Running DRC as a precondition to command place_design
-INFO: [Vivado_Tcl 4-198] DRC finished with 0 Errors
-INFO: [Vivado_Tcl 4-199] Please refer to the DRC report (report_drc) for more information.
-
-Starting Placer Task
-
-Phase 1 Placer Initialization
-
-Phase 1.1 Placer Initialization Netlist Sorting
-Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.01 . Memory (MB): peak = 3719.473 ; gain = 0.000 ; free physical = 419 ; free virtual = 7808
-Phase 1.1 Placer Initialization Netlist Sorting | Checksum: 53c60213
-
-Time (s): cpu = 00:00:00.02 ; elapsed = 00:00:00.05 . Memory (MB): peak = 3719.473 ; gain = 0.000 ; free physical = 419 ; free virtual = 7808
-Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.01 . Memory (MB): peak = 3719.473 ; gain = 0.000 ; free physical = 419 ; free virtual = 7808
-
-Phase 1.2 IO Placement/ Clock Placement/ Build Placer Device
-Phase 1.2 IO Placement/ Clock Placement/ Build Placer Device | Checksum: 16d2993b8
-
-Time (s): cpu = 00:00:03 ; elapsed = 00:00:04 . Memory (MB): peak = 3719.473 ; gain = 0.000 ; free physical = 1497 ; free virtual = 8922
-
-Phase 1.3 Build Placer Netlist Model
-Phase 1.3 Build Placer Netlist Model | Checksum: 1ec35cacb
-
-Time (s): cpu = 00:00:17 ; elapsed = 00:00:17 . Memory (MB): peak = 3719.473 ; gain = 0.000 ; free physical = 1390 ; free virtual = 8821
-
-Phase 1.4 Constrain Clocks/Macros
-Phase 1.4 Constrain Clocks/Macros | Checksum: 1ec35cacb
-
-Time (s): cpu = 00:00:17 ; elapsed = 00:00:17 . Memory (MB): peak = 3719.473 ; gain = 0.000 ; free physical = 1389 ; free virtual = 8821
-Phase 1 Placer Initialization | Checksum: 1ec35cacb
-
-Time (s): cpu = 00:00:17 ; elapsed = 00:00:18 . Memory (MB): peak = 3719.473 ; gain = 0.000 ; free physical = 1392 ; free virtual = 8826
-
-Phase 2 Global Placement
-
-Phase 2.1 Floorplanning
-Phase 2.1 Floorplanning | Checksum: 28221c5ba
-
-Time (s): cpu = 00:00:22 ; elapsed = 00:00:22 . Memory (MB): peak = 3719.473 ; gain = 0.000 ; free physical = 1341 ; free virtual = 8776
-
-Phase 2.2 Update Timing before SLR Path Opt
-Phase 2.2 Update Timing before SLR Path Opt | Checksum: 1e11d4a77
-
-Time (s): cpu = 00:00:25 ; elapsed = 00:00:26 . Memory (MB): peak = 3719.473 ; gain = 0.000 ; free physical = 1341 ; free virtual = 8775
-
-Phase 2.3 Post-Processing in Floorplanning
-Phase 2.3 Post-Processing in Floorplanning | Checksum: 1e11d4a77
-
-Time (s): cpu = 00:00:26 ; elapsed = 00:00:26 . Memory (MB): peak = 3719.473 ; gain = 0.000 ; free physical = 1341 ; free virtual = 8775
-
-Phase 2.4 Global Placement Core
-
-Phase 2.4.1 Physical Synthesis In Placer
-INFO: [Physopt 32-1035] Found 0 LUTNM shape to break, 2607 LUT instances to create LUTNM shape
-INFO: [Physopt 32-1044] Break lutnm for timing: one critical 0, two critical 0, total 0, new lutff created 0
-INFO: [Physopt 32-1138] End 1 Pass. Optimized 1072 nets or LUTs. Breaked 0 LUT, combined 1072 existing LUTs and moved 0 existing LUT
-INFO: [Physopt 32-65] No nets found for high-fanout optimization.
-INFO: [Physopt 32-232] Optimized 0 net. Created 0 new instance.
-INFO: [Physopt 32-775] End 1 Pass. Optimized 0 net or cell. Created 0 new cell, deleted 0 existing cell and moved 0 existing cell
-INFO: [Physopt 32-456] No candidate cells for DSP register optimization found in the design.
-INFO: [Physopt 32-775] End 2 Pass. Optimized 0 net or cell. Created 0 new cell, deleted 0 existing cell and moved 0 existing cell
-INFO: [Physopt 32-1123] No candidate cells found for Shift Register to Pipeline optimization
-INFO: [Physopt 32-775] End 1 Pass. Optimized 0 net or cell. Created 0 new cell, deleted 0 existing cell and moved 0 existing cell
-INFO: [Physopt 32-677] No candidate cells for Shift Register optimization found in the design
-INFO: [Physopt 32-775] End 1 Pass. Optimized 0 net or cell. Created 0 new cell, deleted 0 existing cell and moved 0 existing cell
-INFO: [Physopt 32-526] No candidate cells for BRAM register optimization found in the design
-INFO: [Physopt 32-775] End 1 Pass. Optimized 0 net or cell. Created 0 new cell, deleted 0 existing cell and moved 0 existing cell
-INFO: [Physopt 32-846] No candidate cells for URAM register optimization found in the design
-INFO: [Physopt 32-775] End 2 Pass. Optimized 0 net or cell. Created 0 new cell, deleted 0 existing cell and moved 0 existing cell
-INFO: [Physopt 32-949] No candidate nets found for dynamic/static region interface net replication
-INFO: [Physopt 32-775] End 1 Pass. Optimized 0 net or cell. Created 0 new cell, deleted 0 existing cell and moved 0 existing cell
-Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.01 . Memory (MB): peak = 3719.473 ; gain = 0.000 ; free physical = 1442 ; free virtual = 8871
-
-Summary of Physical Synthesis Optimizations
-============================================
-
-
------------------------------------------------------------------------------------------------------------------------------------------------------------
-|  Optimization                                     |  Added Cells  |  Removed Cells  |  Optimized Cells/Nets  |  Dont Touch  |  Iterations  |  Elapsed   |
------------------------------------------------------------------------------------------------------------------------------------------------------------
-|  LUT Combining                                    |            0  |           1072  |                  1072  |           0  |           1  |  00:00:01  |
-|  Retime                                           |            0  |              0  |                     0  |           0  |           1  |  00:00:00  |
-|  Very High Fanout                                 |            0  |              0  |                     0  |           0  |           1  |  00:00:00  |
-|  DSP Register                                     |            0  |              0  |                     0  |           0  |           1  |  00:00:00  |
-|  Shift Register to Pipeline                       |            0  |              0  |                     0  |           0  |           1  |  00:00:00  |
-|  Shift Register                                   |            0  |              0  |                     0  |           0  |           1  |  00:00:00  |
-|  BRAM Register                                    |            0  |              0  |                     0  |           0  |           1  |  00:00:00  |
-|  URAM Register                                    |            0  |              0  |                     0  |           0  |           1  |  00:00:00  |
-|  Dynamic/Static Region Interface Net Replication  |            0  |              0  |                     0  |           0  |           1  |  00:00:00  |
-|  Total                                            |            0  |           1072  |                  1072  |           0  |           9  |  00:00:02  |
------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-Phase 2.4.1 Physical Synthesis In Placer | Checksum: 1ed3e676d
-
-Time (s): cpu = 00:01:05 ; elapsed = 00:01:06 . Memory (MB): peak = 3719.473 ; gain = 0.000 ; free physical = 1356 ; free virtual = 8872
-Phase 2.4 Global Placement Core | Checksum: f6472216
-
-Time (s): cpu = 00:01:09 ; elapsed = 00:01:10 . Memory (MB): peak = 3719.473 ; gain = 0.000 ; free physical = 1345 ; free virtual = 8866
-Phase 2 Global Placement | Checksum: f6472216
-
-Time (s): cpu = 00:01:09 ; elapsed = 00:01:10 . Memory (MB): peak = 3719.473 ; gain = 0.000 ; free physical = 1383 ; free virtual = 8904
-
-Phase 3 Detail Placement
-
-Phase 3.1 Commit Multi Column Macros
-Phase 3.1 Commit Multi Column Macros | Checksum: 1132379ce
-
-Time (s): cpu = 00:01:12 ; elapsed = 00:01:13 . Memory (MB): peak = 3719.473 ; gain = 0.000 ; free physical = 1333 ; free virtual = 8860
-
-Phase 3.2 Commit Most Macros & LUTRAMs
-Phase 3.2 Commit Most Macros & LUTRAMs | Checksum: 15fa49ec2
-
-Time (s): cpu = 00:01:20 ; elapsed = 00:01:21 . Memory (MB): peak = 3719.473 ; gain = 0.000 ; free physical = 1271 ; free virtual = 8812
-
-Phase 3.3 Area Swap Optimization
-Phase 3.3 Area Swap Optimization | Checksum: e4cc9981
-
-Time (s): cpu = 00:01:20 ; elapsed = 00:01:21 . Memory (MB): peak = 3719.473 ; gain = 0.000 ; free physical = 1274 ; free virtual = 8810
-
-Phase 3.4 Pipeline Register Optimization
-Phase 3.4 Pipeline Register Optimization | Checksum: 120888f16
-
-Time (s): cpu = 00:01:20 ; elapsed = 00:01:21 . Memory (MB): peak = 3719.473 ; gain = 0.000 ; free physical = 1277 ; free virtual = 8813
-
-Phase 3.5 Fast Optimization
-Phase 3.5 Fast Optimization | Checksum: 14f68717a
-
-Time (s): cpu = 00:01:26 ; elapsed = 00:01:28 . Memory (MB): peak = 3719.473 ; gain = 0.000 ; free physical = 1339 ; free virtual = 8866
-
-Phase 3.6 Small Shape Detail Placement
-Phase 3.6 Small Shape Detail Placement | Checksum: eda7467d
-
-Time (s): cpu = 00:01:42 ; elapsed = 00:01:44 . Memory (MB): peak = 3719.473 ; gain = 0.000 ; free physical = 1292 ; free virtual = 8823
-
-Phase 3.7 Re-assign LUT pins
-Phase 3.7 Re-assign LUT pins | Checksum: 1c0c4a06b
-
-Time (s): cpu = 00:01:45 ; elapsed = 00:01:46 . Memory (MB): peak = 3719.473 ; gain = 0.000 ; free physical = 1300 ; free virtual = 8830
-
-Phase 3.8 Pipeline Register Optimization
-Phase 3.8 Pipeline Register Optimization | Checksum: 152cbe0a7
-
-Time (s): cpu = 00:01:45 ; elapsed = 00:01:46 . Memory (MB): peak = 3719.473 ; gain = 0.000 ; free physical = 1300 ; free virtual = 8830
-
-Phase 3.9 Fast Optimization
-Phase 3.9 Fast Optimization | Checksum: 1a3a0db20
-
-Time (s): cpu = 00:01:59 ; elapsed = 00:02:00 . Memory (MB): peak = 3719.473 ; gain = 0.000 ; free physical = 1258 ; free virtual = 8792
-Phase 3 Detail Placement | Checksum: 1a3a0db20
-
-Time (s): cpu = 00:01:59 ; elapsed = 00:02:01 . Memory (MB): peak = 3719.473 ; gain = 0.000 ; free physical = 1257 ; free virtual = 8791
-
-Phase 4 Post Placement Optimization and Clean-Up
-
-Phase 4.1 Post Commit Optimization
-INFO: [Timing 38-35] Done setting XDC timing constraints.
-
-Phase 4.1.1 Post Placement Optimization
-Post Placement Optimization Initialization | Checksum: 1466b8137
-
-Phase 4.1.1.1 BUFG Insertion
-
-Starting Physical Synthesis Task
-
-Phase 1 Physical Synthesis Initialization
-INFO: [Physopt 32-721] Multithreading enabled for phys_opt_design using a maximum of 1 CPUs
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-1.994 | TNS=-566.654 |
-Phase 1 Physical Synthesis Initialization | Checksum: 1b32b23a4
-
-Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 3758.285 ; gain = 0.000 ; free physical = 976 ; free virtual = 8579
-INFO: [Place 46-33] Processed net riscv_i/RocketChip/inst/rocket_system/tlDM/dmOuter/dmOuter/reset_reg_0, BUFG insertion was skipped due to placement/routing conflicts.
-INFO: [Place 46-56] BUFG insertion identified 1 candidate nets. Inserted BUFG: 0, Replicated BUFG Driver: 0, Skipped due to Placement/Routing Conflicts: 1, Skipped due to Timing Degradation: 0, Skipped due to Illegal Netlist: 0.
-Ending Physical Synthesis Task | Checksum: 19c4f81fb
-
-Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 3758.285 ; gain = 0.000 ; free physical = 948 ; free virtual = 8565
-Phase 4.1.1.1 BUFG Insertion | Checksum: 1466b8137
-
-Time (s): cpu = 00:02:19 ; elapsed = 00:02:20 . Memory (MB): peak = 3758.285 ; gain = 38.812 ; free physical = 944 ; free virtual = 8565
-
-Phase 4.1.1.2 Post Placement Timing Optimization
-INFO: [Place 30-746] Post Placement Timing Summary WNS=0.542. For the most accurate timing information please run report_timing.
-Phase 4.1.1.2 Post Placement Timing Optimization | Checksum: 18e7f6d9d
-
-Time (s): cpu = 00:02:25 ; elapsed = 00:02:26 . Memory (MB): peak = 3758.285 ; gain = 38.812 ; free physical = 887 ; free virtual = 8536
-
-Time (s): cpu = 00:02:25 ; elapsed = 00:02:26 . Memory (MB): peak = 3758.285 ; gain = 38.812 ; free physical = 888 ; free virtual = 8537
-Phase 4.1 Post Commit Optimization | Checksum: 18e7f6d9d
-
-Time (s): cpu = 00:02:25 ; elapsed = 00:02:27 . Memory (MB): peak = 3758.285 ; gain = 38.812 ; free physical = 890 ; free virtual = 8537
-
-Phase 4.2 Post Placement Cleanup
-Phase 4.2 Post Placement Cleanup | Checksum: 18e7f6d9d
-
-Time (s): cpu = 00:02:26 ; elapsed = 00:02:27 . Memory (MB): peak = 3758.285 ; gain = 38.812 ; free physical = 873 ; free virtual = 8523
-
-Phase 4.3 Placer Reporting
-
-Phase 4.3.1 Print Estimated Congestion
-INFO: [Place 30-612] Post-Placement Estimated Congestion 
- ____________________________________________________
-|           | Global Congestion | Short Congestion  |
-| Direction | Region Size       | Region Size       |
-|___________|___________________|___________________|
-|      North|                2x2|                8x8|
-|___________|___________________|___________________|
-|      South|                1x1|                4x4|
-|___________|___________________|___________________|
-|       East|                1x1|                4x4|
-|___________|___________________|___________________|
-|       West|                1x1|                4x4|
-|___________|___________________|___________________|
-
-Phase 4.3.1 Print Estimated Congestion | Checksum: 18e7f6d9d
-
-Time (s): cpu = 00:02:26 ; elapsed = 00:02:27 . Memory (MB): peak = 3758.285 ; gain = 38.812 ; free physical = 866 ; free virtual = 8520
-Phase 4.3 Placer Reporting | Checksum: 18e7f6d9d
-
-Time (s): cpu = 00:02:26 ; elapsed = 00:02:28 . Memory (MB): peak = 3758.285 ; gain = 38.812 ; free physical = 871 ; free virtual = 8526
-
-Phase 4.4 Final Placement Cleanup
-Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.01 . Memory (MB): peak = 3758.285 ; gain = 0.000 ; free physical = 871 ; free virtual = 8526
-
-Time (s): cpu = 00:02:26 ; elapsed = 00:02:28 . Memory (MB): peak = 3758.285 ; gain = 38.812 ; free physical = 871 ; free virtual = 8526
-Phase 4 Post Placement Optimization and Clean-Up | Checksum: d558dae9
-
-Time (s): cpu = 00:02:27 ; elapsed = 00:02:28 . Memory (MB): peak = 3758.285 ; gain = 38.812 ; free physical = 866 ; free virtual = 8525
-Ending Placer Task | Checksum: bfb7b39d
-
-Time (s): cpu = 00:02:27 ; elapsed = 00:02:28 . Memory (MB): peak = 3758.285 ; gain = 38.812 ; free physical = 863 ; free virtual = 8525
-INFO: [Common 17-83] Releasing license: Implementation
-91 Infos, 7 Warnings, 0 Critical Warnings and 0 Errors encountered.
-place_design completed successfully
-place_design: Time (s): cpu = 00:02:29 ; elapsed = 00:02:30 . Memory (MB): peak = 3758.285 ; gain = 38.812 ; free physical = 933 ; free virtual = 8596
-INFO: [Common 17-600] The following parameters have non-default value.
-general.maxThreads
-INFO: [Timing 38-480] Writing timing data to binary archive.
-Writing placer database...
-Writing XDEF routing.
-Writing XDEF routing logical nets.
-Writing XDEF routing special nets.
-Write XDEF Complete: Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 3758.285 ; gain = 0.000 ; free physical = 595 ; free virtual = 8613
-INFO: [Common 17-1381] The checkpoint '/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/impl_1/riscv_wrapper_placed.dcp' has been generated.
-write_checkpoint: Time (s): cpu = 00:00:18 ; elapsed = 00:00:19 . Memory (MB): peak = 3758.285 ; gain = 0.000 ; free physical = 601 ; free virtual = 8561
-INFO: [runtcl-4] Executing : report_io -file riscv_wrapper_io_placed.rpt
-report_io: Time (s): cpu = 00:00:00.06 ; elapsed = 00:00:00.10 . Memory (MB): peak = 3758.285 ; gain = 0.000 ; free physical = 596 ; free virtual = 8558
-INFO: [runtcl-4] Executing : report_utilization -file riscv_wrapper_utilization_placed.rpt -pb riscv_wrapper_utilization_placed.pb
-INFO: [runtcl-4] Executing : report_control_sets -verbose -file riscv_wrapper_control_sets_placed.rpt
-report_control_sets: Time (s): cpu = 00:00:00.14 ; elapsed = 00:00:00.19 . Memory (MB): peak = 3758.285 ; gain = 0.000 ; free physical = 592 ; free virtual = 8554
-Command: phys_opt_design
-Attempting to get a license for feature 'Implementation' and/or device 'xc7a100t'
-INFO: [Common 17-349] Got license for feature 'Implementation' and/or device 'xc7a100t'
-INFO: [Vivado_Tcl 4-383] Design worst setup slack (WNS) is greater than or equal to 0.000 ns. Skipping all physical synthesis optimizations.
-INFO: [Vivado_Tcl 4-232] No setup violation found. The netlist was not modified.
-INFO: [Common 17-83] Releasing license: Implementation
-101 Infos, 7 Warnings, 0 Critical Warnings and 0 Errors encountered.
-phys_opt_design completed successfully
-phys_opt_design: Time (s): cpu = 00:00:13 ; elapsed = 00:00:13 . Memory (MB): peak = 3758.285 ; gain = 0.000 ; free physical = 492 ; free virtual = 8545
-INFO: [Common 17-600] The following parameters have non-default value.
-general.maxThreads
-INFO: [Timing 38-480] Writing timing data to binary archive.
-Writing placer database...
-Writing XDEF routing.
-Writing XDEF routing logical nets.
-Writing XDEF routing special nets.
-Write XDEF Complete: Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 3758.285 ; gain = 0.000 ; free physical = 194 ; free virtual = 8513
-INFO: [Common 17-1381] The checkpoint '/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/impl_1/riscv_wrapper_physopt.dcp' has been generated.
-write_checkpoint: Time (s): cpu = 00:00:15 ; elapsed = 00:00:15 . Memory (MB): peak = 3758.285 ; gain = 0.000 ; free physical = 294 ; free virtual = 8525
-Command: route_design
-Attempting to get a license for feature 'Implementation' and/or device 'xc7a100t'
-INFO: [Common 17-349] Got license for feature 'Implementation' and/or device 'xc7a100t'
-Running DRC as a precondition to command route_design
-INFO: [Vivado_Tcl 4-198] DRC finished with 0 Errors
-INFO: [Vivado_Tcl 4-199] Please refer to the DRC report (report_drc) for more information.
-
-
-Starting Routing Task
-Checksum: PlaceDB: 7cef5ba7 ConstDB: 0 ShapeSum: 42c857f6 RouteDB: 0
-
-Phase 1 Build RT Design
-Phase 1 Build RT Design | Checksum: 12de977da
-
-Time (s): cpu = 00:00:16 ; elapsed = 00:00:16 . Memory (MB): peak = 3854.848 ; gain = 57.672 ; free physical = 342 ; free virtual = 8301
-Post Restoration Checksum: NetGraph: d08ae87f NumContArr: 5d5e8f5b Constraints: 0 Timing: 0
-
-Phase 2 Router Initialization
-
-Phase 2.1 Create Timer
-Phase 2.1 Create Timer | Checksum: 12de977da
-
-Time (s): cpu = 00:00:17 ; elapsed = 00:00:17 . Memory (MB): peak = 3855.848 ; gain = 58.672 ; free physical = 397 ; free virtual = 8357
-
-Phase 2.2 Fix Topology Constraints
-Phase 2.2 Fix Topology Constraints | Checksum: 12de977da
-
-Time (s): cpu = 00:00:17 ; elapsed = 00:00:17 . Memory (MB): peak = 3862.848 ; gain = 65.672 ; free physical = 389 ; free virtual = 8349
-
-Phase 2.3 Pre Route Cleanup
-Phase 2.3 Pre Route Cleanup | Checksum: 12de977da
-
-Time (s): cpu = 00:00:17 ; elapsed = 00:00:17 . Memory (MB): peak = 3862.848 ; gain = 65.672 ; free physical = 389 ; free virtual = 8349
- Number of Nodes with overlaps = 0
-
-Phase 2.4 Update Timing
-Phase 2.4 Update Timing | Checksum: 194e16e55
-
-Time (s): cpu = 00:00:37 ; elapsed = 00:00:37 . Memory (MB): peak = 3935.723 ; gain = 138.547 ; free physical = 229 ; free virtual = 8257
-INFO: [Route 35-416] Intermediate Timing Summary | WNS=0.136  | TNS=0.000  | WHS=-0.303 | THS=-1071.532|
-
-
-Phase 2.5 Update Timing for Bus Skew
-
-Phase 2.5.1 Update Timing
-Phase 2.5.1 Update Timing | Checksum: 13f1aaa8e
-
-Time (s): cpu = 00:00:55 ; elapsed = 00:00:56 . Memory (MB): peak = 3935.723 ; gain = 138.547 ; free physical = 156 ; free virtual = 8091
-INFO: [Route 35-416] Intermediate Timing Summary | WNS=0.136  | TNS=0.000  | WHS=N/A    | THS=N/A    |
-
-Phase 2.5 Update Timing for Bus Skew | Checksum: 16ec25087
-
-Time (s): cpu = 00:00:56 ; elapsed = 00:00:56 . Memory (MB): peak = 3951.723 ; gain = 154.547 ; free physical = 168 ; free virtual = 8079
-Phase 2 Router Initialization | Checksum: 103ed4fa0
-
-Time (s): cpu = 00:00:56 ; elapsed = 00:00:56 . Memory (MB): peak = 3951.723 ; gain = 154.547 ; free physical = 164 ; free virtual = 8077
-
-Router Utilization Summary
-  Global Vertical Routing Utilization    = 0.00178439 %
-  Global Horizontal Routing Utilization  = 0.00191816 %
-  Routable Net Status*
-  *Does not include unroutable nets such as driverless and loadless.
-  Run report_route_status for detailed report.
-  Number of Failed Nets               = 72907
-    (Failed Nets is the sum of unrouted and partially routed nets)
-  Number of Unrouted Nets             = 72907
-  Number of Partially Routed Nets     = 0
-  Number of Node Overlaps             = 0
-
-
-Phase 3 Initial Routing
-
-Phase 3.1 Global Routing
-Phase 3.1 Global Routing | Checksum: 103ed4fa0
-
-Time (s): cpu = 00:00:56 ; elapsed = 00:00:57 . Memory (MB): peak = 3951.723 ; gain = 154.547 ; free physical = 228 ; free virtual = 8132
-Phase 3 Initial Routing | Checksum: 14996f8f8
-
-Time (s): cpu = 00:01:08 ; elapsed = 00:01:08 . Memory (MB): peak = 3951.723 ; gain = 154.547 ; free physical = 145 ; free virtual = 8175
-
-Phase 4 Rip-up And Reroute
-
-Phase 4.1 Global Iteration 0
- Number of Nodes with overlaps = 20353
- Number of Nodes with overlaps = 4198
- Number of Nodes with overlaps = 1543
- Number of Nodes with overlaps = 648
- Number of Nodes with overlaps = 212
- Number of Nodes with overlaps = 104
- Number of Nodes with overlaps = 57
- Number of Nodes with overlaps = 34
- Number of Nodes with overlaps = 12
- Number of Nodes with overlaps = 6
- Number of Nodes with overlaps = 5
- Number of Nodes with overlaps = 9
- Number of Nodes with overlaps = 2
- Number of Nodes with overlaps = 0
-INFO: [Route 35-416] Intermediate Timing Summary | WNS=-0.400 | TNS=-17.756| WHS=N/A    | THS=N/A    |
-
-Phase 4.1 Global Iteration 0 | Checksum: 1ff9ef51b
-
-Time (s): cpu = 00:02:59 ; elapsed = 00:03:00 . Memory (MB): peak = 3951.723 ; gain = 154.547 ; free physical = 559 ; free virtual = 7226
-
-Phase 4.2 Global Iteration 1
- Number of Nodes with overlaps = 782
- Number of Nodes with overlaps = 293
- Number of Nodes with overlaps = 121
- Number of Nodes with overlaps = 80
- Number of Nodes with overlaps = 34
- Number of Nodes with overlaps = 22
- Number of Nodes with overlaps = 12
- Number of Nodes with overlaps = 7
- Number of Nodes with overlaps = 7
- Number of Nodes with overlaps = 2
- Number of Nodes with overlaps = 4
- Number of Nodes with overlaps = 3
- Number of Nodes with overlaps = 5
- Number of Nodes with overlaps = 1
- Number of Nodes with overlaps = 4
- Number of Nodes with overlaps = 1
- Number of Nodes with overlaps = 0
-INFO: [Route 35-416] Intermediate Timing Summary | WNS=0.310  | TNS=0.000  | WHS=N/A    | THS=N/A    |
-
-Phase 4.2 Global Iteration 1 | Checksum: 1cd16fd3e
-
-Time (s): cpu = 00:03:23 ; elapsed = 00:03:24 . Memory (MB): peak = 3951.723 ; gain = 154.547 ; free physical = 580 ; free virtual = 7244
-
-Phase 4.3 Global Iteration 2
- Number of Nodes with overlaps = 1
- Number of Nodes with overlaps = 0
-INFO: [Route 35-416] Intermediate Timing Summary | WNS=0.310  | TNS=0.000  | WHS=N/A    | THS=N/A    |
-
-Phase 4.3 Global Iteration 2 | Checksum: 17ea817cd
-
-Time (s): cpu = 00:03:24 ; elapsed = 00:03:26 . Memory (MB): peak = 3951.723 ; gain = 154.547 ; free physical = 593 ; free virtual = 7258
-Phase 4 Rip-up And Reroute | Checksum: 17ea817cd
-
-Time (s): cpu = 00:03:25 ; elapsed = 00:03:26 . Memory (MB): peak = 3951.723 ; gain = 154.547 ; free physical = 592 ; free virtual = 7257
-
-Phase 5 Delay and Skew Optimization
-
-Phase 5.1 Delay CleanUp
-Phase 5.1 Delay CleanUp | Checksum: 17ea817cd
-
-Time (s): cpu = 00:03:25 ; elapsed = 00:03:26 . Memory (MB): peak = 3951.723 ; gain = 154.547 ; free physical = 592 ; free virtual = 7257
-
-Phase 5.2 Clock Skew Optimization
-Phase 5.2 Clock Skew Optimization | Checksum: 17ea817cd
-
-Time (s): cpu = 00:03:25 ; elapsed = 00:03:26 . Memory (MB): peak = 3951.723 ; gain = 154.547 ; free physical = 592 ; free virtual = 7257
-Phase 5 Delay and Skew Optimization | Checksum: 17ea817cd
-
-Time (s): cpu = 00:03:25 ; elapsed = 00:03:26 . Memory (MB): peak = 3951.723 ; gain = 154.547 ; free physical = 595 ; free virtual = 7260
-
-Phase 6 Post Hold Fix
-
-Phase 6.1 Hold Fix Iter
-
-Phase 6.1.1 Update Timing
-Phase 6.1.1 Update Timing | Checksum: 1d2561587
-
-Time (s): cpu = 00:03:31 ; elapsed = 00:03:32 . Memory (MB): peak = 3951.723 ; gain = 154.547 ; free physical = 610 ; free virtual = 7275
-INFO: [Route 35-416] Intermediate Timing Summary | WNS=0.310  | TNS=0.000  | WHS=0.022  | THS=0.000  |
-
-Phase 6.1 Hold Fix Iter | Checksum: 20347e350
-
-Time (s): cpu = 00:03:31 ; elapsed = 00:03:33 . Memory (MB): peak = 3951.723 ; gain = 154.547 ; free physical = 606 ; free virtual = 7271
-Phase 6 Post Hold Fix | Checksum: 20347e350
-
-Time (s): cpu = 00:03:31 ; elapsed = 00:03:33 . Memory (MB): peak = 3951.723 ; gain = 154.547 ; free physical = 606 ; free virtual = 7271
-
-Phase 7 Route finalize
-
-Router Utilization Summary
-  Global Vertical Routing Utilization    = 20.5914 %
-  Global Horizontal Routing Utilization  = 23.7155 %
-  Routable Net Status*
-  *Does not include unroutable nets such as driverless and loadless.
-  Run report_route_status for detailed report.
-  Number of Failed Nets               = 0
-    (Failed Nets is the sum of unrouted and partially routed nets)
-  Number of Unrouted Nets             = 0
-  Number of Partially Routed Nets     = 0
-  Number of Node Overlaps             = 0
-
-Phase 7 Route finalize | Checksum: 1f072ea38
-
-Time (s): cpu = 00:03:32 ; elapsed = 00:03:33 . Memory (MB): peak = 3951.723 ; gain = 154.547 ; free physical = 606 ; free virtual = 7271
-
-Phase 8 Verifying routed nets
-
- Verification completed successfully
-Phase 8 Verifying routed nets | Checksum: 1f072ea38
-
-Time (s): cpu = 00:03:32 ; elapsed = 00:03:33 . Memory (MB): peak = 3951.723 ; gain = 154.547 ; free physical = 606 ; free virtual = 7271
-
-Phase 9 Depositing Routes
-Phase 9 Depositing Routes | Checksum: 205eaaae0
-
-Time (s): cpu = 00:03:35 ; elapsed = 00:03:36 . Memory (MB): peak = 3951.723 ; gain = 154.547 ; free physical = 602 ; free virtual = 7268
-
-Phase 10 Post Router Timing
-INFO: [Route 35-57] Estimated Timing Summary | WNS=0.310  | TNS=0.000  | WHS=0.022  | THS=0.000  |
-
-INFO: [Route 35-327] The final timing numbers are based on the router estimated timing analysis. For a complete and accurate timing signoff, please run report_timing_summary.
-Phase 10 Post Router Timing | Checksum: 205eaaae0
-
-Time (s): cpu = 00:03:40 ; elapsed = 00:03:42 . Memory (MB): peak = 3951.723 ; gain = 154.547 ; free physical = 600 ; free virtual = 7266
-INFO: [Route 35-16] Router Completed Successfully
-
-Time (s): cpu = 00:03:40 ; elapsed = 00:03:42 . Memory (MB): peak = 3951.723 ; gain = 154.547 ; free physical = 649 ; free virtual = 7315
-
-Routing Is Done.
-INFO: [Common 17-83] Releasing license: Implementation
-117 Infos, 7 Warnings, 0 Critical Warnings and 0 Errors encountered.
-route_design completed successfully
-route_design: Time (s): cpu = 00:03:55 ; elapsed = 00:03:56 . Memory (MB): peak = 3951.723 ; gain = 193.438 ; free physical = 649 ; free virtual = 7315
-INFO: [Common 17-600] The following parameters have non-default value.
-general.maxThreads
-INFO: [Timing 38-480] Writing timing data to binary archive.
-Writing placer database...
-Writing XDEF routing.
-Writing XDEF routing logical nets.
-Writing XDEF routing special nets.
-Write XDEF Complete: Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 3951.723 ; gain = 0.000 ; free physical = 453 ; free virtual = 7292
-INFO: [Common 17-1381] The checkpoint '/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/impl_1/riscv_wrapper_routed.dcp' has been generated.
-write_checkpoint: Time (s): cpu = 00:00:19 ; elapsed = 00:00:20 . Memory (MB): peak = 3951.723 ; gain = 0.000 ; free physical = 525 ; free virtual = 7235
-INFO: [runtcl-4] Executing : report_drc -file riscv_wrapper_drc_routed.rpt -pb riscv_wrapper_drc_routed.pb -rpx riscv_wrapper_drc_routed.rpx
-Command: report_drc -file riscv_wrapper_drc_routed.rpt -pb riscv_wrapper_drc_routed.pb -rpx riscv_wrapper_drc_routed.rpx
-INFO: [IP_Flow 19-1839] IP Catalog is up to date.
-INFO: [Vivado_Tcl 2-168] The results of DRC are in file /home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/impl_1/riscv_wrapper_drc_routed.rpt.
-report_drc completed successfully
-report_drc: Time (s): cpu = 00:00:18 ; elapsed = 00:00:18 . Memory (MB): peak = 4066.418 ; gain = 114.695 ; free physical = 389 ; free virtual = 7107
-INFO: [runtcl-4] Executing : report_methodology -file riscv_wrapper_methodology_drc_routed.rpt -pb riscv_wrapper_methodology_drc_routed.pb -rpx riscv_wrapper_methodology_drc_routed.rpx
-Command: report_methodology -file riscv_wrapper_methodology_drc_routed.rpt -pb riscv_wrapper_methodology_drc_routed.pb -rpx riscv_wrapper_methodology_drc_routed.rpx
-INFO: [Timing 38-35] Done setting XDC timing constraints.
-INFO: [Vivado_Tcl 2-1520] The results of Report Methodology are in file /home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/impl_1/riscv_wrapper_methodology_drc_routed.rpt.
-report_methodology completed successfully
-report_methodology: Time (s): cpu = 00:00:24 ; elapsed = 00:00:24 . Memory (MB): peak = 4066.418 ; gain = 0.000 ; free physical = 201 ; free virtual = 6850
-INFO: [runtcl-4] Executing : report_power -file riscv_wrapper_power_routed.rpt -pb riscv_wrapper_power_summary_routed.pb -rpx riscv_wrapper_power_routed.rpx
-Command: report_power -file riscv_wrapper_power_routed.rpt -pb riscv_wrapper_power_summary_routed.pb -rpx riscv_wrapper_power_routed.rpx
-INFO: [Timing 38-35] Done setting XDC timing constraints.
-Running Vector-less Activity Propagation...
-
-Finished Running Vector-less Activity Propagation
-WARNING: [Power 33-332] Found switching activity that implies high-fanout reset nets being asserted for excessive periods of time which may result in inaccurate power analysis.
-Resolution: To review and fix problems, please run Power Constraints Advisor in the GUI from Tools > Power Constraints Advisor or run report_power with the -advisory option to generate a text report.
-128 Infos, 8 Warnings, 0 Critical Warnings and 0 Errors encountered.
-report_power completed successfully
-report_power: Time (s): cpu = 00:00:26 ; elapsed = 00:00:23 . Memory (MB): peak = 4066.418 ; gain = 0.000 ; free physical = 251 ; free virtual = 6501
-INFO: [runtcl-4] Executing : report_route_status -file riscv_wrapper_route_status.rpt -pb riscv_wrapper_route_status.pb
-INFO: [runtcl-4] Executing : report_timing_summary -max_paths 10 -file riscv_wrapper_timing_summary_routed.rpt -pb riscv_wrapper_timing_summary_routed.pb -rpx riscv_wrapper_timing_summary_routed.rpx -warn_on_violation 
-INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -1, Delay Type: min_max.
-WARNING: [Timing 38-436] There are set_bus_skew constraint(s) in this design. Please run report_bus_skew to ensure that bus skew requirements are met.
-INFO: [runtcl-4] Executing : report_incremental_reuse -file riscv_wrapper_incremental_reuse_routed.rpt
-INFO: [Vivado_Tcl 4-1062] Incremental flow is disabled. No incremental reuse Info to report.
-INFO: [runtcl-4] Executing : report_clock_utilization -file riscv_wrapper_clock_utilization_routed.rpt
-INFO: [runtcl-4] Executing : report_bus_skew -warn_on_violation -file riscv_wrapper_bus_skew_routed.rpt -pb riscv_wrapper_bus_skew_routed.pb -rpx riscv_wrapper_bus_skew_routed.rpx
-INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -1, Delay Type: min_max.
-INFO: [Memdata 28-167] Found XPM memory block riscv_i/IO/io_axi_m/inst/s01_nodes/s01_w_node/inst/gen_normal.inst_mi_handler/gen_normal_area.inst_fifo_node_payld/gen_xpm_memory_fifo.inst_fifo/gen_mem_rep[0].inst_xpm_memory/xpm_memory_base_inst with a P_MEMORY_PRIMITIVE property set to distributed. A value of block is required. You will not be able to use the updatemem program to update the bitstream with new data for the riscv_i/IO/io_axi_m/inst/s01_nodes/s01_w_node/inst/gen_normal.inst_mi_handler/gen_normal_area.inst_fifo_node_payld/gen_xpm_memory_fifo.inst_fifo/gen_mem_rep[0].inst_xpm_memory/xpm_memory_base_inst block.
-INFO: [Memdata 28-167] Found XPM memory block riscv_i/IO/io_axi_m/inst/s01_nodes/s01_w_node/inst/gen_normal.inst_mi_handler/gen_normal_area.gen_fifo_req.inst_fifo_req/gen_xpm_memory_fifo.inst_fifo/gen_mem_rep[0].inst_xpm_memory/xpm_memory_base_inst with a P_MEMORY_PRIMITIVE property set to distributed. A value of block is required. You will not be able to use the updatemem program to update the bitstream with new data for the riscv_i/IO/io_axi_m/inst/s01_nodes/s01_w_node/inst/gen_normal.inst_mi_handler/gen_normal_area.gen_fifo_req.inst_fifo_req/gen_xpm_memory_fifo.inst_fifo/gen_mem_rep[0].inst_xpm_memory/xpm_memory_base_inst block.
-INFO: [Memdata 28-167] Found XPM memory block riscv_i/IO/io_axi_m/inst/s01_nodes/s01_r_node/inst/gen_normal.inst_mi_handler/gen_normal_area.inst_fifo_node_payld/gen_xpm_memory_fifo.inst_fifo/gen_mem_rep[0].inst_xpm_memory/xpm_memory_base_inst with a P_MEMORY_PRIMITIVE property set to distributed. A value of block is required. You will not be able to use the updatemem program to update the bitstream with new data for the riscv_i/IO/io_axi_m/inst/s01_nodes/s01_r_node/inst/gen_normal.inst_mi_handler/gen_normal_area.inst_fifo_node_payld/gen_xpm_memory_fifo.inst_fifo/gen_mem_rep[0].inst_xpm_memory/xpm_memory_base_inst block.
-INFO: [Memdata 28-167] Found XPM memory block riscv_i/IO/io_axi_m/inst/s01_nodes/s01_b_node/inst/gen_normal.inst_mi_handler/gen_normal_area.inst_fifo_node_payld/gen_xpm_memory_fifo.inst_fifo/gen_mem_rep[0].inst_xpm_memory/xpm_memory_base_inst with a P_MEMORY_PRIMITIVE property set to distributed. A value of block is required. You will not be able to use the updatemem program to update the bitstream with new data for the riscv_i/IO/io_axi_m/inst/s01_nodes/s01_b_node/inst/gen_normal.inst_mi_handler/gen_normal_area.inst_fifo_node_payld/gen_xpm_memory_fifo.inst_fifo/gen_mem_rep[0].inst_xpm_memory/xpm_memory_base_inst block.
-INFO: [Memdata 28-167] Found XPM memory block riscv_i/IO/io_axi_m/inst/s01_nodes/s01_aw_node/inst/gen_normal.inst_mi_handler/gen_normal_area.inst_fifo_node_payld/gen_xpm_memory_fifo.inst_fifo/gen_mem_rep[0].inst_xpm_memory/xpm_memory_base_inst with a P_MEMORY_PRIMITIVE property set to distributed. A value of block is required. You will not be able to use the updatemem program to update the bitstream with new data for the riscv_i/IO/io_axi_m/inst/s01_nodes/s01_aw_node/inst/gen_normal.inst_mi_handler/gen_normal_area.inst_fifo_node_payld/gen_xpm_memory_fifo.inst_fifo/gen_mem_rep[0].inst_xpm_memory/xpm_memory_base_inst block.
-INFO: [Memdata 28-167] Found XPM memory block riscv_i/IO/io_axi_m/inst/s01_nodes/s01_ar_node/inst/gen_normal.inst_mi_handler/gen_normal_area.inst_fifo_node_payld/gen_xpm_memory_fifo.inst_fifo/gen_mem_rep[0].inst_xpm_memory/xpm_memory_base_inst with a P_MEMORY_PRIMITIVE property set to distributed. A value of block is required. You will not be able to use the updatemem program to update the bitstream with new data for the riscv_i/IO/io_axi_m/inst/s01_nodes/s01_ar_node/inst/gen_normal.inst_mi_handler/gen_normal_area.inst_fifo_node_payld/gen_xpm_memory_fifo.inst_fifo/gen_mem_rep[0].inst_xpm_memory/xpm_memory_base_inst block.
-INFO: [Memdata 28-167] Found XPM memory block riscv_i/IO/io_axi_m/inst/s00_nodes/s00_w_node/inst/gen_normal.inst_mi_handler/gen_normal_area.inst_fifo_node_payld/gen_xpm_memory_fifo.inst_fifo/gen_mem_rep[0].inst_xpm_memory/xpm_memory_base_inst with a P_MEMORY_PRIMITIVE property set to distributed. A value of block is required. You will not be able to use the updatemem program to update the bitstream with new data for the riscv_i/IO/io_axi_m/inst/s00_nodes/s00_w_node/inst/gen_normal.inst_mi_handler/gen_normal_area.inst_fifo_node_payld/gen_xpm_memory_fifo.inst_fifo/gen_mem_rep[0].inst_xpm_memory/xpm_memory_base_inst block.
-INFO: [Memdata 28-167] Found XPM memory block riscv_i/IO/io_axi_m/inst/s00_nodes/s00_w_node/inst/gen_normal.inst_mi_handler/gen_normal_area.gen_fifo_req.inst_fifo_req/gen_xpm_memory_fifo.inst_fifo/gen_mem_rep[0].inst_xpm_memory/xpm_memory_base_inst with a P_MEMORY_PRIMITIVE property set to distributed. A value of block is required. You will not be able to use the updatemem program to update the bitstream with new data for the riscv_i/IO/io_axi_m/inst/s00_nodes/s00_w_node/inst/gen_normal.inst_mi_handler/gen_normal_area.gen_fifo_req.inst_fifo_req/gen_xpm_memory_fifo.inst_fifo/gen_mem_rep[0].inst_xpm_memory/xpm_memory_base_inst block.
-INFO: [Memdata 28-167] Found XPM memory block riscv_i/IO/io_axi_m/inst/s00_nodes/s00_r_node/inst/gen_normal.inst_mi_handler/gen_normal_area.inst_fifo_node_payld/gen_xpm_memory_fifo.inst_fifo/gen_mem_rep[0].inst_xpm_memory/xpm_memory_base_inst with a P_MEMORY_PRIMITIVE property set to distributed. A value of block is required. You will not be able to use the updatemem program to update the bitstream with new data for the riscv_i/IO/io_axi_m/inst/s00_nodes/s00_r_node/inst/gen_normal.inst_mi_handler/gen_normal_area.inst_fifo_node_payld/gen_xpm_memory_fifo.inst_fifo/gen_mem_rep[0].inst_xpm_memory/xpm_memory_base_inst block.
-INFO: [Memdata 28-167] Found XPM memory block riscv_i/IO/io_axi_m/inst/s00_nodes/s00_b_node/inst/gen_normal.inst_mi_handler/gen_normal_area.inst_fifo_node_payld/gen_xpm_memory_fifo.inst_fifo/gen_mem_rep[0].inst_xpm_memory/xpm_memory_base_inst with a P_MEMORY_PRIMITIVE property set to distributed. A value of block is required. You will not be able to use the updatemem program to update the bitstream with new data for the riscv_i/IO/io_axi_m/inst/s00_nodes/s00_b_node/inst/gen_normal.inst_mi_handler/gen_normal_area.inst_fifo_node_payld/gen_xpm_memory_fifo.inst_fifo/gen_mem_rep[0].inst_xpm_memory/xpm_memory_base_inst block.
-INFO: [Memdata 28-167] Found XPM memory block riscv_i/IO/io_axi_m/inst/s00_nodes/s00_aw_node/inst/gen_normal.inst_mi_handler/gen_normal_area.inst_fifo_node_payld/gen_xpm_memory_fifo.inst_fifo/gen_mem_rep[0].inst_xpm_memory/xpm_memory_base_inst with a P_MEMORY_PRIMITIVE property set to distributed. A value of block is required. You will not be able to use the updatemem program to update the bitstream with new data for the riscv_i/IO/io_axi_m/inst/s00_nodes/s00_aw_node/inst/gen_normal.inst_mi_handler/gen_normal_area.inst_fifo_node_payld/gen_xpm_memory_fifo.inst_fifo/gen_mem_rep[0].inst_xpm_memory/xpm_memory_base_inst block.
-INFO: [Memdata 28-167] Found XPM memory block riscv_i/IO/io_axi_m/inst/s00_nodes/s00_ar_node/inst/gen_normal.inst_mi_handler/gen_normal_area.inst_fifo_node_payld/gen_xpm_memory_fifo.inst_fifo/gen_mem_rep[0].inst_xpm_memory/xpm_memory_base_inst with a P_MEMORY_PRIMITIVE property set to distributed. A value of block is required. You will not be able to use the updatemem program to update the bitstream with new data for the riscv_i/IO/io_axi_m/inst/s00_nodes/s00_ar_node/inst/gen_normal.inst_mi_handler/gen_normal_area.inst_fifo_node_payld/gen_xpm_memory_fifo.inst_fifo/gen_mem_rep[0].inst_xpm_memory/xpm_memory_base_inst block.
-INFO: [Memdata 28-167] Found XPM memory block riscv_i/IO/io_axi_m/inst/m00_nodes/m00_w_node/inst/gen_normal.inst_si_handler/gen_si_handler.gen_request_fifos.gen_req_fifo[1].inst_req_fifo/gen_xpm_memory_fifo.inst_fifo/gen_mem_rep[0].inst_xpm_memory/xpm_memory_base_inst with a P_MEMORY_PRIMITIVE property set to distributed. A value of block is required. You will not be able to use the updatemem program to update the bitstream with new data for the riscv_i/IO/io_axi_m/inst/m00_nodes/m00_w_node/inst/gen_normal.inst_si_handler/gen_si_handler.gen_request_fifos.gen_req_fifo[1].inst_req_fifo/gen_xpm_memory_fifo.inst_fifo/gen_mem_rep[0].inst_xpm_memory/xpm_memory_base_inst block.
-INFO: [Memdata 28-167] Found XPM memory block riscv_i/IO/io_axi_m/inst/m00_nodes/m00_w_node/inst/gen_normal.inst_si_handler/gen_si_handler.gen_request_fifos.gen_req_fifo[0].inst_req_fifo/gen_xpm_memory_fifo.inst_fifo/gen_mem_rep[0].inst_xpm_memory/xpm_memory_base_inst with a P_MEMORY_PRIMITIVE property set to distributed. A value of block is required. You will not be able to use the updatemem program to update the bitstream with new data for the riscv_i/IO/io_axi_m/inst/m00_nodes/m00_w_node/inst/gen_normal.inst_si_handler/gen_si_handler.gen_request_fifos.gen_req_fifo[0].inst_req_fifo/gen_xpm_memory_fifo.inst_fifo/gen_mem_rep[0].inst_xpm_memory/xpm_memory_base_inst block.
-INFO: [Memdata 28-167] Found XPM memory block riscv_i/IO/io_axi_m/inst/m00_nodes/m00_w_node/inst/gen_normal.inst_mi_handler/gen_normal_area.inst_fifo_node_payld/gen_xpm_memory_fifo.inst_fifo/gen_mem_rep[0].inst_xpm_memory/xpm_memory_base_inst with a P_MEMORY_PRIMITIVE property set to distributed. A value of block is required. You will not be able to use the updatemem program to update the bitstream with new data for the riscv_i/IO/io_axi_m/inst/m00_nodes/m00_w_node/inst/gen_normal.inst_mi_handler/gen_normal_area.inst_fifo_node_payld/gen_xpm_memory_fifo.inst_fifo/gen_mem_rep[0].inst_xpm_memory/xpm_memory_base_inst block.
-INFO: [Memdata 28-167] Found XPM memory block riscv_i/IO/io_axi_m/inst/m00_nodes/m00_r_node/inst/gen_normal.inst_mi_handler/gen_normal_area.inst_fifo_node_payld/gen_xpm_memory_fifo.inst_fifo/gen_mem_rep[0].inst_xpm_memory/xpm_memory_base_inst with a P_MEMORY_PRIMITIVE property set to distributed. A value of block is required. You will not be able to use the updatemem program to update the bitstream with new data for the riscv_i/IO/io_axi_m/inst/m00_nodes/m00_r_node/inst/gen_normal.inst_mi_handler/gen_normal_area.inst_fifo_node_payld/gen_xpm_memory_fifo.inst_fifo/gen_mem_rep[0].inst_xpm_memory/xpm_memory_base_inst block.
-INFO: [Memdata 28-167] Found XPM memory block riscv_i/IO/io_axi_m/inst/m00_nodes/m00_r_node/inst/gen_normal.inst_mi_handler/gen_normal_area.gen_fifo_req.inst_fifo_req/gen_xpm_memory_fifo.inst_fifo/gen_mem_rep[0].inst_xpm_memory/xpm_memory_base_inst with a P_MEMORY_PRIMITIVE property set to distributed. A value of block is required. You will not be able to use the updatemem program to update the bitstream with new data for the riscv_i/IO/io_axi_m/inst/m00_nodes/m00_r_node/inst/gen_normal.inst_mi_handler/gen_normal_area.gen_fifo_req.inst_fifo_req/gen_xpm_memory_fifo.inst_fifo/gen_mem_rep[0].inst_xpm_memory/xpm_memory_base_inst block.
-INFO: [Memdata 28-167] Found XPM memory block riscv_i/IO/io_axi_m/inst/m00_nodes/m00_b_node/inst/gen_normal.inst_mi_handler/gen_normal_area.inst_fifo_node_payld/gen_xpm_memory_fifo.inst_fifo/gen_mem_rep[0].inst_xpm_memory/xpm_memory_base_inst with a P_MEMORY_PRIMITIVE property set to distributed. A value of block is required. You will not be able to use the updatemem program to update the bitstream with new data for the riscv_i/IO/io_axi_m/inst/m00_nodes/m00_b_node/inst/gen_normal.inst_mi_handler/gen_normal_area.inst_fifo_node_payld/gen_xpm_memory_fifo.inst_fifo/gen_mem_rep[0].inst_xpm_memory/xpm_memory_base_inst block.
-INFO: [Memdata 28-167] Found XPM memory block riscv_i/IO/io_axi_m/inst/m00_nodes/m00_b_node/inst/gen_normal.inst_mi_handler/gen_normal_area.gen_fifo_req.inst_fifo_req/gen_xpm_memory_fifo.inst_fifo/gen_mem_rep[0].inst_xpm_memory/xpm_memory_base_inst with a P_MEMORY_PRIMITIVE property set to distributed. A value of block is required. You will not be able to use the updatemem program to update the bitstream with new data for the riscv_i/IO/io_axi_m/inst/m00_nodes/m00_b_node/inst/gen_normal.inst_mi_handler/gen_normal_area.gen_fifo_req.inst_fifo_req/gen_xpm_memory_fifo.inst_fifo/gen_mem_rep[0].inst_xpm_memory/xpm_memory_base_inst block.
-INFO: [Memdata 28-167] Found XPM memory block riscv_i/IO/io_axi_m/inst/m00_nodes/m00_aw_node/inst/gen_normal.inst_mi_handler/gen_normal_area.inst_fifo_node_payld/gen_xpm_memory_fifo.inst_fifo/gen_mem_rep[0].inst_xpm_memory/xpm_memory_base_inst with a P_MEMORY_PRIMITIVE property set to distributed. A value of block is required. You will not be able to use the updatemem program to update the bitstream with new data for the riscv_i/IO/io_axi_m/inst/m00_nodes/m00_aw_node/inst/gen_normal.inst_mi_handler/gen_normal_area.inst_fifo_node_payld/gen_xpm_memory_fifo.inst_fifo/gen_mem_rep[0].inst_xpm_memory/xpm_memory_base_inst block.
-INFO: [Memdata 28-167] Found XPM memory block riscv_i/IO/io_axi_m/inst/m00_nodes/m00_ar_node/inst/gen_normal.inst_mi_handler/gen_normal_area.inst_fifo_node_payld/gen_xpm_memory_fifo.inst_fifo/gen_mem_rep[0].inst_xpm_memory/xpm_memory_base_inst with a P_MEMORY_PRIMITIVE property set to distributed. A value of block is required. You will not be able to use the updatemem program to update the bitstream with new data for the riscv_i/IO/io_axi_m/inst/m00_nodes/m00_ar_node/inst/gen_normal.inst_mi_handler/gen_normal_area.inst_fifo_node_payld/gen_xpm_memory_fifo.inst_fifo/gen_mem_rep[0].inst_xpm_memory/xpm_memory_base_inst block.
-INFO: [Memdata 28-167] Found XPM memory block riscv_i/DDR/axi_smc_1/inst/s00_nodes/s00_w_node/inst/gen_normal.inst_mi_handler/gen_normal_area.inst_fifo_node_payld/gen_xpm_memory_fifo.inst_fifo/gen_mem_rep[0].inst_xpm_memory/xpm_memory_base_inst with a P_MEMORY_PRIMITIVE property set to distributed. A value of block is required. You will not be able to use the updatemem program to update the bitstream with new data for the riscv_i/DDR/axi_smc_1/inst/s00_nodes/s00_w_node/inst/gen_normal.inst_mi_handler/gen_normal_area.inst_fifo_node_payld/gen_xpm_memory_fifo.inst_fifo/gen_mem_rep[0].inst_xpm_memory/xpm_memory_base_inst block.
-INFO: [Memdata 28-167] Found XPM memory block riscv_i/DDR/axi_smc_1/inst/s00_nodes/s00_r_node/inst/gen_normal.inst_mi_handler/gen_normal_area.inst_fifo_node_payld/gen_xpm_memory_fifo.inst_fifo/gen_mem_rep[0].inst_xpm_memory/xpm_memory_base_inst with a P_MEMORY_PRIMITIVE property set to distributed. A value of block is required. You will not be able to use the updatemem program to update the bitstream with new data for the riscv_i/DDR/axi_smc_1/inst/s00_nodes/s00_r_node/inst/gen_normal.inst_mi_handler/gen_normal_area.inst_fifo_node_payld/gen_xpm_memory_fifo.inst_fifo/gen_mem_rep[0].inst_xpm_memory/xpm_memory_base_inst block.
-INFO: [Memdata 28-167] Found XPM memory block riscv_i/DDR/axi_smc_1/inst/s00_nodes/s00_b_node/inst/gen_normal.inst_mi_handler/gen_normal_area.inst_fifo_node_payld/gen_xpm_memory_fifo.inst_fifo/gen_mem_rep[0].inst_xpm_memory/xpm_memory_base_inst with a P_MEMORY_PRIMITIVE property set to distributed. A value of block is required. You will not be able to use the updatemem program to update the bitstream with new data for the riscv_i/DDR/axi_smc_1/inst/s00_nodes/s00_b_node/inst/gen_normal.inst_mi_handler/gen_normal_area.inst_fifo_node_payld/gen_xpm_memory_fifo.inst_fifo/gen_mem_rep[0].inst_xpm_memory/xpm_memory_base_inst block.
-INFO: [Memdata 28-167] Found XPM memory block riscv_i/DDR/axi_smc_1/inst/s00_nodes/s00_aw_node/inst/gen_normal.inst_mi_handler/gen_normal_area.inst_fifo_node_payld/gen_xpm_memory_fifo.inst_fifo/gen_mem_rep[0].inst_xpm_memory/xpm_memory_base_inst with a P_MEMORY_PRIMITIVE property set to distributed. A value of block is required. You will not be able to use the updatemem program to update the bitstream with new data for the riscv_i/DDR/axi_smc_1/inst/s00_nodes/s00_aw_node/inst/gen_normal.inst_mi_handler/gen_normal_area.inst_fifo_node_payld/gen_xpm_memory_fifo.inst_fifo/gen_mem_rep[0].inst_xpm_memory/xpm_memory_base_inst block.
-INFO: [Memdata 28-167] Found XPM memory block riscv_i/DDR/axi_smc_1/inst/s00_nodes/s00_ar_node/inst/gen_normal.inst_mi_handler/gen_normal_area.inst_fifo_node_payld/gen_xpm_memory_fifo.inst_fifo/gen_mem_rep[0].inst_xpm_memory/xpm_memory_base_inst with a P_MEMORY_PRIMITIVE property set to distributed. A value of block is required. You will not be able to use the updatemem program to update the bitstream with new data for the riscv_i/DDR/axi_smc_1/inst/s00_nodes/s00_ar_node/inst/gen_normal.inst_mi_handler/gen_normal_area.inst_fifo_node_payld/gen_xpm_memory_fifo.inst_fifo/gen_mem_rep[0].inst_xpm_memory/xpm_memory_base_inst block.
-Command: write_bitstream -force riscv_wrapper.bit
-Attempting to get a license for feature 'Implementation' and/or device 'xc7a100t'
-INFO: [Common 17-349] Got license for feature 'Implementation' and/or device 'xc7a100t'
-Running DRC as a precondition to command write_bitstream
-INFO: [IP_Flow 19-1839] IP Catalog is up to date.
-WARNING: [DRC DPIP-1] Input pipelining: DSP riscv_i/RocketChip/inst/rocket_system/tile_prci_domain/tile_reset_domain_tile/fpuOpt/dfma/fma/_mulAddResult_T input riscv_i/RocketChip/inst/rocket_system/tile_prci_domain/tile_reset_domain_tile/fpuOpt/dfma/fma/_mulAddResult_T/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
-WARNING: [DRC DPIP-1] Input pipelining: DSP riscv_i/RocketChip/inst/rocket_system/tile_prci_domain/tile_reset_domain_tile/fpuOpt/dfma/fma/_mulAddResult_T__0 input riscv_i/RocketChip/inst/rocket_system/tile_prci_domain/tile_reset_domain_tile/fpuOpt/dfma/fma/_mulAddResult_T__0/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
-WARNING: [DRC DPIP-1] Input pipelining: DSP riscv_i/RocketChip/inst/rocket_system/tile_prci_domain/tile_reset_domain_tile/fpuOpt/dfma/fma/_mulAddResult_T__1 input riscv_i/RocketChip/inst/rocket_system/tile_prci_domain/tile_reset_domain_tile/fpuOpt/dfma/fma/_mulAddResult_T__1/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
-WARNING: [DRC DPIP-1] Input pipelining: DSP riscv_i/RocketChip/inst/rocket_system/tile_prci_domain/tile_reset_domain_tile/fpuOpt/dfma/fma/_mulAddResult_T__2 input riscv_i/RocketChip/inst/rocket_system/tile_prci_domain/tile_reset_domain_tile/fpuOpt/dfma/fma/_mulAddResult_T__2/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
-WARNING: [DRC DPIP-1] Input pipelining: DSP riscv_i/RocketChip/inst/rocket_system/tile_prci_domain/tile_reset_domain_tile/fpuOpt/dfma/fma/_mulAddResult_T__4 input riscv_i/RocketChip/inst/rocket_system/tile_prci_domain/tile_reset_domain_tile/fpuOpt/dfma/fma/_mulAddResult_T__4/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
-WARNING: [DRC DPIP-1] Input pipelining: DSP riscv_i/RocketChip/inst/rocket_system/tile_prci_domain/tile_reset_domain_tile/fpuOpt/sfma/fma/_mulAddResult_T input riscv_i/RocketChip/inst/rocket_system/tile_prci_domain/tile_reset_domain_tile/fpuOpt/sfma/fma/_mulAddResult_T/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
-WARNING: [DRC DPIP-1] Input pipelining: DSP riscv_i/RocketChip/inst/rocket_system/tile_prci_domain/tile_reset_domain_tile/fpuOpt/sfma/fma/_mulAddResult_T__0 input riscv_i/RocketChip/inst/rocket_system/tile_prci_domain/tile_reset_domain_tile/fpuOpt/sfma/fma/_mulAddResult_T__0/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
-WARNING: [DRC DPIP-1] Input pipelining: DSP riscv_i/RocketChip/inst/rocket_system/tile_prci_domain/tile_reset_domain_tile/fpuOpt/sfma/fma/_mulAddResult_T__0 input riscv_i/RocketChip/inst/rocket_system/tile_prci_domain/tile_reset_domain_tile/fpuOpt/sfma/fma/_mulAddResult_T__0/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
-WARNING: [DRC DPOP-1] PREG Output pipelining: DSP riscv_i/RocketChip/inst/rocket_system/tile_prci_domain/tile_reset_domain_tile/core/div/_prod_T_3 output riscv_i/RocketChip/inst/rocket_system/tile_prci_domain/tile_reset_domain_tile/core/div/_prod_T_3/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
-WARNING: [DRC DPOP-1] PREG Output pipelining: DSP riscv_i/RocketChip/inst/rocket_system/tile_prci_domain/tile_reset_domain_tile/core/div/_prod_T_3__0 output riscv_i/RocketChip/inst/rocket_system/tile_prci_domain/tile_reset_domain_tile/core/div/_prod_T_3__0/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
-WARNING: [DRC DPOP-1] PREG Output pipelining: DSP riscv_i/RocketChip/inst/rocket_system/tile_prci_domain/tile_reset_domain_tile/core/div/_prod_T_3__1 output riscv_i/RocketChip/inst/rocket_system/tile_prci_domain/tile_reset_domain_tile/core/div/_prod_T_3__1/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
-WARNING: [DRC DPOP-1] PREG Output pipelining: DSP riscv_i/RocketChip/inst/rocket_system/tile_prci_domain/tile_reset_domain_tile/core/div/_prod_T_3__2 output riscv_i/RocketChip/inst/rocket_system/tile_prci_domain/tile_reset_domain_tile/core/div/_prod_T_3__2/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
-WARNING: [DRC DPOP-1] PREG Output pipelining: DSP riscv_i/RocketChip/inst/rocket_system/tile_prci_domain/tile_reset_domain_tile/fpuOpt/dfma/fma/_mulAddResult_T__0 output riscv_i/RocketChip/inst/rocket_system/tile_prci_domain/tile_reset_domain_tile/fpuOpt/dfma/fma/_mulAddResult_T__0/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
-WARNING: [DRC DPOP-1] PREG Output pipelining: DSP riscv_i/RocketChip/inst/rocket_system/tile_prci_domain/tile_reset_domain_tile/fpuOpt/dfma/fma/_mulAddResult_T__1 output riscv_i/RocketChip/inst/rocket_system/tile_prci_domain/tile_reset_domain_tile/fpuOpt/dfma/fma/_mulAddResult_T__1/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
-WARNING: [DRC DPOP-1] PREG Output pipelining: DSP riscv_i/RocketChip/inst/rocket_system/tile_prci_domain/tile_reset_domain_tile/fpuOpt/dfma/fma/_mulAddResult_T__4 output riscv_i/RocketChip/inst/rocket_system/tile_prci_domain/tile_reset_domain_tile/fpuOpt/dfma/fma/_mulAddResult_T__4/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
-WARNING: [DRC DPOP-1] PREG Output pipelining: DSP riscv_i/RocketChip/inst/rocket_system/tile_prci_domain/tile_reset_domain_tile/fpuOpt/dfma/fma/_mulAddResult_T__5 output riscv_i/RocketChip/inst/rocket_system/tile_prci_domain/tile_reset_domain_tile/fpuOpt/dfma/fma/_mulAddResult_T__5/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
-WARNING: [DRC DPOP-1] PREG Output pipelining: DSP riscv_i/RocketChip/inst/rocket_system/tile_prci_domain/tile_reset_domain_tile/fpuOpt/dfma/fma/_mulAddResult_T__7 output riscv_i/RocketChip/inst/rocket_system/tile_prci_domain/tile_reset_domain_tile/fpuOpt/dfma/fma/_mulAddResult_T__7/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
-WARNING: [DRC DPOP-1] PREG Output pipelining: DSP riscv_i/RocketChip/inst/rocket_system/tile_prci_domain/tile_reset_domain_tile/fpuOpt/sfma/fma/_mulAddResult_T output riscv_i/RocketChip/inst/rocket_system/tile_prci_domain/tile_reset_domain_tile/fpuOpt/sfma/fma/_mulAddResult_T/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
-WARNING: [DRC DPOP-1] PREG Output pipelining: DSP riscv_i/RocketChip/inst/rocket_system/tile_prci_domain/tile_reset_domain_tile/fpuOpt/sfma/fma/_mulAddResult_T__0 output riscv_i/RocketChip/inst/rocket_system/tile_prci_domain/tile_reset_domain_tile/fpuOpt/sfma/fma/_mulAddResult_T__0/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
-WARNING: [DRC DPOP-2] MREG Output pipelining: DSP riscv_i/RocketChip/inst/rocket_system/tile_prci_domain/tile_reset_domain_tile/core/div/_prod_T_3 multiplier stage riscv_i/RocketChip/inst/rocket_system/tile_prci_domain/tile_reset_domain_tile/core/div/_prod_T_3/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
-WARNING: [DRC DPOP-2] MREG Output pipelining: DSP riscv_i/RocketChip/inst/rocket_system/tile_prci_domain/tile_reset_domain_tile/core/div/_prod_T_3__0 multiplier stage riscv_i/RocketChip/inst/rocket_system/tile_prci_domain/tile_reset_domain_tile/core/div/_prod_T_3__0/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
-WARNING: [DRC DPOP-2] MREG Output pipelining: DSP riscv_i/RocketChip/inst/rocket_system/tile_prci_domain/tile_reset_domain_tile/core/div/_prod_T_3__1 multiplier stage riscv_i/RocketChip/inst/rocket_system/tile_prci_domain/tile_reset_domain_tile/core/div/_prod_T_3__1/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
-WARNING: [DRC DPOP-2] MREG Output pipelining: DSP riscv_i/RocketChip/inst/rocket_system/tile_prci_domain/tile_reset_domain_tile/core/div/_prod_T_3__2 multiplier stage riscv_i/RocketChip/inst/rocket_system/tile_prci_domain/tile_reset_domain_tile/core/div/_prod_T_3__2/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
-WARNING: [DRC DPOP-2] MREG Output pipelining: DSP riscv_i/RocketChip/inst/rocket_system/tile_prci_domain/tile_reset_domain_tile/fpuOpt/dfma/fma/_mulAddResult_T__0 multiplier stage riscv_i/RocketChip/inst/rocket_system/tile_prci_domain/tile_reset_domain_tile/fpuOpt/dfma/fma/_mulAddResult_T__0/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
-WARNING: [DRC DPOP-2] MREG Output pipelining: DSP riscv_i/RocketChip/inst/rocket_system/tile_prci_domain/tile_reset_domain_tile/fpuOpt/dfma/fma/_mulAddResult_T__1 multiplier stage riscv_i/RocketChip/inst/rocket_system/tile_prci_domain/tile_reset_domain_tile/fpuOpt/dfma/fma/_mulAddResult_T__1/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
-WARNING: [DRC DPOP-2] MREG Output pipelining: DSP riscv_i/RocketChip/inst/rocket_system/tile_prci_domain/tile_reset_domain_tile/fpuOpt/dfma/fma/_mulAddResult_T__4 multiplier stage riscv_i/RocketChip/inst/rocket_system/tile_prci_domain/tile_reset_domain_tile/fpuOpt/dfma/fma/_mulAddResult_T__4/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
-WARNING: [DRC DPOP-2] MREG Output pipelining: DSP riscv_i/RocketChip/inst/rocket_system/tile_prci_domain/tile_reset_domain_tile/fpuOpt/dfma/fma/_mulAddResult_T__5 multiplier stage riscv_i/RocketChip/inst/rocket_system/tile_prci_domain/tile_reset_domain_tile/fpuOpt/dfma/fma/_mulAddResult_T__5/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
-WARNING: [DRC DPOP-2] MREG Output pipelining: DSP riscv_i/RocketChip/inst/rocket_system/tile_prci_domain/tile_reset_domain_tile/fpuOpt/dfma/fma/_mulAddResult_T__7 multiplier stage riscv_i/RocketChip/inst/rocket_system/tile_prci_domain/tile_reset_domain_tile/fpuOpt/dfma/fma/_mulAddResult_T__7/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
-WARNING: [DRC DPOP-2] MREG Output pipelining: DSP riscv_i/RocketChip/inst/rocket_system/tile_prci_domain/tile_reset_domain_tile/fpuOpt/sfma/fma/_mulAddResult_T multiplier stage riscv_i/RocketChip/inst/rocket_system/tile_prci_domain/tile_reset_domain_tile/fpuOpt/sfma/fma/_mulAddResult_T/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
-WARNING: [DRC DPOP-2] MREG Output pipelining: DSP riscv_i/RocketChip/inst/rocket_system/tile_prci_domain/tile_reset_domain_tile/fpuOpt/sfma/fma/_mulAddResult_T__0 multiplier stage riscv_i/RocketChip/inst/rocket_system/tile_prci_domain/tile_reset_domain_tile/fpuOpt/sfma/fma/_mulAddResult_T__0/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
-WARNING: [DRC REQP-1709] Clock output buffering: PLLE2_ADV connectivity violation. The signal riscv_i/DDR/mig_7series_0/u_riscv_mig_7series_0_0_mig/u_ddr2_infrastructure/pll_clk3_out on the riscv_i/DDR/mig_7series_0/u_riscv_mig_7series_0_0_mig/u_ddr2_infrastructure/plle2_i/CLKOUT3 pin of riscv_i/DDR/mig_7series_0/u_riscv_mig_7series_0_0_mig/u_ddr2_infrastructure/plle2_i does not drive the same kind of BUFFER load as the other CLKOUT pins. Routing from the different buffer types will not be phase aligned.
-WARNING: [DRC RTSTAT-10] No routable loads: 28 net(s) have no routable loads. The problem bus(es) and/or net(s) are riscv_i/IO/io_axi_s/inst/s00_nodes/s00_w_node/inst/mi_handler_m_sc_areset_pipe, riscv_i/IO/io_axi_s/inst/m01_nodes/m01_b_node/inst/mi_handler_m_sc_areset_pipe, riscv_i/IO/io_axi_s/inst/m00_nodes/m00_ar_node/inst/mi_handler_m_sc_areset_pipe, riscv_i/IO/io_axi_s/inst/m01_nodes/m01_aw_node/inst/mi_handler_m_sc_areset_pipe, riscv_i/IO/io_axi_s/inst/m00_nodes/m00_b_node/inst/mi_handler_m_sc_areset_pipe, riscv_i/IO/io_axi_s/inst/m01_nodes/m01_w_node/inst/mi_handler_m_sc_areset_pipe, riscv_i/IO/io_axi_s/inst/m00_nodes/m00_r_node/inst/mi_handler_m_sc_areset_pipe, riscv_i/IO/io_axi_s/inst/m01_nodes/m01_ar_node/inst/mi_handler_m_sc_areset_pipe, riscv_i/IO/io_axi_s/inst/s00_nodes/s00_b_node/inst/mi_handler_m_sc_areset_pipe, riscv_i/IO/io_axi_s/inst/s00_nodes/s00_ar_node/inst/mi_handler_m_sc_areset_pipe, riscv_i/IO/io_axi_s/inst/m00_nodes/m00_aw_node/inst/mi_handler_m_sc_areset_pipe, riscv_i/IO/io_axi_s/inst/s00_nodes/s00_aw_node/inst/mi_handler_m_sc_areset_pipe, riscv_i/IO/io_axi_s/inst/m00_nodes/m00_w_node/inst/mi_handler_m_sc_areset_pipe, riscv_i/IO/io_axi_s/inst/m01_nodes/m01_r_node/inst/mi_handler_m_sc_areset_pipe, riscv_i/IO/io_axi_s/inst/s00_nodes/s00_r_node/inst/mi_handler_m_sc_areset_pipe... and (the first 15 of 28 listed).
-INFO: [Vivado 12-3199] DRC finished with 0 Errors, 32 Warnings
-INFO: [Vivado 12-3200] Please refer to the DRC report (report_drc) for more information.
-Loading data files...
-Loading site data...
-Loading route data...
-Processing options...
-Creating bitmap...
-Creating bitstream...
-Bitstream compression saved 7546656 bits.
-Writing bitstream ./riscv_wrapper.bit...
-INFO: [Vivado 12-1842] Bitgen Completed Successfully.
-INFO: [#UNDEF] WebTalk data collection is mandatory when using a WebPACK part without a full Vivado license. To see the specific WebTalk data collected for your design, open the usage_statistics_webtalk.html or usage_statistics_webtalk.xml file in the implementation directory.
-INFO: [Common 17-186] '/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/impl_1/usage_statistics_webtalk.xml' has been successfully sent to Xilinx on Sun Feb  5 19:04:44 2023. For additional details about this file, please refer to the WebTalk help file at /tools/Xilinx/Vivado/2021.1/doc/webtalk_introduction.html.
-INFO: [Common 17-83] Releasing license: Implementation
-36 Infos, 32 Warnings, 0 Critical Warnings and 0 Errors encountered.
-write_bitstream completed successfully
-write_bitstream: Time (s): cpu = 00:00:29 ; elapsed = 00:00:34 . Memory (MB): peak = 4532.945 ; gain = 317.461 ; free physical = 607 ; free virtual = 6699
-INFO: [Common 17-206] Exiting Vivado at Sun Feb  5 19:04:44 2023...
-[Sun Feb  5 19:04:44 2023] impl_1 finished
-wait_on_run: Time (s): cpu = 00:10:55 ; elapsed = 00:10:57 . Memory (MB): peak = 2773.223 ; gain = 0.000 ; free physical = 3203 ; free virtual = 9303
-if find workspace/rocket64s1/vivado-nexys-a7-100t-riscv -name "*.log" -exec cat {} \; | grep 'ERROR: ' ; then exit 1 ; fi
-if [ -s patches/u-boot.patch ] ; then cd u-boot && ( git apply -R --check ../patches/u-boot.patch 2>/dev/null || git apply ../patches/u-boot.patch ) ; fi
-cp -p -r patches/u-boot/vivado_riscv64 u-boot/board/xilinx
-cp -p patches/u-boot/vivado_riscv64.h u-boot/include/configs
-make -C u-boot CROSS_COMPILE=/usr/bin/riscv64-linux-gnu- BOARD=vivado_riscv64 vivado_riscv64_config
-make[1]: Entering directory '/home/mat/GitHub/RISC-V-heterogeneous-extension/u-boot'
-#
-# configuration written to .config
-#
-make[1]: Leaving directory '/home/mat/GitHub/RISC-V-heterogeneous-extension/u-boot'
-make -C u-boot \
-  BOARD=vivado_riscv64 \
-  CC=/usr/bin/riscv64-linux-gnu-gcc-8 \
-  CROSS_COMPILE=/usr/bin/riscv64-linux-gnu- \
-  KCFLAGS='-O1 -gno-column-info' \
-  all
-make[1]: Entering directory '/home/mat/GitHub/RISC-V-heterogeneous-extension/u-boot'
-scripts/kconfig/conf  --syncconfig Kconfig
-  CFG     u-boot.cfg
-  GEN     include/autoconf.mk
-  GEN     include/autoconf.mk.dep
-  CFGCHK  u-boot.cfg
-  UPD     include/generated/timestamp_autogenerated.h
-  CC      cmd/version.o
-  AR      cmd/built-in.o
-  LD      u-boot
-  OBJCOPY u-boot.srec
-  OBJCOPY u-boot-nodtb.bin
-  COPY    u-boot.bin
-  SYM     u-boot.sym
-make[1]: Leaving directory '/home/mat/GitHub/RISC-V-heterogeneous-extension/u-boot'
-mkdir -p opensbi/platform/vivado-risc-v
-cp -p patches/opensbi/* opensbi/platform/vivado-risc-v
-make -C opensbi CROSS_COMPILE=/usr/bin/riscv64-linux-gnu- PLATFORM=vivado-risc-v \
- FW_PAYLOAD_PATH=`realpath u-boot/u-boot-nodtb.bin`
-make[1]: Entering directory '/home/mat/GitHub/RISC-V-heterogeneous-extension/opensbi'
- AS        platform/vivado-risc-v/firmware/fw_payload.o
- ELF       platform/vivado-risc-v/firmware/fw_payload.elf
- OBJCOPY   platform/vivado-risc-v/firmware/fw_payload.bin
-make[1]: Leaving directory '/home/mat/GitHub/RISC-V-heterogeneous-extension/opensbi'
-mkdir -p workspace
-cp opensbi/build/platform/vivado-risc-v/firmware/fw_payload.elf workspace/boot.elf
-echo "open_project workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.xpr" >workspace/rocket64s1/vivado-nexys-a7-100t-riscv/make-mcs.tcl
-echo "write_cfgmem -format mcs -interface SPIx4 -size 16 -loadbit {up 0x0 workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/impl_1/riscv_wrapper.bit}  -file workspace/rocket64s1/nexys-a7-100t-riscv.mcs -force" >>workspace/rocket64s1/vivado-nexys-a7-100t-riscv/make-mcs.tcl
-env XILINX_LOCAL_USER_DATA=no vivado -mode batch -nojournal -nolog -notrace -quiet -source workspace/rocket64s1/vivado-nexys-a7-100t-riscv/make-mcs.tcl
-INFO: [Common 17-1239] XILINX_LOCAL_USER_DATA is set to 'no'.
-Scanning sources...
-Finished scanning sources
-INFO: [IP_Flow 19-234] Refreshing IP repositories
-INFO: [IP_Flow 19-1704] No user IP repositories specified
-INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/tools/Xilinx/Vivado/2021.1/data/ip'.
-Command: write_cfgmem -format mcs -interface SPIx4 -size 16 -loadbit {up 0x0 workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/impl_1/riscv_wrapper.bit} -file workspace/rocket64s1/nexys-a7-100t-riscv.mcs -force
-Creating config memory files...
-Creating bitstream load up from address 0x00000000
-Loading bitfile workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/impl_1/riscv_wrapper.bit
-Writing file workspace/rocket64s1/nexys-a7-100t-riscv.mcs
-Writing log file workspace/rocket64s1/nexys-a7-100t-riscv.prm
-===================================
-Configuration Memory information
-===================================
-File Format        MCS
-Interface          SPIX4
-Size               16M
-Start Address      0x00000000
-End Address        0x00FFFFFF
-
-Addr1         Addr2         Date                    File(s)
-0x00000000    0x002BFB93    Feb  5 19:04:40 2023    workspace/rocket64s1/vivado-nexys-a7-100t-riscv/nexys-a7-100t-riscv.runs/impl_1/riscv_wrapper.bit
-4 Infos, 0 Warnings, 0 Critical Warnings and 0 Errors encountered.
-write_cfgmem completed successfully
+INFO: [Common 17-41] Interrupt caught. Command should exit soon.
+INFO: [Common 17-41] Interrupt caught. Command should exit soon.
+[Mon Feb  6 11:54:48 2023] Interrupt received
+wait_on_run: Time (s): cpu = 00:00:00.53 ; elapsed = 00:01:11 . Memory (MB): peak = 2781.219 ; gain = 0.000 ; free physical = 6087 ; free virtual = 13428
+INFO: [Common 17-344] 'wait_on_run' was cancelled
+INFO: [Common 17-344] 'source' was cancelled

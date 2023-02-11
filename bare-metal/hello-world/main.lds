@@ -15,7 +15,7 @@ SECTIONS {
   PROVIDE(_ram_end = _ram + LENGTH(memory_mem));
 
   .text : {
-    . += 8; /* Trap vector */
+    /*. += 8; /* Trap vector */
     PROVIDE(_ftext = .);
     *(.text.unlikely .text.unlikely.*)
     *(.text .text.* .gnu.linkonce.t.*)

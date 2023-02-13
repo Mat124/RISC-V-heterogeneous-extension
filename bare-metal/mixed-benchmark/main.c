@@ -4,15 +4,23 @@
 #include "common.h"
 #include "kprintf.h"
 
-#define SIZE 5
+#define SIZE 40
 #define ITERS 100
 
-void add_array(uint32_t *in_a, uint32_t *in_b, uint32_t *res) {
+void mixed_bench(uint32_t *in_a, uint32_t *in_b, uint32_t *res, uint32_t sel) {
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
+            sel = 1 - sel;
             res[i] = 0;
-            for (int k = 0; k < SIZE; k++) {
-                res[i] += in_a[i * SIZE + k] * in_b[k * SIZE + j];
+            if (sel) {
+                for (int k = 0; k < SIZE; k++) {
+                    res[i] += in_a[i * SIZE + k] * in_b[k * SIZE + j];
+                }
+            }
+            else {
+                for (int k = 0; k < SIZE; k++) {
+                    res[i] += in_a[i * SIZE + k] + in_b[k * SIZE + j];
+                }
             }
         }
     }
@@ -38,21 +46,25 @@ int main(void) {
     uint32_t in_a[SIZE];
     uint32_t in_b[SIZE];
     uint32_t res[SIZE];
+    uint32_t sel;
 
     for (int i = 0; i < SIZE; i++) {
         in_a[i] = i;
         in_b[i] = i;
     }
 
-    kprintf("Hart %d: Starting array addition\n", hart);
+    sel = 0;
+
+    kprintf("Hart %d: Starting mixed benchmark\n", hart);
     uint64_t start_cycles, end_cycles;
     asm volatile ("csrr %0, 0xB00" : "=r" (start_cycles));
     for (int i = 0; i < ITERS; i++) {
-        add_array((uint32_t *) in_a, (uint32_t *) in_b, (uint32_t *) res);
+        sel = 1 - sel;
+        mixed_bench((uint32_t *) in_a, (uint32_t *) in_b, (uint32_t *) res, sel);
     }
     asm volatile ("csrr %0, 0xB00" : "=r" (end_cycles));
 
-    kprintf("Hart %d: Array addition took %d cycles\n", hart, end_cycles - start_cycles);
+    kprintf("Hart %d: Mixed benchmark took %d cycles\n", hart, end_cycles - start_cycles);
 
     return 0;
 }

@@ -42,8 +42,8 @@ int main(void) {
         in_a[i] = i;
         in_b[i] = i;
     }
-
-    kprintf("Hart %d: Starting IO benchmark\n", hart);
+    
+    kprintf("Hart %d: Starting IO benchmark size %d\n", hart, SIZE);
     uint64_t start_cycles, end_cycles;
     asm volatile ("csrr %0, 0xB00" : "=r" (start_cycles));
     for (int i = 0; i < ITERS; i++) {

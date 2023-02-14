@@ -55,7 +55,7 @@ int main(void) {
 
     sel = 0;
 
-    kprintf("Hart %d: Starting mixed benchmark\n", hart);
+    kprintf("Hart %d: Starting mixed benchmark size %d\n", hart, SIZE);
     uint64_t start_cycles, end_cycles;
     asm volatile ("csrr %0, 0xB00" : "=r" (start_cycles));
     for (int i = 0; i < ITERS; i++) {

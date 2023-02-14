@@ -4,7 +4,7 @@
 #include "common.h"
 #include "kprintf.h"
 
-#define SIZE 40 
+#define SIZE 40
 #define ITERS 100
 
 void addition_iter(uint32_t *in_a, uint32_t *in_b, uint32_t *res) {
@@ -44,7 +44,7 @@ int main(void) {
         in_b[i] = i;
     }
 
-    kprintf("Hart %d: Starting addition benchmark\n", hart);
+    kprintf("Hart %d: Starting addition benchmark size %d\n", hart, SIZE);
     uint64_t start_cycles, end_cycles;
     asm volatile ("csrr %0, 0xB00" : "=r" (start_cycles));
     for (int i = 0; i < ITERS; i++) {

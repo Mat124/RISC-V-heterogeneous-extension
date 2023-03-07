@@ -4,6 +4,10 @@
 #include "common.h"
 #include "kprintf.h"
 
+#define CLINT_BASE_ADDR 0x02000000
+#define MSIP_PER_HART_OFFSET    0x4
+#define MSIP_BASE_ADDR(hartid)  (CLINT_BASE_ADDR + (hartid * MSIP_PER_HART_OFFSET))
+
 #define SIZE 40
 #define ITERS 100
 
@@ -65,6 +69,13 @@ int main(void) {
     asm volatile ("csrr %0, 0xB00" : "=r" (end_cycles));
 
     kprintf("Hart %d: Mixed benchmark took %d cycles\n", hart, end_cycles - start_cycles);
+
+    if (hart == 0) { //start other hart
+        kprintf("Hart %d: Starting other hart\n", hart);
+        usleep(1000000);
+        uintptr_t msip_addr = MSIP_BASE_ADDR(1); //MSIP for hart 1
+        (*(uint32_t *)(msip_addr)) = 0x1; //create interrupt
+    } 
 
     return 0;
 }

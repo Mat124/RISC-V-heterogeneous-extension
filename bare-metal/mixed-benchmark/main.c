@@ -9,7 +9,7 @@
 #define MSIP_BASE_ADDR(hartid)  (CLINT_BASE_ADDR + (hartid * MSIP_PER_HART_OFFSET))
 
 #define SIZE 40
-#define ITERS 100
+#define ITERS 10000
 
 void mixed_bench(uint32_t *in_a, uint32_t *in_b, uint32_t *res, uint32_t sel) {
     for (int i = 0; i < SIZE; i++) {

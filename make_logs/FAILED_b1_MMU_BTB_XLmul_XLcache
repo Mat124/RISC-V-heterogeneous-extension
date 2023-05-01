@@ -1,0 +1,350 @@
+if [ -s patches/ethernet.patch ] ; then cd ethernet/verilog-ethernet && ( git apply -R --check ../../patches/ethernet.patch 2>/dev/null || git apply ../../patches/ethernet.patch ) ; fi
+if [ -s patches/rocket-chip.patch ] ; then cd rocket-chip && ( git apply -R --check ../patches/rocket-chip.patch 2>/dev/null || git apply ../patches/rocket-chip.patch ) ; fi
+if [ -s patches/riscv-boom.patch ] ; then cd generators/riscv-boom && ( git apply -R --check ../../patches/riscv-boom.patch 2>/dev/null || git apply ../../patches/riscv-boom.patch ) ; fi
+if [ -s patches/sifive-cache.patch ] ; then cd generators/sifive-cache && ( git apply -R --check ../../patches/sifive-cache.patch 2>/dev/null || git apply ../../patches/sifive-cache.patch ) ; fi
+if [ -s patches/gemmini.patch ] ; then cd generators/gemmini && ( git apply -R --check ../../patches/gemmini.patch 2>/dev/null || git apply ../../patches/gemmini.patch ) ; fi
+mkdir -p workspace/rocket64customb1/tmp
+cp rocket-chip/bootrom/bootrom.img workspace/bootrom.img
+java -Xmx12G -Xss8M  -Dsbt.io.virtual=false -Dsbt.server.autostart=false -jar /home/mat/GitHub/RISC-V-heterogeneous-extension/rocket-chip/sbt-launch.jar "runMain freechips.rocketchip.system.Generator -td workspace/rocket64customb1/tmp -T Vivado.RocketSystem -C Vivado.Rocket64customb1"
+[info] welcome to sbt 1.3.13 (Ubuntu Java 11.0.18)
+[info] loading settings for project risc-v-heterogeneous-extension-build from plugins.sbt ...
+[info] loading project definition from /home/mat/GitHub/RISC-V-heterogeneous-extension/project
+[info] loading settings for project vivado from build.sbt ...
+[info] loading settings for project targetutils from build.sbt ...
+[info] loading settings for project gemmini from build.sbt ...
+[info] loading settings for project boom from build.sbt ...
+[info] loading settings for project testchipip from build.sbt ...
+[info] loading settings for project rocketchip from build.sbt ...
+[info] loading settings for project hardfloat from build.sbt ...
+[info] loading settings for project api-config-chipsalliance from build.sbt ...
+[info] resolving key references (10385 settings) ...
+Using addons: 
+[info] set current project to vivado (in build file:/home/mat/GitHub/RISC-V-heterogeneous-extension/)
+[warn] There may be incompatibilities among your library dependencies; run 'evicted' to see detailed eviction warnings.
+[warn] There may be incompatibilities among your library dependencies; run 'evicted' to see detailed eviction warnings.
+[warn] There may be incompatibilities among your library dependencies; run 'evicted' to see detailed eviction warnings.
+[info] Compiling 1 Scala source to /home/mat/GitHub/RISC-V-heterogeneous-extension/rocket-chip/target/scala-2.12/classes ...
+[info] Done compiling.
+[warn] Multiple main classes detected.  Run 'show discoveredMainClasses' to see the list
+[info] running freechips.rocketchip.system.Generator -td workspace/rocket64customb1/tmp -T Vivado.RocketSystem -C Vivado.Rocket64customb1
+Interrupt map (2 harts 8 interrupts):
+  [1, 8] => gen
+
+/dts-v1/;
+
+/ {
+	#address-cells = <1>;
+	#size-cells = <1>;
+	compatible = "freechips,rocketchip-vivado-dev";
+	model = "freechips,rocketchip-vivado";
+	L15: cpus {
+		#address-cells = <1>;
+		#size-cells = <0>;
+		timebase-frequency = <1000000>;
+		L4: cpu@0 {
+			clock-frequency = <0>;
+			compatible = "sifive,rocket0", "riscv";
+			d-cache-block-size = <64>;
+			d-cache-sets = <64>;
+			d-cache-size = <16384>;
+			d-tlb-sets = <2>;
+			d-tlb-size = <64>;
+			device_type = "cpu";
+			hardware-exec-breakpoint-count = <8>;
+			i-cache-block-size = <64>;
+			i-cache-sets = <64>;
+			i-cache-size = <16384>;
+			i-tlb-sets = <2>;
+			i-tlb-size = <64>;
+			mmu-type = "riscv,sv39";
+			next-level-cache = <&L10>;
+			reg = <0x0>;
+			riscv,isa = "rv64imac";
+			riscv,pmpgranularity = <4>;
+			riscv,pmpregions = <8>;
+			status = "okay";
+			timebase-frequency = <1000000>;
+			tlb-split;
+			L2: interrupt-controller {
+				#interrupt-cells = <1>;
+				compatible = "riscv,cpu-intc";
+				interrupt-controller;
+			};
+		};
+	};
+	L10: memory@80000000 {
+		device_type = "memory";
+		reg = <0x80000000 0x80000000>;
+	};
+	L14: soc {
+		#address-cells = <1>;
+		#size-cells = <1>;
+		compatible = "freechips,rocketchip-vivado-soc", "simple-bus";
+		ranges;
+		L6: clint@2000000 {
+			compatible = "riscv,clint0";
+			interrupts-extended = <&L2 3 &L2 7>;
+			reg = <0x2000000 0x10000>;
+			reg-names = "control";
+		};
+		L7: debug-controller@0 {
+			compatible = "sifive,debug-013", "riscv,debug-013";
+			debug-attach = "dmi";
+			interrupts-extended = <&L2 65535>;
+			reg = <0x0 0x1000>;
+			reg-names = "control";
+		};
+		L1: error-device@3000 {
+			compatible = "sifive,error0";
+			reg = <0x3000 0x1000>;
+		};
+		L9: external-interrupts {
+			interrupt-parent = <&L5>;
+			interrupts = <1 2 3 4 5 6 7 8>;
+		};
+		L5: interrupt-controller@c000000 {
+			#interrupt-cells = <1>;
+			compatible = "riscv,plic0";
+			interrupt-controller;
+			interrupts-extended = <&L2 11 &L2 9>;
+			reg = <0xc000000 0x4000000>;
+			reg-names = "control";
+			riscv,max-priority = <7>;
+			riscv,ndev = <8>;
+		};
+		L11: mmio-port-axi4@60000000 {
+			#address-cells = <1>;
+			#size-cells = <1>;
+			compatible = "simple-bus";
+			ranges = <0x60000000 0x60000000 0x20000000>;
+		};
+		L12: rom@10000 {
+			compatible = "sifive,rom0";
+			reg = <0x10000 0x10000>;
+			reg-names = "mem";
+		};
+		L0: subsystem_pbus_clock {
+			#clock-cells = <0>;
+			clock-frequency = <100000000>;
+			clock-output-names = "subsystem_pbus_clock";
+			compatible = "fixed-clock";
+		};
+	};
+};
+
+Generated Address Map
+	       0 -     1000 ARWX  debug-controller@0
+	    3000 -     4000 ARWX  error-device@3000
+	   10000 -    20000  R X  rom@10000
+	 2000000 -  2010000 ARW   clint@2000000
+	 c000000 - 10000000 ARW   interrupt-controller@c000000
+	60000000 - 80000000  RWX  mmio-port-axi4@60000000
+	80000000 - 100000000  RWXC memory@80000000
+
+[success] Total time: 24 s, completed 8 Mar 2023, 17:47:41
+mv workspace/rocket64customb1/tmp/Vivado.Rocket64customb1.anno.json workspace/rocket64customb1/system.anno.json
+mv workspace/rocket64customb1/tmp/Vivado.Rocket64customb1.dts workspace/rocket64customb1/system.dts
+rm -rf workspace/rocket64customb1/tmp
+mkdir -p workspace/rocket64customb1/system-nexys-a7-100t
+cat workspace/rocket64customb1/system.dts board/nexys-a7-100t/bootrom.dts >bootrom/system.dts
+sed -i "s#reg = <0x80000000 *0x.*>#reg = <0x80000000 0x08000000>#g" bootrom/system.dts
+sed -i "s#reg = <0x0 0x80000000 *0x.*>#reg = <0x0 0x80000000 0x0 0x08000000>#g" bootrom/system.dts
+sed -i "s#clock-frequency = <[0-9]*>#clock-frequency = <50000000>#g" bootrom/system.dts
+sed -i "s#timebase-frequency = <[0-9]*>#timebase-frequency = <500000>#g" bootrom/system.dts
+if [ ! -z "" ] ; then sed -i "s#local-mac-address = \[.*\]#local-mac-address = []#g" bootrom/system.dts ; fi
+if [ ! -z "" ] ; then sed -i "s#phy-mode = \".*\"#phy-mode = \"\"#g" bootrom/system.dts ; fi
+sed -i "/interrupts-extended = <&.* 65535>;/d" bootrom/system.dts
+make -C bootrom CROSS_COMPILE="/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/gcc/riscv/bin/riscv64-unknown-elf-" CFLAGS="-march=rv64imac -mabi=lp64" BOARD=nexys-a7-100t clean bootrom.img
+make[1]: Entering directory '/home/mat/GitHub/RISC-V-heterogeneous-extension/bootrom'
+rm -f *.elf *.img *.dtb
+dtc -I dts -O dtb -o system.dtb system.dts
+/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/gcc/riscv/bin/riscv64-unknown-elf-gcc -march=rv64imac -mabi=lp64 -mcmodel=medany -Os -ffunction-sections -Wall -fno-pic -fno-common -g -I. -DDEVICE_TREE='"system.dtb"' -static -nostartfiles -T bootrom.lds -Wl,--gc-sections -o bootrom.elf head.S kprintf.c bootrom.c ff.c ffunicode.c
+/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/gcc/riscv/bin/riscv64-unknown-elf-objdump -h -p bootrom.elf
+
+bootrom.elf:     file format elf64-littleriscv
+
+Program Header:
+    LOAD off    0x0000000000001000 vaddr 0x0000000000010000 paddr 0x0000000000010000 align 2**12
+         filesz 0x00000000000039f8 memsz 0x00000000000039f8 flags r-x
+
+Sections:
+Idx Name          Size      VMA               LMA               File off  Algn
+  0 .text         000039f8  0000000000010000  0000000000010000  00001000  2**5
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .bss          00000748  0000000080000000  0000000080000000  00000000  2**3
+                  ALLOC
+  2 .debug_line   00002855  0000000000000000  0000000000000000  000049f8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  3 .debug_info   00004ade  0000000000000000  0000000000000000  0000724d  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  4 .debug_abbrev 0000097e  0000000000000000  0000000000000000  0000bd2b  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_aranges 000002d0  0000000000000000  0000000000000000  0000c6b0  2**4
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_str    00000cc7  0000000000000000  0000000000000000  0000c980  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_ranges 00000bd0  0000000000000000  0000000000000000  0000d650  2**4
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_loc    00006015  0000000000000000  0000000000000000  0000e220  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .comment      00000011  0000000000000000  0000000000000000  00014235  2**0
+                  CONTENTS, READONLY
+ 10 .debug_frame  00000628  0000000000000000  0000000000000000  00014248  2**3
+                  CONTENTS, READONLY, DEBUGGING
+/home/mat/GitHub/RISC-V-heterogeneous-extension/workspace/gcc/riscv/bin/riscv64-unknown-elf-objcopy -O binary bootrom.elf bootrom.img
+ls -l bootrom.img
+-rwxrwxr-x 1 mat mat 14840 Mar  8 17:47 bootrom.img
+make[1]: Leaving directory '/home/mat/GitHub/RISC-V-heterogeneous-extension/bootrom'
+mv bootrom/system.dts workspace/rocket64customb1/system-nexys-a7-100t.dts
+mv bootrom/bootrom.img workspace/bootrom.img
+java -Xmx12G -Xss8M  -Dsbt.io.virtual=false -Dsbt.server.autostart=false -jar /home/mat/GitHub/RISC-V-heterogeneous-extension/rocket-chip/sbt-launch.jar "runMain freechips.rocketchip.system.Generator -td workspace/rocket64customb1/system-nexys-a7-100t -T Vivado.RocketSystem -C Vivado.Rocket64customb1"
+[info] welcome to sbt 1.3.13 (Ubuntu Java 11.0.18)
+[info] loading settings for project risc-v-heterogeneous-extension-build from plugins.sbt ...
+[info] loading project definition from /home/mat/GitHub/RISC-V-heterogeneous-extension/project
+[info] loading settings for project vivado from build.sbt ...
+[info] loading settings for project targetutils from build.sbt ...
+[info] loading settings for project gemmini from build.sbt ...
+[info] loading settings for project boom from build.sbt ...
+[info] loading settings for project testchipip from build.sbt ...
+[info] loading settings for project rocketchip from build.sbt ...
+[info] loading settings for project hardfloat from build.sbt ...
+[info] loading settings for project api-config-chipsalliance from build.sbt ...
+[info] resolving key references (10385 settings) ...
+Using addons: 
+[info] set current project to vivado (in build file:/home/mat/GitHub/RISC-V-heterogeneous-extension/)
+[warn] Multiple main classes detected.  Run 'show discoveredMainClasses' to see the list
+[info] running freechips.rocketchip.system.Generator -td workspace/rocket64customb1/system-nexys-a7-100t -T Vivado.RocketSystem -C Vivado.Rocket64customb1
+Interrupt map (2 harts 8 interrupts):
+  [1, 8] => gen
+
+/dts-v1/;
+
+/ {
+	#address-cells = <1>;
+	#size-cells = <1>;
+	compatible = "freechips,rocketchip-vivado-dev";
+	model = "freechips,rocketchip-vivado";
+	L15: cpus {
+		#address-cells = <1>;
+		#size-cells = <0>;
+		timebase-frequency = <1000000>;
+		L4: cpu@0 {
+			clock-frequency = <0>;
+			compatible = "sifive,rocket0", "riscv";
+			d-cache-block-size = <64>;
+			d-cache-sets = <64>;
+			d-cache-size = <16384>;
+			d-tlb-sets = <2>;
+			d-tlb-size = <64>;
+			device_type = "cpu";
+			hardware-exec-breakpoint-count = <8>;
+			i-cache-block-size = <64>;
+			i-cache-sets = <64>;
+			i-cache-size = <16384>;
+			i-tlb-sets = <2>;
+			i-tlb-size = <64>;
+			mmu-type = "riscv,sv39";
+			next-level-cache = <&L10>;
+			reg = <0x0>;
+			riscv,isa = "rv64imac";
+			riscv,pmpgranularity = <4>;
+			riscv,pmpregions = <8>;
+			status = "okay";
+			timebase-frequency = <1000000>;
+			tlb-split;
+			L2: interrupt-controller {
+				#interrupt-cells = <1>;
+				compatible = "riscv,cpu-intc";
+				interrupt-controller;
+			};
+		};
+	};
+	L10: memory@80000000 {
+		device_type = "memory";
+		reg = <0x80000000 0x80000000>;
+	};
+	L14: soc {
+		#address-cells = <1>;
+		#size-cells = <1>;
+		compatible = "freechips,rocketchip-vivado-soc", "simple-bus";
+		ranges;
+		L6: clint@2000000 {
+			compatible = "riscv,clint0";
+			interrupts-extended = <&L2 3 &L2 7>;
+			reg = <0x2000000 0x10000>;
+			reg-names = "control";
+		};
+		L7: debug-controller@0 {
+			compatible = "sifive,debug-013", "riscv,debug-013";
+			debug-attach = "dmi";
+			interrupts-extended = <&L2 65535>;
+			reg = <0x0 0x1000>;
+			reg-names = "control";
+		};
+		L1: error-device@3000 {
+			compatible = "sifive,error0";
+			reg = <0x3000 0x1000>;
+		};
+		L9: external-interrupts {
+			interrupt-parent = <&L5>;
+			interrupts = <1 2 3 4 5 6 7 8>;
+		};
+		L5: interrupt-controller@c000000 {
+			#interrupt-cells = <1>;
+			compatible = "riscv,plic0";
+			interrupt-controller;
+			interrupts-extended = <&L2 11 &L2 9>;
+			reg = <0xc000000 0x4000000>;
+			reg-names = "control";
+			riscv,max-priority = <7>;
+			riscv,ndev = <8>;
+		};
+		L11: mmio-port-axi4@60000000 {
+			#address-cells = <1>;
+			#size-cells = <1>;
+			compatible = "simple-bus";
+			ranges = <0x60000000 0x60000000 0x20000000>;
+		};
+		L12: rom@10000 {
+			compatible = "sifive,rom0";
+			reg = <0x10000 0x10000>;
+			reg-names = "mem";
+		};
+		L0: subsystem_pbus_clock {
+			#clock-cells = <0>;
+			clock-frequency = <100000000>;
+			clock-output-names = "subsystem_pbus_clock";
+			compatible = "fixed-clock";
+		};
+	};
+};
+
+Generated Address Map
+	       0 -     1000 ARWX  debug-controller@0
+	    3000 -     4000 ARWX  error-device@3000
+	   10000 -    20000  R X  rom@10000
+	 2000000 -  2010000 ARW   clint@2000000
+	 c000000 - 10000000 ARW   interrupt-controller@c000000
+	60000000 - 80000000  RWX  mmio-port-axi4@60000000
+	80000000 - 100000000  RWXC memory@80000000
+
+[success] Total time: 17 s, completed 8 Mar 2023, 17:48:03
+cd rocket-chip && java -Xmx12G -Xss8M  -Dsbt.io.virtual=false -Dsbt.server.autostart=false -jar /home/mat/GitHub/RISC-V-heterogeneous-extension/rocket-chip/sbt-launch.jar assembly
+[info] welcome to sbt 1.3.13 (Ubuntu Java 11.0.18)
+[info] loading settings for project rocket-chip-build from plugins.sbt ...
+[info] loading project definition from /home/mat/GitHub/RISC-V-heterogeneous-extension/rocket-chip/project
+[info] loading settings for project rocketchip from build.sbt ...
+[info] loading settings for project hardfloat from build.sbt ...
+[info] loading settings for project api-config-chipsalliance from build.sbt ...
+Using addons: 
+[info] set current project to rocketchip (in build file:/home/mat/GitHub/RISC-V-heterogeneous-extension/rocket-chip/)
+[warn] Multiple main classes detected.  Run 'show discoveredMainClasses' to see the list
+[info] Strategy 'discard' was applied to 23 files (Run the task at debug level to see details)
+[info] Strategy 'filterDistinctLines' was applied to a file (Run the task at debug level to see details)
+[success] Total time: 7 s, completed 8 Mar 2023, 17:48:15
+rm workspace/bootrom.img
+java -Xmx12G -Xss8M  -cp target/scala-2.12/classes:rocket-chip/rocketchip.jar firrtl.stage.FirrtlMain -i workspace/rocket64customb1/system-nexys-a7-100t/Vivado.Rocket64customb1.fir -o system-nexys-a7-100t.v -X verilog --infer-rw RocketSystem --repl-seq-mem \
+  -c:RocketSystem:-o:`realpath workspace/rocket64customb1/system.conf` \
+  -faf `realpath workspace/rocket64customb1/system.anno.json` \
+  -td workspace/rocket64customb1/ \
+  -fct firrtl.passes.InlineInstances

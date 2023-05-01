@@ -1,0 +1,213 @@
+if [ -s patches/ethernet.patch ] ; then cd ethernet/verilog-ethernet && ( git apply -R --check ../../patches/ethernet.patch 2>/dev/null || git apply ../../patches/ethernet.patch ) ; fi
+if [ -s patches/rocket-chip.patch ] ; then cd rocket-chip && ( git apply -R --check ../patches/rocket-chip.patch 2>/dev/null || git apply ../patches/rocket-chip.patch ) ; fi
+if [ -s patches/riscv-boom.patch ] ; then cd generators/riscv-boom && ( git apply -R --check ../../patches/riscv-boom.patch 2>/dev/null || git apply ../../patches/riscv-boom.patch ) ; fi
+if [ -s patches/sifive-cache.patch ] ; then cd generators/sifive-cache && ( git apply -R --check ../../patches/sifive-cache.patch 2>/dev/null || git apply ../../patches/sifive-cache.patch ) ; fi
+if [ -s patches/gemmini.patch ] ; then cd generators/gemmini && ( git apply -R --check ../../patches/gemmini.patch 2>/dev/null || git apply ../../patches/gemmini.patch ) ; fi
+mkdir -p workspace/rocket64customb1s1/tmp
+cp rocket-chip/bootrom/bootrom.img workspace/bootrom.img
+java -Xmx12G -Xss8M  -Dsbt.io.virtual=false -Dsbt.server.autostart=false -jar /home/mat/GitHub/RISC-V-heterogeneous-extension/rocket-chip/sbt-launch.jar "runMain freechips.rocketchip.system.Generator -td workspace/rocket64customb1s1/tmp -T Vivado.RocketSystem -C Vivado.Rocket64customb1s1"
+[info] welcome to sbt 1.3.13 (Private Build Java 17.0.6)
+[info] loading settings for project risc-v-heterogeneous-extension-build from plugins.sbt ...
+[info] loading project definition from /home/mat/GitHub/RISC-V-heterogeneous-extension/project
+[info] loading settings for project vivado from build.sbt ...
+[info] loading settings for project targetutils from build.sbt ...
+[info] loading settings for project gemmini from build.sbt ...
+[info] loading settings for project boom from build.sbt ...
+[info] loading settings for project testchipip from build.sbt ...
+[info] loading settings for project rocketchip from build.sbt ...
+[info] loading settings for project hardfloat from build.sbt ...
+[info] loading settings for project api-config-chipsalliance from build.sbt ...
+[info] resolving key references (10385 settings) ...
+Using addons: 
+[info] set current project to vivado (in build file:/home/mat/GitHub/RISC-V-heterogeneous-extension/)
+[warn] There may be incompatibilities among your library dependencies; run 'evicted' to see detailed eviction warnings.
+[warn] There may be incompatibilities among your library dependencies; run 'evicted' to see detailed eviction warnings.
+[warn] There may be incompatibilities among your library dependencies; run 'evicted' to see detailed eviction warnings.
+[info] Compiling 1 Scala source to /home/mat/GitHub/RISC-V-heterogeneous-extension/rocket-chip/target/scala-2.12/classes ...
+
+[warn] Canceling execution...
+[info] Done compiling.
+[info] Compiling 3 Scala sources to /home/mat/GitHub/RISC-V-heterogeneous-extension/rocket-chip/target/scala-2.12/classes ...
+[error] /home/mat/GitHub/RISC-V-heterogeneous-extension/rocket-chip/src/main/scala/groundtest/Configs.scala:22:7: not found: type WithBufferlessBroadcastHub
+[error]   new WithBufferlessBroadcastHub ++
+[error]       ^
+[error] /home/mat/GitHub/RISC-V-heterogeneous-extension/rocket-chip/src/main/scala/system/Configs.scala:9:64: type WithJtagDTM is not a member of package freechips.rocketchip.subsystem
+[error] class WithJtagDTMSystem extends freechips.rocketchip.subsystem.WithJtagDTM
+[error]                                                                ^
+[error] /home/mat/GitHub/RISC-V-heterogeneous-extension/rocket-chip/src/main/scala/system/Configs.scala:10:65: type WithDebugSBA is not a member of package freechips.rocketchip.subsystem
+[error] class WithDebugSBASystem extends freechips.rocketchip.subsystem.WithDebugSBA
+[error]                                                                 ^
+[error] /home/mat/GitHub/RISC-V-heterogeneous-extension/rocket-chip/src/main/scala/system/Configs.scala:11:59: type WithDebugAPB is not a member of package freechips.rocketchip.subsystem
+[error] class WithDebugAPB extends freechips.rocketchip.subsystem.WithDebugAPB
+[error]                                                           ^
+[error] /home/mat/GitHub/RISC-V-heterogeneous-extension/rocket-chip/src/main/scala/system/Configs.scala:14:7: not found: type WithDefaultMemPort
+[error]   new WithDefaultMemPort ++
+[error]       ^
+[error] /home/mat/GitHub/RISC-V-heterogeneous-extension/rocket-chip/src/main/scala/system/Configs.scala:15:7: not found: type WithDefaultMMIOPort
+[error]   new WithDefaultMMIOPort ++
+[error]       ^
+[error] /home/mat/GitHub/RISC-V-heterogeneous-extension/rocket-chip/src/main/scala/system/Configs.scala:16:7: not found: type WithDefaultSlavePort
+[error]   new WithDefaultSlavePort ++
+[error]       ^
+[error] /home/mat/GitHub/RISC-V-heterogeneous-extension/rocket-chip/src/main/scala/system/Configs.scala:17:7: not found: type WithTimebase
+[error]   new WithTimebase(BigInt(1000000)) ++ // 1 MHz
+[error]       ^
+[error] /home/mat/GitHub/RISC-V-heterogeneous-extension/rocket-chip/src/main/scala/system/Configs.scala:18:7: not found: type WithDTS
+[error]   new WithDTS("freechips,rocketchip-unknown", Nil) ++
+[error]       ^
+[error] /home/mat/GitHub/RISC-V-heterogeneous-extension/rocket-chip/src/main/scala/system/Configs.scala:19:7: not found: type WithNExtTopInterrupts
+[error]   new WithNExtTopInterrupts(2) ++
+[error]       ^
+[error] /home/mat/GitHub/RISC-V-heterogeneous-extension/rocket-chip/src/main/scala/system/Configs.scala:20:7: not found: type BaseSubsystemConfig
+[error]   new BaseSubsystemConfig
+[error]       ^
+[error] /home/mat/GitHub/RISC-V-heterogeneous-extension/rocket-chip/src/main/scala/system/Configs.scala:23:40: not found: type WithNBigCores
+[error] class DefaultConfig extends Config(new WithNBigCores(1) ++ new WithCoherentBusTopology ++ new BaseConfig)
+[error]                                        ^
+[error] /home/mat/GitHub/RISC-V-heterogeneous-extension/rocket-chip/src/main/scala/system/Configs.scala:23:64: not found: type WithCoherentBusTopology
+[error] class DefaultConfig extends Config(new WithNBigCores(1) ++ new WithCoherentBusTopology ++ new BaseConfig)
+[error]                                                                ^
+[error] /home/mat/GitHub/RISC-V-heterogeneous-extension/rocket-chip/src/main/scala/system/Configs.scala:25:50: not found: type WithBufferlessBroadcastHub
+[error] class DefaultBufferlessConfig extends Config(new WithBufferlessBroadcastHub ++ new DefaultConfig)
+[error]                                                  ^
+[error] /home/mat/GitHub/RISC-V-heterogeneous-extension/rocket-chip/src/main/scala/system/Configs.scala:26:45: not found: type WithNSmallCores
+[error] class DefaultSmallConfig extends Config(new WithNSmallCores(1) ++ new WithCoherentBusTopology ++ new BaseConfig)
+[error]                                             ^
+[error] /home/mat/GitHub/RISC-V-heterogeneous-extension/rocket-chip/src/main/scala/system/Configs.scala:26:71: not found: type WithCoherentBusTopology
+[error] class DefaultSmallConfig extends Config(new WithNSmallCores(1) ++ new WithCoherentBusTopology ++ new BaseConfig)
+[error]                                                                       ^
+[error] /home/mat/GitHub/RISC-V-heterogeneous-extension/rocket-chip/src/main/scala/system/Configs.scala:27:44: not found: type WithRV32
+[error] class DefaultRV32Config extends Config(new WithRV32 ++ new DefaultConfig)
+[error]                                            ^
+[error] /home/mat/GitHub/RISC-V-heterogeneous-extension/rocket-chip/src/main/scala/system/Configs.scala:29:41: not found: type WithNBanks
+[error] class DualBankConfig extends Config(new WithNBanks(2) ++ new DefaultConfig)
+[error]                                         ^
+[error] /home/mat/GitHub/RISC-V-heterogeneous-extension/rocket-chip/src/main/scala/system/Configs.scala:30:41: not found: type WithNBigCores
+[error] class DualCoreConfig extends Config(new WithNBigCores(2) ++ new WithCoherentBusTopology ++ new BaseConfig)
+[error]                                         ^
+[error] /home/mat/GitHub/RISC-V-heterogeneous-extension/rocket-chip/src/main/scala/system/Configs.scala:30:65: not found: type WithCoherentBusTopology
+[error] class DualCoreConfig extends Config(new WithNBigCores(2) ++ new WithCoherentBusTopology ++ new BaseConfig)
+[error]                                                                 ^
+[error] /home/mat/GitHub/RISC-V-heterogeneous-extension/rocket-chip/src/main/scala/system/Configs.scala:31:44: not found: type WithNMemoryChannels
+[error] class DualChannelConfig extends Config(new WithNMemoryChannels(2) ++ new DefaultConfig)
+[error]                                            ^
+[error] /home/mat/GitHub/RISC-V-heterogeneous-extension/rocket-chip/src/main/scala/system/Configs.scala:32:45: not found: type WithNMemoryChannels
+[error] class EightChannelConfig extends Config(new WithNMemoryChannels(8) ++ new DefaultConfig)
+[error]                                             ^
+[error] /home/mat/GitHub/RISC-V-heterogeneous-extension/rocket-chip/src/main/scala/system/Configs.scala:35:7: not found: type WithNMemoryChannels
+[error]   new WithNMemoryChannels(2) ++
+[error]       ^
+[error] /home/mat/GitHub/RISC-V-heterogeneous-extension/rocket-chip/src/main/scala/system/Configs.scala:36:7: not found: type WithNBanks
+[error]   new WithNBanks(4) ++ new DefaultConfig
+[error]       ^
+[error] /home/mat/GitHub/RISC-V-heterogeneous-extension/rocket-chip/src/main/scala/system/Configs.scala:39:44: not found: type WithRoccExample
+[error] class RoccExampleConfig extends Config(new WithRoccExample ++ new DefaultConfig)
+[error]                                            ^
+[error] /home/mat/GitHub/RISC-V-heterogeneous-extension/rocket-chip/src/main/scala/system/Configs.scala:42:7: not found: type WithNBigCores
+[error]   new WithNBigCores(n = 1) ++
+[error]       ^
+[error] /home/mat/GitHub/RISC-V-heterogeneous-extension/rocket-chip/src/main/scala/system/Configs.scala:42:21: not found: value n
+[error]   new WithNBigCores(n = 1) ++
+[error]                     ^
+[error] /home/mat/GitHub/RISC-V-heterogeneous-extension/rocket-chip/src/main/scala/system/Configs.scala:43:7: not found: type WithNMedCores
+[error]   new WithNMedCores(n = 1) ++
+[error]       ^
+[error] /home/mat/GitHub/RISC-V-heterogeneous-extension/rocket-chip/src/main/scala/system/Configs.scala:43:21: not found: value n
+[error]   new WithNMedCores(n = 1) ++
+[error]                     ^
+[error] /home/mat/GitHub/RISC-V-heterogeneous-extension/rocket-chip/src/main/scala/system/Configs.scala:44:7: not found: type WithNSmallCores
+[error]   new WithNSmallCores(n = 1) ++
+[error]       ^
+[error] /home/mat/GitHub/RISC-V-heterogeneous-extension/rocket-chip/src/main/scala/system/Configs.scala:44:23: not found: value n
+[error]   new WithNSmallCores(n = 1) ++
+[error]                       ^
+[error] /home/mat/GitHub/RISC-V-heterogeneous-extension/rocket-chip/src/main/scala/system/Configs.scala:45:7: not found: type WithCoherentBusTopology
+[error]   new WithCoherentBusTopology ++
+[error]       ^
+[error] /home/mat/GitHub/RISC-V-heterogeneous-extension/rocket-chip/src/main/scala/system/Configs.scala:50:7: not found: type WithEdgeDataBits
+[error]   new WithEdgeDataBits(128) ++ new DefaultConfig
+[error]       ^
+[error] /home/mat/GitHub/RISC-V-heterogeneous-extension/rocket-chip/src/main/scala/system/Configs.scala:53:7: not found: type WithEdgeDataBits
+[error]   new WithEdgeDataBits(32) ++ new DefaultConfig
+[error]       ^
+[error] /home/mat/GitHub/RISC-V-heterogeneous-extension/rocket-chip/src/main/scala/system/Configs.scala:57:53: not found: type WithNMemoryChannels
+[error] class DualChannelBenchmarkConfig extends Config(new WithNMemoryChannels(2) ++ new SingleChannelBenchmarkConfig)
+[error]                                                     ^
+[error] /home/mat/GitHub/RISC-V-heterogeneous-extension/rocket-chip/src/main/scala/system/Configs.scala:58:53: not found: type WithNMemoryChannels
+[error] class QuadChannelBenchmarkConfig extends Config(new WithNMemoryChannels(4) ++ new SingleChannelBenchmarkConfig)
+[error]                                                     ^
+[error] /home/mat/GitHub/RISC-V-heterogeneous-extension/rocket-chip/src/main/scala/system/Configs.scala:59:53: not found: type WithNMemoryChannels
+[error] class OctoChannelBenchmarkConfig extends Config(new WithNMemoryChannels(8) ++ new SingleChannelBenchmarkConfig)
+[error]                                                     ^
+[error] /home/mat/GitHub/RISC-V-heterogeneous-extension/rocket-chip/src/main/scala/system/Configs.scala:62:7: not found: type WithNoMemPort
+[error]   new WithNoMemPort ++
+[error]       ^
+[error] /home/mat/GitHub/RISC-V-heterogeneous-extension/rocket-chip/src/main/scala/system/Configs.scala:63:7: not found: type WithNMemoryChannels
+[error]   new WithNMemoryChannels(0) ++
+[error]       ^
+[error] /home/mat/GitHub/RISC-V-heterogeneous-extension/rocket-chip/src/main/scala/system/Configs.scala:64:7: not found: type WithNBanks
+[error]   new WithNBanks(0) ++
+[error]       ^
+[error] /home/mat/GitHub/RISC-V-heterogeneous-extension/rocket-chip/src/main/scala/system/Configs.scala:65:7: not found: type With1TinyCore
+[error]   new With1TinyCore ++
+[error]       ^
+[error] /home/mat/GitHub/RISC-V-heterogeneous-extension/rocket-chip/src/main/scala/system/Configs.scala:66:7: not found: type WithIncoherentBusTopology
+[error]   new WithIncoherentBusTopology ++
+[error]       ^
+[error] /home/mat/GitHub/RISC-V-heterogeneous-extension/rocket-chip/src/main/scala/system/Configs.scala:71:7: not found: type WithNoMMIOPort
+[error]   new WithNoMMIOPort ++
+[error]       ^
+[error] /home/mat/GitHub/RISC-V-heterogeneous-extension/rocket-chip/src/main/scala/system/Configs.scala:72:7: not found: type WithNoSlavePort
+[error]   new WithNoSlavePort ++
+[error]       ^
+[error] /home/mat/GitHub/RISC-V-heterogeneous-extension/rocket-chip/src/main/scala/system/Configs.scala:77:7: not found: type WithNoSlavePort
+[error]   new WithNoSlavePort ++
+[error]       ^
+[error] /home/mat/GitHub/RISC-V-heterogeneous-extension/rocket-chip/src/main/scala/system/Configs.scala:78:7: not found: type WithNoMemPort
+[error]   new WithNoMemPort ++
+[error]       ^
+[error] /home/mat/GitHub/RISC-V-heterogeneous-extension/rocket-chip/src/main/scala/system/Configs.scala:79:7: not found: type WithNMemoryChannels
+[error]   new WithNMemoryChannels(0) ++
+[error]       ^
+[error] /home/mat/GitHub/RISC-V-heterogeneous-extension/rocket-chip/src/main/scala/system/Configs.scala:80:7: not found: type WithNBanks
+[error]   new WithNBanks(0) ++
+[error]       ^
+[error] /home/mat/GitHub/RISC-V-heterogeneous-extension/rocket-chip/src/main/scala/system/Configs.scala:81:7: not found: type WithIncoherentTiles
+[error]   new WithIncoherentTiles ++
+[error]       ^
+[error] /home/mat/GitHub/RISC-V-heterogeneous-extension/rocket-chip/src/main/scala/system/Configs.scala:82:7: not found: type WithScratchpadsOnly
+[error]   new WithScratchpadsOnly ++
+[error]       ^
+[error] /home/mat/GitHub/RISC-V-heterogeneous-extension/rocket-chip/src/main/scala/system/Configs.scala:83:7: not found: type WithIncoherentBusTopology
+[error]   new WithIncoherentBusTopology ++
+[error]       ^
+[error] /home/mat/GitHub/RISC-V-heterogeneous-extension/rocket-chip/src/main/scala/system/Configs.scala:87:59: not found: type WithCoherentBusTopology
+[error] class BaseFPGAConfig extends Config(new BaseConfig ++ new WithCoherentBusTopology)
+[error]                                                           ^
+[error] /home/mat/GitHub/RISC-V-heterogeneous-extension/rocket-chip/src/main/scala/system/Configs.scala:88:44: not found: type WithNSmallCores
+[error] class DefaultFPGAConfig extends Config(new WithNSmallCores(1) ++ new BaseFPGAConfig)
+[error]                                            ^
+[warn] /home/mat/GitHub/RISC-V-heterogeneous-extension/rocket-chip/src/main/scala/system/Configs.scala:7:39: Unused import
+[warn] import freechips.rocketchip.subsystem._
+[warn]                                       ^
+[error] /home/mat/GitHub/RISC-V-heterogeneous-extension/rocket-chip/src/main/scala/unittest/Configs.scala:10:8: object BaseSubsystemConfig is not a member of package freechips.rocketchip.subsystem
+[error] import freechips.rocketchip.subsystem.{BaseSubsystemConfig}
+[error]        ^
+[error] /home/mat/GitHub/RISC-V-heterogeneous-extension/rocket-chip/src/main/scala/unittest/Configs.scala:172:98: not found: type BaseSubsystemConfig
+[error] class AMBAUnitTestConfig extends Config(new WithAMBAUnitTests ++ new WithTestDuration(10) ++ new BaseSubsystemConfig)
+[error]                                                                                                  ^
+[error] /home/mat/GitHub/RISC-V-heterogeneous-extension/rocket-chip/src/main/scala/unittest/Configs.scala:173:106: not found: type BaseSubsystemConfig
+[error] class TLSimpleUnitTestConfig extends Config(new WithTLSimpleUnitTests ++ new WithTestDuration(10) ++ new BaseSubsystemConfig)
+[error]                                                                                                          ^
+[error] /home/mat/GitHub/RISC-V-heterogeneous-extension/rocket-chip/src/main/scala/unittest/Configs.scala:174:104: not found: type BaseSubsystemConfig
+[error] class TLWidthUnitTestConfig extends Config(new WithTLWidthUnitTests ++ new WithTestDuration(10) ++ new BaseSubsystemConfig)
+[error]                                                                                                        ^
+[error] /home/mat/GitHub/RISC-V-heterogeneous-extension/rocket-chip/src/main/scala/unittest/Configs.scala:175:102: not found: type BaseSubsystemConfig
+[error] class TLXbarUnitTestConfig extends Config(new WithTLXbarUnitTests ++ new WithTestDuration(10) ++ new BaseSubsystemConfig)
+[error]                                                                                                      ^
+[warn] /home/mat/GitHub/RISC-V-heterogeneous-extension/rocket-chip/src/main/scala/unittest/Configs.scala:10:40: Unused import
+[warn] import freechips.rocketchip.subsystem.{BaseSubsystemConfig}
+[warn]                                        ^
+[warn] two warnings found
+[error] 58 errors found
+[error] Total time: 5 s, completed 29 Apr 2023, 15:04:57

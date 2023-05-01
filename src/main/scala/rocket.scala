@@ -139,6 +139,11 @@ class Rocket64customb1 extends Config( //remember to change core definition in C
   new WithNHetBigCores(1) ++
   new RocketBaseConfig)
 
+  class Rocket64customb2 extends Config( //remember to change core definition in Configs.scala
+  new WithNBreakpoints(8) ++
+  new WithNHetBigCores(2) ++
+  new RocketBaseConfig)
+
 class Rocket64s2 extends Config(
   new WithNBreakpoints(8) ++
   new WithNSmallCores(2)  ++
